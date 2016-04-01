@@ -7,6 +7,7 @@ module objects {
         public moveLeft: boolean;
         public moveRight: boolean;
         public jump: boolean;
+        public shift : boolean;
         public enabled: boolean;
         // CONSTRUCTOR ++++++++++++++++++++++++++    
         constructor() {
@@ -38,6 +39,9 @@ module objects {
                 case 32: /* Spacebar */
                     this.jump = true;
                     break;
+                case 16: /* shift */
+                    this.shift = true;
+                    break;
             }
         }
 
@@ -61,6 +65,9 @@ module objects {
                     break;
                 case 32: /* Spacebar */
                     this.jump = false;
+                    break;
+                 case 16: /* shift */
+                    this.shift = false;
                     break;
             }
         }

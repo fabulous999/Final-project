@@ -175,23 +175,36 @@ var scenes;
             this.deathPlane.name = "DeathPlane";
             this.add(this.deathPlane);
         };
-        Play.prototype.Diferentsize = function () {
-            for (var i = 0; i < 10; i++) {
+        Play.prototype.DiferentsizeWide = function () {
+            for (var i = 0; i < 5; i++) {
                 this.obsticalGeometry = new BoxGeometry(randomIntInc(5, 10), randomIntInc(5, 10), randomIntInc(5, 10));
+                this.obsticalMaterial = Physijs.createMaterial(new LambertMaterial({ color: 0xffffff }), 0.4, 0);
                 this.obstical = new Physijs.BoxMesh(this.obsticalGeometry, this.obsticalMaterial, 0);
-                //  obsticalMaterial = Physijs.createMaterial(new LambertMaterial({color: 0xffffff}), 0.4, 0);   
                 this.obstical.name = "obstical";
                 // player.position.set(0, 30, 10);
                 this.obstical.receiveShadow = true;
                 this.obstical.castShadow = true;
                 //   obstical.name = "obstical";
-                this.obstical.position.set(randomIntInc(-20, 20), randomIntInc(-1, 25), randomIntInc(-20, 20));
+                this.obstical.position.set(randomIntInc(-0, 2), randomIntInc(-1, 30), randomIntInc(-0, 2));
+                this.add(this.obstical);
+            }
+        };
+        Play.prototype.diferentsizelong = function () {
+            for (var i = 0; i < 5; i++) {
+                this.obsticalGeometry = new BoxGeometry(randomIntInc(-10, 10), randomIntInc(1, 5), randomIntInc(-10, 10));
+                this.obsticalMaterial = Physijs.createMaterial(new LambertMaterial({ color: 0x000000 }), 0.4, 0);
+                this.obstical = new Physijs.BoxMesh(this.obsticalGeometry, this.obsticalMaterial, 0);
+                this.obstical.name = "obstical";
+                // player.position.set(0, 30, 10);
+                this.obstical.receiveShadow = true;
+                this.obstical.castShadow = true;
+                //   obstical.name = "obstical";
+                this.obstical.position.set(randomIntInc(-10, 10), randomIntInc(-1, 10), randomIntInc(-10, 10));
                 this.add(this.obstical);
             }
         };
         /**
          * This method adds a coin to the scene
-         *
          * @method addCoinMesh
          * @return void
          */
@@ -274,6 +287,7 @@ var scenes;
                     var direction = new Vector3(0, 0, 0);
                     if (this.keyboardControls.moveForward) {
                         this.velocity.z -= 400.0 * delta;
+                        console.log("Moving Right");
                     }
                     if (this.keyboardControls.moveLeft) {
                         this.velocity.x -= 400.0 * delta;
@@ -289,6 +303,9 @@ var scenes;
                         if (this.player.position.y > 4) {
                             this.isGrounded = false;
                             createjs.Sound.play("jump");
+                        }
+                        if (this.keyboardControls.shift) {
+                            this.velocity.y += 400.0 * delta;
                         }
                     }
                     this.player.setDamping(0.7, 0.1);
@@ -360,7 +377,8 @@ var scenes;
             this.addCoinMesh();
             // Add death plane to the scene
             this.addDeathPlane();
-            this.Diferentsize();
+            //  this.diferentsizelong();
+            this.DiferentsizeWide();
             // Collision Check
             this.player.addEventListener('collision', function (eventObject) {
                 if (eventObject.name === "Ground") {
@@ -380,6 +398,14 @@ var scenes;
                     this.livesLabel.text = "LIVES: " + this.livesValue;
                     this.remove(this.player);
                     this.player.position.set(0, 30, 10);
+                    this.add(this.player);
+                }
+                if (eventObject.name === "obstical") {
+                    createjs.Sound.play("hit");
+                    this.livesValue--;
+                    this.livesLabel.text = "LIVES: " + this.livesValue;
+                    this.remove(this.player);
+                    //  this.player.position.set(0, 30, 10);
                     this.add(this.player);
                 }
             }.bind(this));
