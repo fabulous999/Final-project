@@ -304,9 +304,11 @@ var scenes;
                             this.isGrounded = false;
                             createjs.Sound.play("jump");
                         }
-                        if (this.keyboardControls.shift) {
-                            this.velocity.y += 400.0 * delta;
-                        }
+                    }
+                    if (this.keyboardControls.shift) {
+                        // this.velocity.z += 4000 * delta;
+                        this.player.position.set(0, 30, 0);
+                        console.log("shift");
                     }
                     this.player.setDamping(0.7, 0.1);
                     // Changing player's rotation
@@ -325,6 +327,7 @@ var scenes;
             } // Controls Enabled ends
             else {
                 this.player.setAngularVelocity(new Vector3(0, 0, 0));
+                this.player.setAngularFactor(new Vector3(0, 0, 0));
             }
         };
         // PUBLIC METHODS +++++++++++++++++++++++++++++++++++++++++++
