@@ -1,0 +1,28 @@
+{
+  "name": "comp392-final_project",
+  "authors": [
+    "Zachariah Toulouse Fabio Nocera <ztoulouse1@gmail.com> <fabio.f.nocera@gmail.com>"
+  ],
+  "description": "COMP392 Final Project for Advanced Graphics",
+  "main": "",
+  "moduleType": [],
+  "license": "MIT",
+  "homepage": "https://github.com/fabulous999/Final-project",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    "Scripts/lib"
+  ],
+  "dependencies": {
+    "three.js": "threejs#*",
+    "stats.js": "*",
+    "Physijs": "physijs#*",
+    "EaselJS": "^0.8.2",
+    "TweenJS": "^0.6.2",
+    "SoundJS": "^0.6.2",
+    "PreloadJS": "^0.6.2"
+  }
+}
