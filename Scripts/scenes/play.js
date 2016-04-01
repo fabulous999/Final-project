@@ -175,59 +175,28 @@ var scenes;
             this.deathPlane.name = "DeathPlane";
             this.add(this.deathPlane);
         };
-<<<<<<< HEAD
         Play.prototype.differentSizeWide = function () {
             for (var i = 0; i < 5; i++) {
-                this.obsticleGeometry = new BoxGeometry(randomIntInc(5, 10), randomIntInc(5, 10), randomIntInc(5, 10));
-                this.obsticleMaterial = Physijs.createMaterial(new LambertMaterial({ color: 0xffffff }), 0.4, 0);
-                this.obsticle = new Physijs.BoxMesh(this.obsticleGeometry, this.obsticleMaterial, 0);
-                this.obsticle.name = "obsticle";
-                this.obsticle.receiveShadow = true;
-                this.obsticle.castShadow = true;
-                this.obsticle.position.set(randomIntInc(-0, 2), randomIntInc(-1, 30), randomIntInc(-0, 2));
-                this.add(this.obsticle);
+                this.obstacleGeometry = new BoxGeometry(randomIntInc(5, 10), randomIntInc(5, 10), randomIntInc(5, 10));
+                this.obstacleMaterial = Physijs.createMaterial(new LambertMaterial({ color: 0xffffff }), 0.4, 0);
+                this.obstacle = new Physijs.BoxMesh(this.obstacleGeometry, this.obstacleMaterial, 0);
+                this.obstacle.name = "obstacle";
+                this.obstacle.receiveShadow = true;
+                this.obstacle.castShadow = true;
+                this.obstacle.position.set(randomIntInc(-0, 2), randomIntInc(-1, 30), randomIntInc(-0, 2));
+                this.add(this.obstacle);
             }
         };
         Play.prototype.differentSizeLong = function () {
             for (var i = 0; i < 5; i++) {
-                this.obsticleGeometry = new BoxGeometry(randomIntInc(-10, 10), randomIntInc(1, 5), randomIntInc(-10, 10));
-                this.obsticleMaterial = Physijs.createMaterial(new LambertMaterial({ color: 0x000000 }), 0.4, 0);
-                this.obsticle = new Physijs.BoxMesh(this.obsticleGeometry, this.obsticleMaterial, 0);
-                this.obsticle.name = "obsticle";
-                // player.position.set(0, 30, 10);
-                this.obsticle.receiveShadow = true;
-                this.obsticle.castShadow = true;
-                //   obsticle.name = "obsticle";
-                this.obsticle.position.set(randomIntInc(-10, 10), randomIntInc(-1, 10), randomIntInc(-10, 10));
-                this.add(this.obsticle);
-=======
-        Play.prototype.DiferentsizeWide = function () {
-            for (var i = 0; i < 5; i++) {
-                this.obsticalGeometry = new BoxGeometry(randomIntInc(5, 10), randomIntInc(5, 10), randomIntInc(5, 10));
-                this.obsticalMaterial = Physijs.createMaterial(new LambertMaterial({ color: 0xffffff }), 0.4, 0);
-                this.obstical = new Physijs.BoxMesh(this.obsticalGeometry, this.obsticalMaterial, 0);
-                this.obstical.name = "obstical";
-                // player.position.set(0, 30, 10);
-                this.obstical.receiveShadow = true;
-                this.obstical.castShadow = true;
-                //   obstical.name = "obstical";
-                this.obstical.position.set(randomIntInc(-0, 2), randomIntInc(-1, 30), randomIntInc(-0, 2));
-                this.add(this.obstical);
-            }
-        };
-        Play.prototype.diferentsizelong = function () {
-            for (var i = 0; i < 5; i++) {
-                this.obsticalGeometry = new BoxGeometry(randomIntInc(-10, 10), randomIntInc(1, 5), randomIntInc(-10, 10));
-                this.obsticalMaterial = Physijs.createMaterial(new LambertMaterial({ color: 0x000000 }), 0.4, 0);
-                this.obstical = new Physijs.BoxMesh(this.obsticalGeometry, this.obsticalMaterial, 0);
-                this.obstical.name = "obstical";
-                // player.position.set(0, 30, 10);
-                this.obstical.receiveShadow = true;
-                this.obstical.castShadow = true;
-                //   obstical.name = "obstical";
-                this.obstical.position.set(randomIntInc(-10, 10), randomIntInc(-1, 10), randomIntInc(-10, 10));
-                this.add(this.obstical);
->>>>>>> 71196f26c4a275be2dde1c85060a55749bc06600
+                this.obstacleGeometry = new BoxGeometry(randomIntInc(-10, 10), randomIntInc(1, 5), randomIntInc(-10, 10));
+                this.obstacleMaterial = Physijs.createMaterial(new LambertMaterial({ color: 0x000000 }), 0.4, 0);
+                this.obstacle = new Physijs.BoxMesh(this.obstacleGeometry, this.obstacleMaterial, 0);
+                this.obstacle.name = "obstacle";
+                this.obstacle.receiveShadow = true;
+                this.obstacle.castShadow = true;
+                this.obstacle.position.set(randomIntInc(-10, 10), randomIntInc(-1, 10), randomIntInc(-10, 10));
+                this.add(this.obstacle);
             }
         };
         /**
@@ -407,13 +376,8 @@ var scenes;
             this.addCoinMesh();
             // Add death plane to the scene
             this.addDeathPlane();
-<<<<<<< HEAD
             //this.differentSizeLong();
             this.differentSizeWide();
-=======
-            //  this.diferentsizelong();
-            this.DiferentsizeWide();
->>>>>>> 71196f26c4a275be2dde1c85060a55749bc06600
             // Collision Check
             this.player.addEventListener('collision', function (eventObject) {
                 if (eventObject.name === "Ground") {
@@ -435,20 +399,11 @@ var scenes;
                     this.player.position.set(0, 30, 10);
                     this.add(this.player);
                 }
-<<<<<<< HEAD
-                if (eventObject.name === "obsticle") {
+                if (eventObject.name === "obstacle") {
                     createjs.Sound.play("hit");
                     this.livesLabel.text = "LIVES: " + this.livesValue;
                     this.remove(this.player);
                     //this.player.position.set(0, 30, 10);
-=======
-                if (eventObject.name === "obstical") {
-                    createjs.Sound.play("hit");
-                    this.livesValue--;
-                    this.livesLabel.text = "LIVES: " + this.livesValue;
-                    this.remove(this.player);
-                    //  this.player.position.set(0, 30, 10);
->>>>>>> 71196f26c4a275be2dde1c85060a55749bc06600
                     this.add(this.player);
                 }
             }.bind(this));
@@ -500,9 +455,5 @@ var scenes;
     }(scenes.Scene));
     scenes.Play = Play;
 })(scenes || (scenes = {}));
-<<<<<<< HEAD
 
 //# sourceMappingURL=play.js.map
-=======
-//# sourceMappingURL=play.js.map
->>>>>>> 71196f26c4a275be2dde1c85060a55749bc06600

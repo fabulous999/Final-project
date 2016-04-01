@@ -1,13 +1,7 @@
 {
-<<<<<<< HEAD
   "name": "comp392-final_project",
   "version": "1.0.0",
   "description": "COMP392-FinalProject for Centennial College",
-=======
-  "name": "comp392-lesson10",
-  "version": "1.0.0",
-  "description": "COMP392-Lesson 10 for Centennial College",
->>>>>>> 71196f26c4a275be2dde1c85060a55749bc06600
   "main": "game.js",
   "dependencies": {
     "typescript": "^1.8.7"
@@ -24,7 +18,6 @@
   },
   "repository": {
     "type": "git",
-<<<<<<< HEAD
     "url": "git+https://github.com/fabulous999/Final-project.git"
   },
   "author": "Zachariah Toulouse Fabio Nocera",
@@ -33,14 +26,4 @@
     "url": "https://github.com/fabulous999/Final-project/issues"
   },
   "homepage": "https://github.com/fabulous999/Final-project#readme"
-=======
-    "url": "git+https://github.com/CentennialCollege/COMP392-Lesson10.git"
-  },
-  "author": "Tom Tsiliopoulos",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/CentennialCollege/COMP392-Lesson10/issues"
-  },
-  "homepage": "https://github.com/CentennialCollege/COMP392-Lesson10#readme"
->>>>>>> 71196f26c4a275be2dde1c85060a55749bc06600
 }

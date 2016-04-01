@@ -61,19 +61,10 @@ module scenes {
     private windy : number = -10;
     private windz : number =0;
    
-<<<<<<< HEAD
     private obstacle: Physijs.Mesh;
     private obstacleGeometry: CubeGeometry;
     private obstacleMaterial: Physijs.Material;
-=======
-    private obstical: Physijs.Mesh;
-    private obsticalGeometry: CubeGeometry;
-    private obsticalMaterial: Physijs.Material;
->>>>>>> 71196f26c4a275be2dde1c85060a55749bc06600
     
-    
-        
-
         /**
          * @constructor
          */
@@ -259,7 +250,6 @@ module scenes {
             this.add(this.deathPlane);
         }
         
-<<<<<<< HEAD
      private  differentSizeWide() 
      {
          for (var i = 0; i < 5; i++) {
@@ -286,41 +276,9 @@ module scenes {
                this.obstacle.position.set(randomIntInc(-10, 10), randomIntInc(-1, 10), randomIntInc(-10, 10));
                this.add(this.obstacle);
                //console.log("Added obstacle to Scene  "  +  obstacle.position.y);
-=======
-     private  DiferentsizeWide() {
-        for (var i = 0; i < 5; i++) {
-         this.obsticalGeometry = new BoxGeometry(randomIntInc(5,10),randomIntInc(5,10),randomIntInc(5,10));
-         this.obsticalMaterial = Physijs.createMaterial(new LambertMaterial({color: 0xffffff}), 0.4, 0);   
-               this.obstical = new Physijs.BoxMesh(this.obsticalGeometry, this.obsticalMaterial,0);
-      this.obstical.name="obstical";
-      // player.position.set(0, 30, 10);
-      this.obstical.receiveShadow = true;
-        this.obstical.castShadow = true;
-     //   obstical.name = "obstical";
-         this.obstical.position.set(randomIntInc(-0, 2), randomIntInc(-1, 30), randomIntInc(-0, 2));
-        this.add(this.obstical);
-           
-      //  console.log("Added Player to Scene  "  +  obstical.position.y);
-        }   
+           }
        }
-       private  diferentsizelong() {
-        
-        for (var i = 0; i < 5; i++) {
-         this.obsticalGeometry = new BoxGeometry(randomIntInc(-10,10),randomIntInc(1,5),randomIntInc(-10,10));
-         this.obsticalMaterial = Physijs.createMaterial(new LambertMaterial({color: 0x000000}), 0.4, 0);   
-               this.obstical = new Physijs.BoxMesh(this.obsticalGeometry, this.obsticalMaterial,0);
-      this.obstical.name="obstical";
-      // player.position.set(0, 30, 10);
-      this.obstical.receiveShadow = true;
-        this.obstical.castShadow = true;
-     //   obstical.name = "obstical";
-         this.obstical.position.set(randomIntInc(-10, 10), randomIntInc(-1, 10), randomIntInc(-10, 10));
-        this.add(this.obstical);
-      //  console.log("Added Player to Scene  "  +  obstical.position.y);
->>>>>>> 71196f26c4a275be2dde1c85060a55749bc06600
-        }   
-       }
-
+    
         /**
          * This method adds a coin to the scene
          * @method addCoinMesh
@@ -409,11 +367,7 @@ module scenes {
         private checkControls(): void {
             if (this.keyboardControls.enabled) {
                 this.velocity = new Vector3();
-<<<<<<< HEAD
-                
-=======
 
->>>>>>> 71196f26c4a275be2dde1c85060a55749bc06600
                 var time: number = performance.now();
                 var delta: number = (time - this.prevTime) / 1000;
 
@@ -421,11 +375,7 @@ module scenes {
                     var direction = new Vector3(0, 0, 0);
                     if (this.keyboardControls.moveForward) {
                         this.velocity.z -= 400.0 * delta;
-<<<<<<< HEAD
                         console.log("Moving Right");
-=======
-                         console.log("Moving Right");
->>>>>>> 71196f26c4a275be2dde1c85060a55749bc06600
                     }
                     if (this.keyboardControls.moveLeft) {
                         this.velocity.x -= 400.0 * delta;
@@ -445,15 +395,10 @@ module scenes {
                     }
                    if (this.keyboardControls.shift) {
                         // this.velocity.z += 4000 * delta;
-<<<<<<< HEAD
                         this.player.position.set(0,30,0);
                         console.log("shift");
                     }
-=======
-                           this.player.position.set(0,30,0);
-                  console.log("shift");
-             }
->>>>>>> 71196f26c4a275be2dde1c85060a55749bc06600
+
 
                     this.player.setDamping(0.7, 0.1);
                     // Changing player's rotation
@@ -548,13 +493,8 @@ module scenes {
             // Add death plane to the scene
             this.addDeathPlane();
             
-<<<<<<< HEAD
             //this.differentSizeLong();
             this.differentSizeWide();
-=======
-          //  this.diferentsizelong();
-            this.DiferentsizeWide();
->>>>>>> 71196f26c4a275be2dde1c85060a55749bc06600
 
             // Collision Check
 
@@ -580,20 +520,11 @@ module scenes {
                     this.player.position.set(0, 30, 10);
                     this.add(this.player);
                 }
-<<<<<<< HEAD
               if (eventObject.name === "obstacle") {
                     createjs.Sound.play("hit");
                     this.livesLabel.text = "LIVES: " + this.livesValue;
                     this.remove(this.player);
                     //this.player.position.set(0, 30, 10);
-=======
-              if (eventObject.name === "obstical") {
-                    createjs.Sound.play("hit");
-                    this.livesValue--;
-                    this.livesLabel.text = "LIVES: " + this.livesValue;
-                    this.remove(this.player);
-                  //  this.player.position.set(0, 30, 10);
->>>>>>> 71196f26c4a275be2dde1c85060a55749bc06600
                     this.add(this.player);
                 }
             }.bind(this));
@@ -626,10 +557,7 @@ module scenes {
          * @returns void
          */
         public update(): void {
-<<<<<<< HEAD
-=======
 
->>>>>>> 71196f26c4a275be2dde1c85060a55749bc06600
             this.coins.forEach(coin => {
                 coin.setAngularFactor(new Vector3(0, 0, 0));
                 coin.setAngularVelocity(new Vector3(0, 1, 0));
@@ -646,12 +574,7 @@ module scenes {
          * @method resize
          * @return void
          */
-<<<<<<< HEAD
-=======
-        
-        
-        
->>>>>>> 71196f26c4a275be2dde1c85060a55749bc06600
+
         public resize(): void {
             canvas.style.width = "100%";
             this.livesLabel.x = config.Screen.WIDTH * 0.1;

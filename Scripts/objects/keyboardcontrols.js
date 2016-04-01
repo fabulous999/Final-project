@@ -65,9 +65,5 @@ var objects;
     }());
     objects.KeyboardControls = KeyboardControls;
 })(objects || (objects = {}));
-<<<<<<< HEAD
 
 //# sourceMappingURL=keyboardcontrols.js.map
-=======
-//# sourceMappingURL=keyboardcontrols.js.map
->>>>>>> 71196f26c4a275be2dde1c85060a55749bc06600
