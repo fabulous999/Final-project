@@ -26,6 +26,7 @@ var scenes;
             this.windx = 0;
             this.windy = -10;
             this.windz = 0;
+            this.isparkor = false;
             this._initialize();
             this.start();
         }
@@ -287,7 +288,6 @@ var scenes;
                     var direction = new Vector3(0, 0, 0);
                     if (this.keyboardControls.moveForward) {
                         this.velocity.z -= 400.0 * delta;
-                        console.log("Moving Right");
                     }
                     if (this.keyboardControls.moveLeft) {
                         this.velocity.x -= 400.0 * delta;
@@ -302,13 +302,13 @@ var scenes;
                         this.velocity.y += 4000.0 * delta;
                         if (this.player.position.y > 4) {
                             this.isGrounded = false;
-                            createjs.Sound.play("jump");
                         }
                     }
                     if (this.keyboardControls.shift) {
-                        // this.velocity.z += 4000 * delta;
-                        this.player.position.set(0, 30, 0);
-                        console.log("shift");
+                        setTimeout(function () { this.isparkor = false, this.timerB = false; this.createjs.Sound.play("jump"); console.log("it :" + this.timerB + this.isparkor); }, 1000);
+                    }
+                    if (this.isparkor) {
+                        this.velocity.y += 4000 * delta;
                     }
                     this.player.setDamping(0.7, 0.1);
                     // Changing player's rotation
@@ -329,6 +329,11 @@ var scenes;
                 this.player.setAngularVelocity(new Vector3(0, 0, 0));
                 this.player.setAngularFactor(new Vector3(0, 0, 0));
             }
+        };
+        Play.prototype.if = function (timerB) {
+            if (timerB === void 0) { timerB = false; }
+            // setInterval(function(){  isparkor === false;console.log("is false", timerB.valueOf); }, 1);
+            setInterval(function () { this.timerB = true; this.isparkor = false; console.log("is false", this.timerB); }, 10000);
         };
         // PUBLIC METHODS +++++++++++++++++++++++++++++++++++++++++++
         /**
@@ -404,12 +409,8 @@ var scenes;
                     this.add(this.player);
                 }
                 if (eventObject.name === "obstical") {
-                    createjs.Sound.play("hit");
-                    this.livesValue--;
-                    this.livesLabel.text = "LIVES: " + this.livesValue;
-                    this.remove(this.player);
-                    //  this.player.position.set(0, 30, 10);
-                    this.add(this.player);
+                    this.isparkor = true;
+                    console.log("is parkour " + this.isparkor);
                 }
             }.bind(this));
             // create parent-child relationship with camera and player

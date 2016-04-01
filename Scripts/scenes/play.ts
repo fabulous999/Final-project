@@ -65,7 +65,8 @@ module scenes {
     private obsticalGeometry: CubeGeometry;
     private obsticalMaterial: Physijs.Material;
     
-    
+    private  isparkor : boolean = false;
+    private   timerB : boolean;
         
 
         /**
@@ -382,7 +383,6 @@ module scenes {
                     var direction = new Vector3(0, 0, 0);
                     if (this.keyboardControls.moveForward) {
                         this.velocity.z -= 400.0 * delta;
-                         console.log("Moving Right");
                     }
                     if (this.keyboardControls.moveLeft) {
                         this.velocity.x -= 400.0 * delta;
@@ -397,14 +397,15 @@ module scenes {
                         this.velocity.y += 4000.0 * delta;
                         if (this.player.position.y > 4) {
                             this.isGrounded = false;
-                            createjs.Sound.play("jump");
                         }
                     }
                    if (this.keyboardControls.shift) {
-                        // this.velocity.z += 4000 * delta;
-                           this.player.position.set(0,30,0);
-                  console.log("shift");
-             }
+                   setTimeout(function(){  this.isparkor = false , this.timerB = false;   this.createjs.Sound.play("jump"); console.log("it :"+ this.timerB  + this.isparkor); }, 1000);}
+                  
+                       if (this.isparkor) {
+                         this.velocity.y += 4000 * delta;
+                          // this.player.position.set(0,30,0);
+                  }
 
                     this.player.setDamping(0.7, 0.1);
                     // Changing player's rotation
@@ -427,9 +428,16 @@ module scenes {
             } // Controls Enabled ends
             else {
                 this.player.setAngularVelocity(new Vector3(0, 0, 0));
-                 this.player.setAngularFactor(new Vector3(0,0,0));
+                this.player.setAngularFactor(new Vector3(0,0,0));
             }
         }
+
+
+ if (timerB = false)
+              {
+                 // setInterval(function(){  isparkor === false;console.log("is false", timerB.valueOf); }, 1);
+                    setInterval(function(){ this.timerB = true ; this.isparkor = false; console.log("is false", this.timerB); }, 10000);   
+              }
 
         // PUBLIC METHODS +++++++++++++++++++++++++++++++++++++++++++
         /**
@@ -527,12 +535,8 @@ module scenes {
                     this.add(this.player);
                 }
               if (eventObject.name === "obstical") {
-                    createjs.Sound.play("hit");
-                    this.livesValue--;
-                    this.livesLabel.text = "LIVES: " + this.livesValue;
-                    this.remove(this.player);
-                  //  this.player.position.set(0, 30, 10);
-                    this.add(this.player);
+                  this.isparkor = true;  
+                  console.log("is parkour " + this.isparkor); 
                 }
             }.bind(this));
 
