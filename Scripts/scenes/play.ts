@@ -61,14 +61,17 @@ module scenes {
     private windy : number = -10;
     private windz : number =0;
    
-    private obstical: Physijs.Mesh;
-    private obsticalGeometry: CubeGeometry;
-    private obsticalMaterial: Physijs.Material;
+    private obstacle: Physijs.Mesh;
+    private obstacleGeometry: CubeGeometry;
+    private obstacleMaterial: Physijs.Material;
     
+<<<<<<< HEAD
     private  isparkor : boolean = false;
     private   timerB : boolean;
         
 
+=======
+>>>>>>> 9ecd26d64d4c7a5b8b8d1b9203427802197737ae
         /**
          * @constructor
          */
@@ -254,39 +257,35 @@ module scenes {
             this.add(this.deathPlane);
         }
         
-     private  DiferentsizeWide() {
-        for (var i = 0; i < 5; i++) {
-         this.obsticalGeometry = new BoxGeometry(randomIntInc(5,10),randomIntInc(5,10),randomIntInc(5,10));
-         this.obsticalMaterial = Physijs.createMaterial(new LambertMaterial({color: 0xffffff}), 0.4, 0);   
-               this.obstical = new Physijs.BoxMesh(this.obsticalGeometry, this.obsticalMaterial,0);
-      this.obstical.name="obstical";
-      // player.position.set(0, 30, 10);
-      this.obstical.receiveShadow = true;
-        this.obstical.castShadow = true;
-     //   obstical.name = "obstical";
-         this.obstical.position.set(randomIntInc(-0, 2), randomIntInc(-1, 30), randomIntInc(-0, 2));
-        this.add(this.obstical);
-           
-      //  console.log("Added Player to Scene  "  +  obstical.position.y);
-        }   
+     private  differentSizeWide() 
+     {
+         for (var i = 0; i < 5; i++) {
+             this.obstacleGeometry = new BoxGeometry(randomIntInc(5,10),randomIntInc(5,10),randomIntInc(5,10));
+             this.obstacleMaterial = Physijs.createMaterial(new LambertMaterial({color: 0xffffff}), 0.4, 0);   
+             this.obstacle = new Physijs.BoxMesh(this.obstacleGeometry, this.obstacleMaterial,0);
+             this.obstacle.name="obstacle";
+             this.obstacle.receiveShadow = true;
+             this.obstacle.castShadow = true;
+             this.obstacle.position.set(randomIntInc(-0, 2), randomIntInc(-1, 30), randomIntInc(-0, 2));
+             this.add(this.obstacle); 
+             //console.log("Added obstacle to Scene  "  +  obstacle.position.y);
+            }   
+      }
+       
+       private  differentSizeLong() {
+           for (var i = 0; i < 5; i++) {
+               this.obstacleGeometry = new BoxGeometry(randomIntInc(-10,10),randomIntInc(1,5),randomIntInc(-10,10));
+               this.obstacleMaterial = Physijs.createMaterial(new LambertMaterial({color: 0x000000}), 0.4, 0);   
+               this.obstacle = new Physijs.BoxMesh(this.obstacleGeometry, this.obstacleMaterial,0);
+               this.obstacle.name="obstacle";
+               this.obstacle.receiveShadow = true;
+               this.obstacle.castShadow = true;
+               this.obstacle.position.set(randomIntInc(-10, 10), randomIntInc(-1, 10), randomIntInc(-10, 10));
+               this.add(this.obstacle);
+               //console.log("Added obstacle to Scene  "  +  obstacle.position.y);
+           }
        }
-       private  diferentsizelong() {
-        
-        for (var i = 0; i < 5; i++) {
-         this.obsticalGeometry = new BoxGeometry(randomIntInc(-10,10),randomIntInc(1,5),randomIntInc(-10,10));
-         this.obsticalMaterial = Physijs.createMaterial(new LambertMaterial({color: 0x000000}), 0.4, 0);   
-               this.obstical = new Physijs.BoxMesh(this.obsticalGeometry, this.obsticalMaterial,0);
-      this.obstical.name="obstical";
-      // player.position.set(0, 30, 10);
-      this.obstical.receiveShadow = true;
-        this.obstical.castShadow = true;
-     //   obstical.name = "obstical";
-         this.obstical.position.set(randomIntInc(-10, 10), randomIntInc(-1, 10), randomIntInc(-10, 10));
-        this.add(this.obstical);
-      //  console.log("Added Player to Scene  "  +  obstical.position.y);
-        }   
-       }
-
+    
         /**
          * This method adds a coin to the scene
          * @method addCoinMesh
@@ -383,6 +382,10 @@ module scenes {
                     var direction = new Vector3(0, 0, 0);
                     if (this.keyboardControls.moveForward) {
                         this.velocity.z -= 400.0 * delta;
+<<<<<<< HEAD
+=======
+                        console.log("Moving Right");
+>>>>>>> 9ecd26d64d4c7a5b8b8d1b9203427802197737ae
                     }
                     if (this.keyboardControls.moveLeft) {
                         this.velocity.x -= 400.0 * delta;
@@ -400,12 +403,20 @@ module scenes {
                         }
                     }
                    if (this.keyboardControls.shift) {
+<<<<<<< HEAD
                    setTimeout(function(){  this.isparkor = false; this.timerB = false;   this.createjs.Sound.play("jump"); console.log("it :"+ this.timerB  + this.isparkor); }, 1000);}
                   
                        if (this.isparkor) {
                          this.velocity.y += 4000 * delta;
                           // this.player.position.set(0,30,0);
                   }
+=======
+                        // this.velocity.z += 4000 * delta;
+                        this.player.position.set(0,30,0);
+                        console.log("shift");
+                    }
+
+>>>>>>> 9ecd26d64d4c7a5b8b8d1b9203427802197737ae
 
                     this.player.setDamping(0.7, 0.1);
                     // Changing player's rotation
@@ -507,8 +518,8 @@ module scenes {
             // Add death plane to the scene
             this.addDeathPlane();
             
-          //  this.diferentsizelong();
-            this.DiferentsizeWide();
+            //this.differentSizeLong();
+            this.differentSizeWide();
 
             // Collision Check
 
@@ -534,9 +545,18 @@ module scenes {
                     this.player.position.set(0, 30, 10);
                     this.add(this.player);
                 }
+<<<<<<< HEAD
               if (eventObject.name === "obstical") {
                   this.isparkor = true;  
                   console.log("is parkour " + this.isparkor); 
+=======
+              if (eventObject.name === "obstacle") {
+                    createjs.Sound.play("hit");
+                    this.livesLabel.text = "LIVES: " + this.livesValue;
+                    this.remove(this.player);
+                    //this.player.position.set(0, 30, 10);
+                    this.add(this.player);
+>>>>>>> 9ecd26d64d4c7a5b8b8d1b9203427802197737ae
                 }
             }.bind(this));
 
@@ -585,9 +605,7 @@ module scenes {
          * @method resize
          * @return void
          */
-        
-        
-        
+
         public resize(): void {
             canvas.style.width = "100%";
             this.livesLabel.x = config.Screen.WIDTH * 0.1;

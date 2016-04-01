@@ -1,13 +1,13 @@
 {
-  "name": "comp392-lesson10",
+  "name": "comp392-final_project",
   "authors": [
-    "Tom Tsiliopoulos <tsiliopoulos@hotmail.com>"
+    "Zachariah Toulouse Fabio Nocera <ztoulouse1@gmail.com> <fabio.f.nocera@gmail.com>"
   ],
-  "description": "COMP392 Lesson 9 for Advanced Graphics",
+  "description": "COMP392 Final Project for Advanced Graphics",
   "main": "",
   "moduleType": [],
   "license": "MIT",
-  "homepage": "https://github.com/CentennialCollege/COMP392-Lesson10",
+  "homepage": "https://github.com/fabulous999/Final-project",
   "ignore": [
     "**/.*",
     "node_modules",

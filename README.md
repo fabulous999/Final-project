@@ -1,3 +1,4 @@
-#COMP392-Lesson9
+#COMP392-FinalProject
 
-COMP392-Lesson9 for COMP392 - Advanced Graphics @ Centennial College
+COMP392 - Final Project for COMP392 - Advanced Graphics @ Centennial College
+

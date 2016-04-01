@@ -17,7 +17,9 @@ module scenes {
         private _blocker: HTMLElement;
         private _stage: createjs.Stage;
         private _gameLabel: createjs.Text;
-        private _startButton: createjs.Bitmap;
+        private _startButton: createjs.Bitmap;       
+        private _background: createjs.Bitmap;
+        //private _startButton: createjs.Bitmap;
 
         /**
          * Empty Constructor - calls _initialize and start methods
@@ -68,8 +70,13 @@ module scenes {
          * @return void
          */
         public start(): void {
+            
+            this._background = new createjs.Bitmap(assets.getResult("Background"));
+            this._stage.addChild(this._background);
+            console.log(this._background);
+            
             this._gameLabel = new createjs.Text(
-                "COIN GAME",
+                "Press start to play",
                 "80px Consolas",
                 "#000000");
             this._gameLabel.regX = this._gameLabel.getMeasuredWidth() * 0.5;
