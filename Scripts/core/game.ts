@@ -54,8 +54,12 @@ var manifest = [
     { id: "hit", src: "../../Assets/audio/hit.wav" },
     { id: "coin", src: "../../Assets/audio/coin.mp3" },
     { id: "jump", src: "../../Assets/audio/Jump.wav" },
+<<<<<<< HEAD
     { id: "StartButton", src: "../../Assets/images/StartButton.png"},
     { id: "Background", src: "../../Assets/images/background.png"}
+=======
+    { id: "StartButton", src: "../../Assets/images/StartButton.png"}
+>>>>>>> 71196f26c4a275be2dde1c85060a55749bc06600
 ];
 
 function preload(): void {

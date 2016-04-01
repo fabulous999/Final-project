@@ -62,10 +62,14 @@ var scenes;
          * @return void
          */
         Menu.prototype.start = function () {
+<<<<<<< HEAD
             this._background = new createjs.Bitmap(assets.getResult("Background"));
             this._stage.addChild(this._background);
             console.log(this._background);
             this._gameLabel = new createjs.Text("Press start to play", "80px Consolas", "#000000");
+=======
+            this._gameLabel = new createjs.Text("COIN GAME", "80px Consolas", "#000000");
+>>>>>>> 71196f26c4a275be2dde1c85060a55749bc06600
             this._gameLabel.regX = this._gameLabel.getMeasuredWidth() * 0.5;
             this._gameLabel.regY = this._gameLabel.getMeasuredLineHeight() * 0.5;
             this._gameLabel.x = config.Screen.WIDTH * 0.5;
@@ -110,5 +114,9 @@ var scenes;
     }(scenes.Scene));
     scenes.Menu = Menu;
 })(scenes || (scenes = {}));
+<<<<<<< HEAD
 
 //# sourceMappingURL=menu.js.map
+=======
+//# sourceMappingURL=menu.js.map
+>>>>>>> 71196f26c4a275be2dde1c85060a55749bc06600

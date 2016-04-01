@@ -46,5 +46,9 @@ var scenes;
     }(Physijs.Scene));
     scenes.Scene = Scene;
 })(scenes || (scenes = {}));
+<<<<<<< HEAD
 
 //# sourceMappingURL=scene.js.map
+=======
+//# sourceMappingURL=scene.js.map
+>>>>>>> 71196f26c4a275be2dde1c85060a55749bc06600
