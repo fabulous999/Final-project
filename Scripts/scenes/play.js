@@ -284,6 +284,7 @@ var scenes;
                     var direction = new Vector3(0, 0, 0);
                     if (this.keyboardControls.moveForward) {
                         this.velocity.z -= 400.0 * delta;
+                        console.log("Moving Right");
                     }
                     if (this.keyboardControls.moveLeft) {
                         this.velocity.x -= 400.0 * delta;
@@ -305,27 +306,30 @@ var scenes;
                     }
                     if (this.isparkor) {
                         this.velocity.y += 4000 * delta;
+                        // this.player.position.set(0,30,0);
+                        this.player.position.set(0, 30, 0);
+                        console.log("shift");
                     }
-                    this.player.setDamping(0.7, 0.1);
-                    // Changing player's rotation
-                    this.player.setAngularVelocity(new Vector3(0, this.mouseControls.yaw, 0));
-                    direction.addVectors(direction, this.velocity);
-                    direction.applyQuaternion(this.player.quaternion);
-                    if (Math.abs(this.player.getLinearVelocity().x) < 20 && Math.abs(this.player.getLinearVelocity().y) < 10) {
-                        this.player.applyCentralForce(direction);
-                    }
-                    this.cameraLook();
-                } // isGrounded ends
-                //reset Pitch and Yaw
-                this.mouseControls.pitch = 0;
-                this.mouseControls.yaw = 0;
-                this.prevTime = time;
-            } // Controls Enabled ends
-            else {
-                this.player.setAngularVelocity(new Vector3(0, 0, 0));
-                this.player.setAngularFactor(new Vector3(0, 0, 0));
-            }
-        };
+                }
+                this.player.setDamping(0.7, 0.1);
+                // Changing player's rotation
+                this.player.setAngularVelocity(new Vector3(0, this.mouseControls.yaw, 0));
+                direction.addVectors(direction, this.velocity);
+                direction.applyQuaternion(this.player.quaternion);
+                if (Math.abs(this.player.getLinearVelocity().x) < 20 && Math.abs(this.player.getLinearVelocity().y) < 10) {
+                    this.player.applyCentralForce(direction);
+                }
+                else {
+                    this.player.setAngularVelocity(new Vector3(0, 0, 0));
+                    this.player.setAngularFactor(new Vector3(0, 0, 0));
+                }
+                this.cameraLook();
+            } // isGrounded ends
+            //reset Pitch and Yaw
+            this.mouseControls.pitch = 0;
+            this.mouseControls.yaw = 0;
+            this.prevTime = time;
+        }; // Controls Enabled ends
         Play.prototype.if = function (timerB) {
             if (timerB === void 0) { timerB = false; }
             // setInterval(function(){  isparkor === false;console.log("is false", timerB.valueOf); }, 1);
@@ -404,18 +408,9 @@ var scenes;
                     this.player.position.set(0, 30, 10);
                     this.add(this.player);
                 }
-<<<<<<< HEAD
-                if (eventObject.name === "obstical") {
+                if (eventObject.name === "obstacle") {
                     this.isparkor = true;
                     console.log("is parkour " + this.isparkor);
-=======
-                if (eventObject.name === "obstacle") {
-                    createjs.Sound.play("hit");
-                    this.livesLabel.text = "LIVES: " + this.livesValue;
-                    this.remove(this.player);
-                    //this.player.position.set(0, 30, 10);
-                    this.add(this.player);
->>>>>>> 9ecd26d64d4c7a5b8b8d1b9203427802197737ae
                 }
             }.bind(this));
             // create parent-child relationship with camera and player

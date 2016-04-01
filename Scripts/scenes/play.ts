@@ -47,31 +47,25 @@ module scenes {
         private scoreValue: number;
         private livesValue: number;
         
-        
-        
-    private goaltextur : Texture;
-    private goalTextureN: Texture;
-    private goal: Physijs.Mesh;
-    private goalGeometry: CubeGeometry;
-    private goalMaterial: PhongMaterial;      
-    private goalPhysicMaterial: Physijs.Material;
+        private goaltextur : Texture;
+        private goalTextureN: Texture;
+        private goal: Physijs.Mesh;
+        private goalGeometry: CubeGeometry;
+        private goalMaterial: PhongMaterial;      
+        private goalPhysicMaterial: Physijs.Material;
     
     
-    private windx : number = 0;
-    private windy : number = -10;
-    private windz : number =0;
+        private windx : number = 0;
+        private windy : number = -10;
+        private windz : number =0;
    
-    private obstacle: Physijs.Mesh;
-    private obstacleGeometry: CubeGeometry;
-    private obstacleMaterial: Physijs.Material;
-    
-<<<<<<< HEAD
-    private  isparkor : boolean = false;
-    private   timerB : boolean;
+        private obstacle: Physijs.Mesh;
+        private obstacleGeometry: CubeGeometry;
+        private obstacleMaterial: Physijs.Material;
         
-
-=======
->>>>>>> 9ecd26d64d4c7a5b8b8d1b9203427802197737ae
+        private isparkor : boolean = false;
+        private timerB : boolean;
+        
         /**
          * @constructor
          */
@@ -382,10 +376,7 @@ module scenes {
                     var direction = new Vector3(0, 0, 0);
                     if (this.keyboardControls.moveForward) {
                         this.velocity.z -= 400.0 * delta;
-<<<<<<< HEAD
-=======
                         console.log("Moving Right");
->>>>>>> 9ecd26d64d4c7a5b8b8d1b9203427802197737ae
                     }
                     if (this.keyboardControls.moveLeft) {
                         this.velocity.x -= 400.0 * delta;
@@ -403,20 +394,15 @@ module scenes {
                         }
                     }
                    if (this.keyboardControls.shift) {
-<<<<<<< HEAD
                    setTimeout(function(){  this.isparkor = false; this.timerB = false;   this.createjs.Sound.play("jump"); console.log("it :"+ this.timerB  + this.isparkor); }, 1000);}
                   
                        if (this.isparkor) {
-                         this.velocity.y += 4000 * delta;
-                          // this.player.position.set(0,30,0);
-                  }
-=======
-                        // this.velocity.z += 4000 * delta;
-                        this.player.position.set(0,30,0);
-                        console.log("shift");
+                           this.velocity.y += 4000 * delta;
+                           // this.player.position.set(0,30,0);
+                           this.player.position.set(0,30,0);
+                           console.log("shift");
+                        }                   
                     }
-
->>>>>>> 9ecd26d64d4c7a5b8b8d1b9203427802197737ae
 
                     this.player.setDamping(0.7, 0.1);
                     // Changing player's rotation
@@ -425,6 +411,11 @@ module scenes {
                     direction.applyQuaternion(this.player.quaternion);
                     if (Math.abs(this.player.getLinearVelocity().x) < 20 && Math.abs(this.player.getLinearVelocity().y) < 10) {
                         this.player.applyCentralForce(direction);
+                    }
+                    
+                    else {
+                        this.player.setAngularVelocity(new Vector3(0, 0, 0));
+                        this.player.setAngularFactor(new Vector3(0,0,0));
                     }
 
                     this.cameraLook();
@@ -436,20 +427,13 @@ module scenes {
                 this.mouseControls.yaw = 0;
 
                 this.prevTime = time;
-            } // Controls Enabled ends
-            else {
-                this.player.setAngularVelocity(new Vector3(0, 0, 0));
-                this.player.setAngularFactor(new Vector3(0,0,0));
-            }
+        } // Controls Enabled ends
+        
+        if (timerB = false) {
+            // setInterval(function(){  isparkor === false;console.log("is false", timerB.valueOf); }, 1);
+            setInterval(function(){ this.timerB = true ; this.isparkor = false; console.log("is false", this.timerB); }, 10000);   
         }
-
-
- if (timerB = false)
-              {
-                 // setInterval(function(){  isparkor === false;console.log("is false", timerB.valueOf); }, 1);
-                    setInterval(function(){ this.timerB = true ; this.isparkor = false; console.log("is false", this.timerB); }, 10000);   
-              }
-
+            
         // PUBLIC METHODS +++++++++++++++++++++++++++++++++++++++++++
         /**
          * The start method is the main method for the scene class
@@ -545,19 +529,10 @@ module scenes {
                     this.player.position.set(0, 30, 10);
                     this.add(this.player);
                 }
-<<<<<<< HEAD
-              if (eventObject.name === "obstical") {
+              if (eventObject.name === "obstacle") {
                   this.isparkor = true;  
                   console.log("is parkour " + this.isparkor); 
-=======
-              if (eventObject.name === "obstacle") {
-                    createjs.Sound.play("hit");
-                    this.livesLabel.text = "LIVES: " + this.livesValue;
-                    this.remove(this.player);
-                    //this.player.position.set(0, 30, 10);
-                    this.add(this.player);
->>>>>>> 9ecd26d64d4c7a5b8b8d1b9203427802197737ae
-                }
+              }
             }.bind(this));
 
             // create parent-child relationship with camera and player
