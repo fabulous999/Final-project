@@ -305,7 +305,7 @@ var scenes;
                         }
                     }
                     if (this.keyboardControls.shift) {
-                        setTimeout(function () { this.isparkor = false, this.timerB = false; this.createjs.Sound.play("jump"); console.log("it :" + this.timerB + this.isparkor); }, 1000);
+                        setTimeout(function () { this.isparkor = false; this.timerB = false; this.createjs.Sound.play("jump"); console.log("it :" + this.timerB + this.isparkor); }, 1000);
                     }
                     if (this.isparkor) {
                         this.velocity.y += 4000 * delta;
