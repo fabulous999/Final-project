@@ -106,7 +106,7 @@ setInterval(function () { windz = randomIntInc(-5, 5); }, 10000);
 function gameLoop() {
     stats.update();
     scene.update();
-    // scoreLabel.text = "wind x:"+ windx + "   wind y:"+ windy +  "  wind z: "+ windz; //windx
+    //    this.scoreLabel.text = "wind x:"+ windx + "   wind y:"+ windy +  "  wind z: "+ windz; //windx
     scene.setGravity(new THREE.Vector3(windx, windy, windz));
     // render using requestAnimationFrame
     requestAnimationFrame(gameLoop);

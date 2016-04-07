@@ -146,7 +146,7 @@ module scenes {
                 "40px Consolas",
                 "#ffffff"
             );
-            this.scoreLabel.x = config.Screen.WIDTH * 0.8;
+            this.scoreLabel.x = config.Screen.WIDTH * 0.4;
             this.scoreLabel.y = (config.Screen.HEIGHT * 0.15) * 0.20;
             this.stage.addChild(this.scoreLabel);
             console.log("Added Score Label to stage");
@@ -156,8 +156,8 @@ module scenes {
       private randomIntInc(low, high) {
             return Math.floor(Math.random() * (high - low + 1) + low);
         }
-
-        /**
+        
+       /**
          * Add a spotLight to the scene
          * 
          * @method addSpotLight
@@ -377,7 +377,6 @@ module scenes {
                     var direction = new Vector3(0, 0, 0);
                     if (this.keyboardControls.moveForward) {
                         this.velocity.z -= 400.0 * delta;
-                        console.log("Moving Right");
                     }
                     if (this.keyboardControls.moveLeft) {
                         this.velocity.x -= 400.0 * delta;
@@ -513,8 +512,10 @@ module scenes {
 
 
             this.player.addEventListener('collision', function(eventObject) {
+    
                 if (eventObject.name === "Ground") {
                     self.isGrounded = true;
+       
                     createjs.Sound.play("land");
                 }
                 if (eventObject.name === "Coin") {
@@ -522,7 +523,7 @@ module scenes {
                     self.remove(eventObject);
                     self.setCoinPosition(eventObject);
                     self.scoreValue += 100;
-                    self.scoreLabel.text = "SCORE: " + self.scoreValue;
+                  // self.scoreLabel.text = "SCORE: " + self.scoreValue;
                 }
 
                 if (eventObject.name === "DeathPlane") {
@@ -535,14 +536,13 @@ module scenes {
                 }
               if (eventObject.name === "obstacle") {
                   self.isparkor = true;  
-                  console.log("is parkour " + self.isparkor); 
+                 console.log("is parkour " + self.isparkor); 
               }
             }.bind(self));
 
             // create parent-child relationship with camera and player
             this.player.add(camera);
             camera.position.set(0, 1, 0);
-
             this.simulate();
         }
 
@@ -568,6 +568,8 @@ module scenes {
          */
         public update(): void {
 
+        //         setInterval(function() {this.scoreLabel.text = "wind x:"+ windx + "   wind y:"+ windy +  "  wind z: "+ windz;}, 1000);
+       this.scoreLabel.text = "wind x:"+ windx + "   wind y:"+ windy +  "  wind z: "+ windz;
             this.coins.forEach(coin => {
                 coin.setAngularFactor(new Vector3(0, 0, 0));
                 coin.setAngularVelocity(new Vector3(0, 1, 0));

@@ -83,7 +83,7 @@ var scenes;
             console.log("Added Lives Label to stage");
             // Add Score Label
             this.scoreLabel = new createjs.Text("SCORE: " + this.scoreValue, "40px Consolas", "#ffffff");
-            this.scoreLabel.x = config.Screen.WIDTH * 0.8;
+            this.scoreLabel.x = config.Screen.WIDTH * 0.4;
             this.scoreLabel.y = (config.Screen.HEIGHT * 0.15) * 0.20;
             this.stage.addChild(this.scoreLabel);
             console.log("Added Score Label to stage");
@@ -92,11 +92,11 @@ var scenes;
             return Math.floor(Math.random() * (high - low + 1) + low);
         };
         /**
-         * Add a spotLight to the scene
-         *
-         * @method addSpotLight
-         * @return void
-         */
+          * Add a spotLight to the scene
+          *
+          * @method addSpotLight
+          * @return void
+          */
         Play.prototype.addSpotLight = function () {
             // Spot Light
             this.spotLight = new SpotLight(0xffffff);
@@ -284,7 +284,6 @@ var scenes;
                     var direction = new Vector3(0, 0, 0);
                     if (this.keyboardControls.moveForward) {
                         this.velocity.z -= 400.0 * delta;
-                        console.log("Moving Right");
                     }
                     if (this.keyboardControls.moveLeft) {
                         this.velocity.x -= 400.0 * delta;
@@ -399,7 +398,6 @@ var scenes;
                     self.remove(eventObject);
                     self.setCoinPosition(eventObject);
                     self.scoreValue += 100;
-                    self.scoreLabel.text = "SCORE: " + self.scoreValue;
                 }
                 if (eventObject.name === "DeathPlane") {
                     createjs.Sound.play("hit");
@@ -437,6 +435,8 @@ var scenes;
          * @returns void
          */
         Play.prototype.update = function () {
+            //         setInterval(function() {this.scoreLabel.text = "wind x:"+ windx + "   wind y:"+ windy +  "  wind z: "+ windz;}, 1000);
+            this.scoreLabel.text = "wind x:" + windx + "   wind y:" + windy + "  wind z: " + windz;
             this.coins.forEach(function (coin) {
                 coin.setAngularFactor(new Vector3(0, 0, 0));
                 coin.setAngularVelocity(new Vector3(0, 1, 0));
