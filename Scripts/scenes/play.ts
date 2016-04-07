@@ -190,6 +190,7 @@ module scenes {
          * @method addGround
          * @return void
          */
+        
         private addGround(): void {
             this.groundTexture = new THREE.TextureLoader().load('../../Assets/images/GravelCobble.jpg');
             this.groundTexture.wrapS = THREE.RepeatWrapping;
@@ -309,7 +310,7 @@ module scenes {
 
         }
 
-        /**
+        /*
          * This method randomly sets the coin object's position
          * 
          * @method setCoinPosition
@@ -322,7 +323,7 @@ module scenes {
             this.add(coin);
         }
 
-        /**
+        /*
          * Event Handler method for any pointerLockChange events
          * 
          * @method pointerLockChange
@@ -394,12 +395,12 @@ module scenes {
                         }
                     }
                    if (this.keyboardControls.shift) {
-                   setTimeout(function(){  this.isparkor = false; this.timerB = false;   this.createjs.Sound.play("jump"); console.log("it :"+ this.timerB  + this.isparkor); }, 1000);}
-                  
+                   setTimeout(function(){  this.isparkor = false; this.timerB = false;   this.createjs.Sound.play("jump"); console.log("it :"+ this.timerB  + this.isparkor); }, 1000);
+                
                        if (this.isparkor) {
                            this.velocity.y += 4000 * delta;
                            // this.player.position.set(0,30,0);
-                           this.player.position.set(0,30,0);
+                         //  this.player.position.set(0,30,0);
                            console.log("shift");
                         }                   
                     }
@@ -407,16 +408,13 @@ module scenes {
                     this.player.setDamping(0.7, 0.1);
                     // Changing player's rotation
                     this.player.setAngularVelocity(new Vector3(0, this.mouseControls.yaw, 0));
-                    direction.addVectors(direction, this.velocity);
+                    direction.addVectors(direction, this.velocity);       
                     direction.applyQuaternion(this.player.quaternion);
                     if (Math.abs(this.player.getLinearVelocity().x) < 20 && Math.abs(this.player.getLinearVelocity().y) < 10) {
                         this.player.applyCentralForce(direction);
                     }
                     
-                    else {
-                        this.player.setAngularVelocity(new Vector3(0, 0, 0));
-                        this.player.setAngularFactor(new Vector3(0,0,0));
-                    }
+
 
                     this.cameraLook();
 
@@ -427,7 +425,13 @@ module scenes {
                 this.mouseControls.yaw = 0;
 
                 this.prevTime = time;
-        } // Controls Enabled ends
+        } 
+        // Controls Enabled ends
+               else {
+                        this.player.setAngularVelocity(new Vector3(0, 0, 0));
+                        this.player.setAngularFactor(new Vector3(0,0,0));
+                    }
+    }
         
         if (timerB = false) {
             // setInterval(function(){  isparkor === false;console.log("is false", timerB.valueOf); }, 1);
@@ -442,7 +446,7 @@ module scenes {
          * @return void
          */
         public start(): void {
-            
+            var self = this;
 
             // Set Up Scoreboard
             this.setupScoreboard();
@@ -510,30 +514,30 @@ module scenes {
 
             this.player.addEventListener('collision', function(eventObject) {
                 if (eventObject.name === "Ground") {
-                    this.isGrounded = true;
+                    self.isGrounded = true;
                     createjs.Sound.play("land");
                 }
                 if (eventObject.name === "Coin") {
                     createjs.Sound.play("coin");
-                    this.remove(eventObject);
-                    this.setCoinPosition(eventObject);
-                    this.scoreValue += 100;
-                    this.scoreLabel.text = "SCORE: " + this.scoreValue;
+                    self.remove(eventObject);
+                    self.setCoinPosition(eventObject);
+                    self.scoreValue += 100;
+                    self.scoreLabel.text = "SCORE: " + self.scoreValue;
                 }
 
                 if (eventObject.name === "DeathPlane") {
                     createjs.Sound.play("hit");
-                    this.livesValue--;
-                    this.livesLabel.text = "LIVES: " + this.livesValue;
-                    this.remove(this.player);
-                    this.player.position.set(0, 30, 10);
-                    this.add(this.player);
+                    self.livesValue--;
+                    self.livesLabel.text = "LIVES: " + self.livesValue;
+                    self.remove(self.player);
+                    self.player.position.set(0, 30, 10);
+                    self.add(self.player);
                 }
               if (eventObject.name === "obstacle") {
-                  this.isparkor = true;  
-                  console.log("is parkour " + this.isparkor); 
+                  self.isparkor = true;  
+                  console.log("is parkour " + self.isparkor); 
               }
-            }.bind(this));
+            }.bind(self));
 
             // create parent-child relationship with camera and player
             this.player.add(camera);

@@ -222,7 +222,7 @@ var scenes;
                 }
             });
         };
-        /**
+        /*
          * This method randomly sets the coin object's position
          *
          * @method setCoinPosition
@@ -234,7 +234,7 @@ var scenes;
             coin.position.set(randomPointX, 10, randomPointZ);
             this.add(coin);
         };
-        /**
+        /*
          * Event Handler method for any pointerLockChange events
          *
          * @method pointerLockChange
@@ -303,33 +303,33 @@ var scenes;
                     }
                     if (this.keyboardControls.shift) {
                         setTimeout(function () { this.isparkor = false; this.timerB = false; this.createjs.Sound.play("jump"); console.log("it :" + this.timerB + this.isparkor); }, 1000);
+                        if (this.isparkor) {
+                            this.velocity.y += 4000 * delta;
+                            // this.player.position.set(0,30,0);
+                            //  this.player.position.set(0,30,0);
+                            console.log("shift");
+                        }
                     }
-                    if (this.isparkor) {
-                        this.velocity.y += 4000 * delta;
-                        // this.player.position.set(0,30,0);
-                        this.player.position.set(0, 30, 0);
-                        console.log("shift");
+                    this.player.setDamping(0.7, 0.1);
+                    // Changing player's rotation
+                    this.player.setAngularVelocity(new Vector3(0, this.mouseControls.yaw, 0));
+                    direction.addVectors(direction, this.velocity);
+                    direction.applyQuaternion(this.player.quaternion);
+                    if (Math.abs(this.player.getLinearVelocity().x) < 20 && Math.abs(this.player.getLinearVelocity().y) < 10) {
+                        this.player.applyCentralForce(direction);
                     }
-                }
-                this.player.setDamping(0.7, 0.1);
-                // Changing player's rotation
-                this.player.setAngularVelocity(new Vector3(0, this.mouseControls.yaw, 0));
-                direction.addVectors(direction, this.velocity);
-                direction.applyQuaternion(this.player.quaternion);
-                if (Math.abs(this.player.getLinearVelocity().x) < 20 && Math.abs(this.player.getLinearVelocity().y) < 10) {
-                    this.player.applyCentralForce(direction);
-                }
-                else {
-                    this.player.setAngularVelocity(new Vector3(0, 0, 0));
-                    this.player.setAngularFactor(new Vector3(0, 0, 0));
-                }
-                this.cameraLook();
-            } // isGrounded ends
-            //reset Pitch and Yaw
-            this.mouseControls.pitch = 0;
-            this.mouseControls.yaw = 0;
-            this.prevTime = time;
-        }; // Controls Enabled ends
+                    this.cameraLook();
+                } // isGrounded ends
+                //reset Pitch and Yaw
+                this.mouseControls.pitch = 0;
+                this.mouseControls.yaw = 0;
+                this.prevTime = time;
+            }
+            else {
+                this.player.setAngularVelocity(new Vector3(0, 0, 0));
+                this.player.setAngularFactor(new Vector3(0, 0, 0));
+            }
+        };
         Play.prototype.if = function (timerB) {
             if (timerB === void 0) { timerB = false; }
             // setInterval(function(){  isparkor === false;console.log("is false", timerB.valueOf); }, 1);
@@ -344,6 +344,7 @@ var scenes;
          */
         Play.prototype.start = function () {
             var _this = this;
+            var self = this;
             // Set Up Scoreboard
             this.setupScoreboard();
             //check to see if pointerlock is supported
@@ -390,29 +391,29 @@ var scenes;
             // Collision Check
             this.player.addEventListener('collision', function (eventObject) {
                 if (eventObject.name === "Ground") {
-                    this.isGrounded = true;
+                    self.isGrounded = true;
                     createjs.Sound.play("land");
                 }
                 if (eventObject.name === "Coin") {
                     createjs.Sound.play("coin");
-                    this.remove(eventObject);
-                    this.setCoinPosition(eventObject);
-                    this.scoreValue += 100;
-                    this.scoreLabel.text = "SCORE: " + this.scoreValue;
+                    self.remove(eventObject);
+                    self.setCoinPosition(eventObject);
+                    self.scoreValue += 100;
+                    self.scoreLabel.text = "SCORE: " + self.scoreValue;
                 }
                 if (eventObject.name === "DeathPlane") {
                     createjs.Sound.play("hit");
-                    this.livesValue--;
-                    this.livesLabel.text = "LIVES: " + this.livesValue;
-                    this.remove(this.player);
-                    this.player.position.set(0, 30, 10);
-                    this.add(this.player);
+                    self.livesValue--;
+                    self.livesLabel.text = "LIVES: " + self.livesValue;
+                    self.remove(self.player);
+                    self.player.position.set(0, 30, 10);
+                    self.add(self.player);
                 }
                 if (eventObject.name === "obstacle") {
-                    this.isparkor = true;
-                    console.log("is parkour " + this.isparkor);
+                    self.isparkor = true;
+                    console.log("is parkour " + self.isparkor);
                 }
-            }.bind(this));
+            }.bind(self));
             // create parent-child relationship with camera and player
             this.player.add(camera);
             camera.position.set(0, 1, 0);
@@ -461,5 +462,4 @@ var scenes;
     }(scenes.Scene));
     scenes.Play = Play;
 })(scenes || (scenes = {}));
-
 //# sourceMappingURL=play.js.map

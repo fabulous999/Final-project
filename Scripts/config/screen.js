@@ -20,5 +20,4 @@ var config;
     }());
     config.Scene = Scene;
 })(config || (config = {}));
-
 //# sourceMappingURL=screen.js.map
