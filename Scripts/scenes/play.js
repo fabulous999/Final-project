@@ -186,6 +186,10 @@ var scenes;
                 this.obstacle.castShadow = true;
                 this.obstacle.position.set(randomIntInc(-0, 2), randomIntInc(-1, 30), randomIntInc(-0, 2));
                 this.add(this.obstacle);
+                //console.log("Added obstacle to Scene  "  +  obstacle.position.y);
+                if (i = 5) {
+                    this.obstacle.name = "final";
+                }
             }
         };
         Play.prototype.differentSizeLong = function () {
@@ -280,20 +284,20 @@ var scenes;
                 this.velocity = new Vector3();
                 var time = performance.now();
                 var delta = (time - this.prevTime) / 1000;
+                var direction = new Vector3(0, 0, 0);
+                if (this.keyboardControls.moveForward) {
+                    this.velocity.z -= 400.0 * delta;
+                }
+                if (this.keyboardControls.moveLeft) {
+                    this.velocity.x -= 400.0 * delta;
+                }
+                if (this.keyboardControls.moveBackward) {
+                    this.velocity.z += 400.0 * delta;
+                }
+                if (this.keyboardControls.moveRight) {
+                    this.velocity.x += 400.0 * delta;
+                }
                 if (this.isGrounded) {
-                    var direction = new Vector3(0, 0, 0);
-                    if (this.keyboardControls.moveForward) {
-                        this.velocity.z -= 400.0 * delta;
-                    }
-                    if (this.keyboardControls.moveLeft) {
-                        this.velocity.x -= 400.0 * delta;
-                    }
-                    if (this.keyboardControls.moveBackward) {
-                        this.velocity.z += 400.0 * delta;
-                    }
-                    if (this.keyboardControls.moveRight) {
-                        this.velocity.x += 400.0 * delta;
-                    }
                     if (this.keyboardControls.jump) {
                         this.velocity.y += 4000.0 * delta;
                         if (this.player.position.y > 4) {
@@ -301,12 +305,13 @@ var scenes;
                         }
                     }
                     if (this.keyboardControls.shift) {
-                        setTimeout(function () { this.isparkor = false; this.timerB = false; this.createjs.Sound.play("jump"); console.log("it :" + this.timerB + this.isparkor); }, 1000);
                         if (this.isparkor) {
                             this.velocity.y += 4000 * delta;
                             // this.player.position.set(0,30,0);
                             //  this.player.position.set(0,30,0);
                             console.log("shift");
+                            setTimeout(function () { this.isparkor = false; this.timerB = false; console.log("it :" + this.timerB + this.isparkor); }, 1000);
+                            createjs.Sound.play("jump");
                         }
                     }
                     this.player.setDamping(0.7, 0.1);

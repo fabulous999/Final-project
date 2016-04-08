@@ -29,6 +29,8 @@ import Vector3 = THREE.Vector3;
 import Face3 = THREE.Face3;
 import CScreen = config.Screen;
 import Clock = THREE.Clock;
+import Points = THREE.Points;
+import PointsMaterial = THREE.PointsMaterial;
 
 // Setup a Web Worker for Physijs
 Physijs.scripts.worker = "/Scripts/lib/Physijs/physijs_worker.js";
@@ -46,9 +48,11 @@ var menu: scenes.Menu;
 var stats: Stats;
 var canvas: HTMLElement;
 var assets: createjs.LoadQueue;
- var windx : number = 0;
-    var windy : number = -10;
-    var windz : number =0;
+var windx : number = 0;
+var windy : number = -10;
+var windz : number =0;
+
+
 var manifest = [
     { id: "land", src: "../../Assets/audio/Land.wav" },
     { id: "hit", src: "../../Assets/audio/hit.wav" },
@@ -116,13 +120,12 @@ function addStatsObject() {
 }
 
 
-
   function randomIntInc(low, high) {
             return Math.floor(Math.random() * (high - low + 1) + low);
         }
- setInterval(function() {windx = randomIntInc(-5,5) }, 10000); 
-  setInterval(function() {windy = randomIntInc(-15,-1) }, 10000); 
-   setInterval(function() {windz = randomIntInc(-5,5) }, 10000); 
+ setInterval(function() {windx = randomIntInc(-2,2) }, 10000); 
+ setInterval(function() {windy = randomIntInc(-15,-5) }, 10000); 
+ setInterval(function() {windz = randomIntInc(-2,2) }, 10000); 
  
 // Setup main game loop
 function gameLoop(): void {
