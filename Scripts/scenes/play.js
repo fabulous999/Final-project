@@ -199,15 +199,18 @@ var scenes;
                 this.obstacle.castShadow = true;
                 this.obstacle.position.set(randomIntInc(-0, 2), randomIntInc(-1, 30), randomIntInc(-0, 2));
                 this.add(this.obstacle);
-                //console.log("Added obstacle to Scene  "  +  obstacle.position.y);
-                if (i >= 5) {
-                    this.goalPhysicMaterial = Physijs.createMaterial(this.groundMaterial, 0, 0); // new LambertMaterial({ color: 0xe75d14 })
+                console.log("Added obstacle to Scene  " + this.obstacle.position.y);
+                if (i == 4) {
+                    console.log("asdf " + i);
                     this.goalGeometry = new BoxGeometry(randomIntInc(2, 5), randomIntInc(2, 5), randomIntInc(2, 5));
-                    this.goal = new Physijs.BoxMesh(this.goalGeometry, this.goalMaterial, -0.1);
-                    //  goalMaterial = Physijs.createMaterial(new LambertMaterial({color: 0xffffff}), 0.4, 0);   
+                    this.goalMaterial = Physijs.createMaterial(new LambertMaterial({ color: 0xff000000 }), 0.4, 0);
+                    this.goal = new Physijs.BoxMesh(this.goalGeometry, this.goalMaterial, 0);
                     this.goal.name = "goal";
-                    this.goal.position.set(randomIntInc(-1, 1), randomIntInc(1, 1), randomIntInc(-1, 1));
-                    scene.add(this.goal);
+                    this.goal.receiveShadow = true;
+                    this.goal.castShadow = true;
+                    this.goal.position.set(0, 0, 0);
+                    this.add(this.goal);
+                    console.log("Added goal" + this.goal.name);
                 }
             }
         };
@@ -326,10 +329,14 @@ var scenes;
                     if (this.keyboardControls.shift) {
                         if (this.isparkor) {
                             this.velocity.y += 4000 * delta;
-                            // this.player.position.set(0,30,0);
-                            //  this.player.position.set(0,30,0);
+                            //this.player.position.set(0,30,0);
+                            //this.player.position.set(0,30,0);
                             console.log("shift");
-                            setTimeout(function () { this.isparkor = false; this.timerB = false; console.log("it :" + this.timerB + this.isparkor); }, 1000);
+                            setTimeout(function () {
+                                this.isparkor = false;
+                                this.timerB = false;
+                                console.log("it :" + this.timerB + this.isparkor);
+                            }, 1000);
                             createjs.Sound.play("jump");
                         }
                     }
@@ -356,8 +363,12 @@ var scenes;
         };
         Play.prototype.if = function (timerB) {
             if (timerB === void 0) { timerB = false; }
-            // setInterval(function(){  isparkor === false;console.log("is false", timerB.valueOf); }, 1);
-            setInterval(function () { this.timerB = true; this.isparkor = false; console.log("is false", this.timerB); }, 10000);
+            //setInterval(function(){  isparkor === false;console.log("is false", timerB.valueOf); }, 1);
+            setInterval(function () {
+                this.timerB = true;
+                this.isparkor = false;
+                console.log("is false", this.timerB);
+            }, 10000);
         };
         // PUBLIC METHODS +++++++++++++++++++++++++++++++++++++++++++
         /**
@@ -455,11 +466,11 @@ var scenes;
                 }
                 if (eventObject.name === "goal") {
                     createjs.Sound.play("over");
-                    this.livesValue = 0;
-                    this.livesLabel.text = "LIVES: " + this.livesValue;
-                    if (this.livesValue <= 0) {
+                    self.livesValue = 0;
+                    self.livesLabel.text = "LIVES: " + self.livesValue;
+                    if (self.livesValue <= 0) {
                         createjs.Sound.play("over");
-                        scene.remove(this.player);
+                        scene.remove(self.player);
                     }
                 }
                 if (eventObject.name === "obstacle") {
@@ -490,7 +501,9 @@ var scenes;
          * @returns void
          */
         Play.prototype.update = function () {
-            //         setInterval(function() {this.scoreLabel.text = "wind x:"+ windx + "   wind y:"+ windy +  "  wind z: "+ windz;}, 1000);
+            //setInterval(function() {
+            //this.scoreLabel.text = "wind x:"+ windx + "   wind y:"+ windy +  "  wind z: "+ windz;
+            //}, 1000);
             this.scoreLabel.text = "wind x:" + windx + "   wind y:" + windy + "  wind z: " + windz;
             this.coins.forEach(function (coin) {
                 coin.setAngularFactor(new Vector3(0, 0, 0));
