@@ -274,14 +274,13 @@ module scenes {
              this.add(this.obstacle); 
              //console.log("Added obstacle to Scene  "  +  obstacle.position.y);
              
-             if(i = 5)
+             if(i >= 5)
              {
-                 this.obstacle.name = "final";
+//                 this.obstacle.name = "final";
                  
                  
              }
-             
-             
+        
             }   
       }
        
@@ -403,6 +402,7 @@ module scenes {
                 if (this.keyboardControls.moveRight) {
                     this.velocity.x += 400.0 * delta;
                 }
+                
                 if (this.isGrounded) {
 
                     if (this.keyboardControls.jump) {
@@ -422,7 +422,7 @@ module scenes {
                            createjs.Sound.play("jump");
                         }                   
                     }
-
+                }
                     this.player.setDamping(0.7, 0.1);
                     // Changing player's rotation
                     this.player.setAngularVelocity(new Vector3(0, this.mouseControls.yaw, 0));
@@ -434,10 +434,10 @@ module scenes {
                     
 
 
-                    this.cameraLook();
+                  
 
-                } // isGrounded ends
-
+                 // isGrounded ends
+                this.cameraLook();
                 //reset Pitch and Yaw
                 this.mouseControls.pitch = 0;
                 this.mouseControls.yaw = 0;
