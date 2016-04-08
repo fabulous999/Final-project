@@ -188,6 +188,13 @@ var scenes;
                 this.add(this.obstacle);
                 //console.log("Added obstacle to Scene  "  +  obstacle.position.y);
                 if (i >= 5) {
+                    this.goalPhysicMaterial = Physijs.createMaterial(this.groundMaterial, 0, 0); // new LambertMaterial({ color: 0xe75d14 })
+                    this.goalGeometry = new BoxGeometry(randomIntInc(2, 5), randomIntInc(2, 5), randomIntInc(2, 5));
+                    this.goal = new Physijs.BoxMesh(this.goalGeometry, this.goalMaterial, -0.1);
+                    //  goalMaterial = Physijs.createMaterial(new LambertMaterial({color: 0xffffff}), 0.4, 0);   
+                    this.goal.name = "goal";
+                    this.goal.position.set(randomIntInc(-1, 1), randomIntInc(1, 1), randomIntInc(-1, 1));
+                    scene.add(this.goal);
                 }
             }
         };
@@ -411,6 +418,15 @@ var scenes;
                     self.remove(self.player);
                     self.player.position.set(0, 30, 10);
                     self.add(self.player);
+                }
+                if (eventObject.name === "goal") {
+                    createjs.Sound.play("over");
+                    this.livesValue = 0;
+                    this.livesLabel.text = "LIVES: " + this.livesValue;
+                    if (this.livesValue <= 0) {
+                        createjs.Sound.play("over");
+                        scene.remove(this.player);
+                    }
                 }
                 if (eventObject.name === "obstacle") {
                     self.isparkor = true;
