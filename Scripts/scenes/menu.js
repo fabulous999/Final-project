@@ -21,7 +21,6 @@ var scenes;
      */
     var Menu = (function (_super) {
         __extends(Menu, _super);
-        //private _startButton: createjs.Bitmap;
         /**
          * Empty Constructor - calls _initialize and start methods
          *
@@ -63,6 +62,9 @@ var scenes;
          * @return void
          */
         Menu.prototype.start = function () {
+            var _this = this;
+            this._bgmusic = createjs.Sound.play("bgmusic");
+            this._bgmusic.loop = -1;
             this._background = new createjs.Bitmap(assets.getResult("Background"));
             this._stage.addChild(this._background);
             console.log(this._background);
@@ -87,6 +89,7 @@ var scenes;
             this._startButton.on("click", function (event) {
                 currentScene = config.Scene.PLAY;
                 changeScene();
+                _this._bgmusic.stop();
             });
         };
         /**
@@ -111,4 +114,5 @@ var scenes;
     }(scenes.Scene));
     scenes.Menu = Menu;
 })(scenes || (scenes = {}));
+
 //# sourceMappingURL=menu.js.map

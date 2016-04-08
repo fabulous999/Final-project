@@ -50,6 +50,8 @@ var scenes;
          */
         Play.prototype._initialize = function () {
             // Create to HTMLElements
+            this._firstMusic = createjs.Sound.play("first");
+            this._firstMusic.loop = -1;
             this.blocker = document.getElementById("blocker");
             this.instructions = document.getElementById("instructions");
             this.blocker.style.display = "block";
@@ -412,7 +414,7 @@ var scenes;
                     self.scoreValue += 100;
                 }
                 if (eventObject.name === "DeathPlane") {
-                    createjs.Sound.play("hit");
+                    createjs.Sound.play("death");
                     self.livesValue--;
                     self.livesLabel.text = "LIVES: " + self.livesValue;
                     self.remove(self.player);
@@ -483,4 +485,5 @@ var scenes;
     }(scenes.Scene));
     scenes.Play = Play;
 })(scenes || (scenes = {}));
+
 //# sourceMappingURL=play.js.map
