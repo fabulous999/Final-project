@@ -19,7 +19,7 @@ module scenes {
         private _gameLabel: createjs.Text;
         private _startButton: createjs.Bitmap;       
         private _background: createjs.Bitmap;
-        //private _startButton: createjs.Bitmap;
+        private _bgmusic: createjs.AbstractSoundInstance;
 
         /**
          * Empty Constructor - calls _initialize and start methods
@@ -70,7 +70,8 @@ module scenes {
          * @return void
          */
         public start(): void {
-            
+            this._bgmusic = createjs.Sound.play("bgmusic");
+            this._bgmusic.loop = -1;
             this._background = new createjs.Bitmap(assets.getResult("Background"));
             this._stage.addChild(this._background);
             console.log(this._background);
@@ -103,6 +104,7 @@ module scenes {
             this._startButton.on("click", (event: createjs.MouseEvent) => {
                 currentScene = config.Scene.PLAY;
                 changeScene();
+                this._bgmusic.stop();
             });
         }
 

@@ -47,11 +47,13 @@ var windy = -10;
 var windz = 0;
 var manifest = [
     { id: "land", src: "../../Assets/audio/Land.wav" },
-    { id: "hit", src: "../../Assets/audio/hit.wav" },
+    { id: "death", src: "../../Assets/audio/death.wav" },
     { id: "coin", src: "../../Assets/audio/coin.mp3" },
-    { id: "jump", src: "../../Assets/audio/Jump.wav" },
+    { id: "jump", src: "../../Assets/audio/jump.wav" },
     { id: "StartButton", src: "../../Assets/images/StartButton.png" },
     { id: "Background", src: "../../Assets/images/background.png" },
+    { id: "bgmusic", src: "../../Assets/audio/bgmusic.wav" },
+    { id: "first", src: "../../Assets/audio/level1.wav" }
 ];
 function preload() {
     assets = new createjs.LoadQueue();
@@ -157,4 +159,5 @@ function changeScene() {
     }
 }
 window.onload = preload;
+
 //# sourceMappingURL=game.js.map

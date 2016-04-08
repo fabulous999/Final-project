@@ -50,6 +50,8 @@ var scenes;
          */
         Play.prototype._initialize = function () {
             // Create to HTMLElements
+            this._firstMusic = createjs.Sound.play("first");
+            this._firstMusic.loop = -1;
             this.blocker = document.getElementById("blocker");
             this.instructions = document.getElementById("instructions");
             this.blocker.style.display = "block";
@@ -175,6 +177,17 @@ var scenes;
             this.deathPlane.position.set(0, -10, 0);
             this.deathPlane.name = "DeathPlane";
             this.add(this.deathPlane);
+        };
+        Play.prototype.animateParticles = function () {
+            var verts = this.particleSystem.geometry.vertices;
+            for (var i = 0; i < verts.length; i++) {
+                var vert = verts[i];
+                if (vert.y < -200) {
+                    vert.y = Math.random() * 400 - 200;
+                }
+                vert.y = vert.y - (10 * this.deltaTime);
+            }
+            this.particleSystem.geometry.verticesNeedUpdate = true;
         };
         Play.prototype.differentSizeWide = function () {
             for (var i = 0; i < 5; i++) {
@@ -387,6 +400,27 @@ var scenes;
             this.addEventListener('update', function () {
                 _this.simulate(undefined, 2);
             });
+            // Particle System
+            this.particleCount = 20000;
+            this.particles = new Geometry();
+            for (var count = 0; count < this.particleCount; count++) {
+                var x = Math.random() * 400 - 200;
+                var y = Math.random() * 400 - 200;
+                var z = Math.random() * 400 - 200;
+                // Create the vertex
+                var particle = new THREE.Vector3(x, y, z);
+                // Add the vertex to the geometry
+                this.particles.vertices.push(particle);
+            }
+            this.particleMaterial = new PointsMaterial({
+                color: 0xffffff,
+                size: 2,
+                map: new THREE.TextureLoader().load("../../Assets/images/snowflake.png"),
+                blending: THREE.AdditiveBlending,
+                transparent: true
+            });
+            this.particleSystem = new Points(this.particles, this.particleMaterial);
+            scene.add(this.particleSystem);
             // Add Spot Light to the scene
             this.addSpotLight();
             // Ground Object
@@ -412,7 +446,7 @@ var scenes;
                     self.scoreValue += 100;
                 }
                 if (eventObject.name === "DeathPlane") {
-                    createjs.Sound.play("hit");
+                    createjs.Sound.play("death");
                     self.livesValue--;
                     self.livesLabel.text = "LIVES: " + self.livesValue;
                     self.remove(self.player);
@@ -483,4 +517,5 @@ var scenes;
     }(scenes.Scene));
     scenes.Play = Play;
 })(scenes || (scenes = {}));
+
 //# sourceMappingURL=play.js.map
