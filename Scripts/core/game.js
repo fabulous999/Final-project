@@ -39,6 +39,8 @@ var renderer;
 var camera;
 var play;
 var menu;
+var level2;
+var level3;
 var stats;
 var canvas;
 var assets;
@@ -147,6 +149,18 @@ function changeScene() {
             play = new scenes.Play();
             scene = play;
             console.log("Starting PLAY Scene");
+            break;
+        /*   case config.Scene.level2:
+               // show level 2 scene
+               level2 = new scenes.level2();
+               scene = level2;
+               console.log("Starting Level 2 Scene");
+               break;*/
+        case config.Scene.level3:
+            // show level 2 scene
+            level3 = new scenes.level3();
+            scene = level3;
+            console.log("Starting Level 3 Scene");
             break;
         case config.Scene.OVER:
             // show the game OVER scene

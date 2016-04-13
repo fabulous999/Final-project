@@ -16,12 +16,12 @@ var scenes;
      * @class Play
      * @param havePointerLock {boolean}
      */
-    var Play = (function (_super) {
-        __extends(Play, _super);
+    var level3 = (function (_super) {
+        __extends(level3, _super);
         /**
          * @constructor
          */
-        function Play() {
+        function level3() {
             _super.call(this);
             this.windx = 0;
             this.windy = -10;
@@ -37,7 +37,7 @@ var scenes;
          * @method setupCanvas
          * @return void
          */
-        Play.prototype._setupCanvas = function () {
+        level3.prototype._setupCanvas = function () {
             canvas.setAttribute("width", config.Screen.WIDTH.toString());
             canvas.setAttribute("height", (config.Screen.HEIGHT * 0.1).toString());
             canvas.style.backgroundColor = "#000000";
@@ -48,7 +48,7 @@ var scenes;
          * @method _initialize
          * @returns void
          */
-        Play.prototype._initialize = function () {
+        level3.prototype._initialize = function () {
             // Create to HTMLElements
             this._firstMusic = createjs.Sound.play("first");
             this._firstMusic.loop = -1;
@@ -73,7 +73,7 @@ var scenes;
          * @method setupScoreboard
          * @returns void
          */
-        Play.prototype.setupScoreboard = function () {
+        level3.prototype.setupScoreboard = function () {
             // initialize  score and lives values
             this.scoreValue = 0;
             this.livesValue = 5;
@@ -90,7 +90,7 @@ var scenes;
             this.stage.addChild(this.scoreLabel);
             console.log("Added Score Label to stage");
         };
-        Play.prototype.randomIntInc = function (low, high) {
+        level3.prototype.randomIntInc = function (low, high) {
             return Math.floor(Math.random() * (high - low + 1) + low);
         };
         /**
@@ -99,9 +99,9 @@ var scenes;
           * @method addSpotLight
           * @return void
           */
-        Play.prototype.addSpotLight = function () {
+        level3.prototype.addSpotLight = function () {
             // Spot Light
-            this.spotLight = new SpotLight(0xffffff);
+            this.spotLight = new SpotLight(0xFF0000);
             this.spotLight.position.set(20, 40, -15);
             this.spotLight.castShadow = true;
             this.spotLight.intensity = 2;
@@ -125,7 +125,7 @@ var scenes;
          * @method addGround
          * @return void
          */
-        Play.prototype.addGround = function () {
+        level3.prototype.addGround = function () {
             this.groundTexture = new THREE.TextureLoader().load('../../Assets/images/floor.jpg');
             this.groundTexture.wrapS = THREE.RepeatWrapping;
             this.groundTexture.wrapT = THREE.RepeatWrapping;
@@ -152,7 +152,7 @@ var scenes;
          * @method addPlayer
          * @return void
          */
-        Play.prototype.addPlayer = function () {
+        level3.prototype.addPlayer = function () {
             // Player Object
             this.playerGeometry = new BoxGeometry(2, 4, 2);
             this.playerMaterial = Physijs.createMaterial(new LambertMaterial({ color: 0x00ff00 }), 0.4, 0);
@@ -170,7 +170,7 @@ var scenes;
          * @method addDeathPlane
          * @return void
          */
-        Play.prototype.addDeathPlane = function () {
+        level3.prototype.addDeathPlane = function () {
             this.deathPlaneGeometry = new BoxGeometry(50, 1, 50, 3);
             //   this.deathPlaneMaterial = Physijs.createMaterial(new MeshBasicMaterial({ color: 0xff0000 }), 0.4, 0.6);
             this.deathplanetexture = new THREE.TextureLoader().load('../../Assets/images/void.jpg');
@@ -188,7 +188,7 @@ var scenes;
             this.add(this.deathPlane);
         };
         //backgroud
-        Play.prototype.spacebg = function () {
+        level3.prototype.spacebg = function () {
             this.spacegeo = new SphereGeometry(100, 100, 100);
             this.spacetex = THREE.ImageUtils.loadTexture('../../Assets/images/space.jpg');
             this.spacetex.wrapS = THREE.RepeatWrapping;
@@ -203,7 +203,7 @@ var scenes;
             this.space.material.side = THREE.DoubleSide;
             this.add(this.space);
         };
-        Play.prototype.differentSizeWide = function () {
+        level3.prototype.differentSizeWide = function () {
             for (var i = 0; i < 5; i++) {
                 this.obstacleGeometry = new BoxGeometry(randomIntInc(5, 10), randomIntInc(5, 10), randomIntInc(5, 10));
                 this.obstacleMaterial = Physijs.createMaterial(new LambertMaterial({ color: 0xffffff }), 0.4, 0);
@@ -222,13 +222,13 @@ var scenes;
                     this.goal.name = "goal";
                     this.goal.receiveShadow = true;
                     this.goal.castShadow = true;
-                    this.goal.position.set(8, 0, 0);
+                    this.goal.position.set(0, 0, 0);
                     this.add(this.goal);
                     console.log("Added goal" + this.goal.name);
                 }
             }
         };
-        Play.prototype.differentSizeLong = function () {
+        level3.prototype.differentSizeLong = function () {
             for (var i = 0; i < 5; i++) {
                 this.obstacleGeometry = new BoxGeometry(randomIntInc(-10, 10), randomIntInc(1, 5), randomIntInc(-10, 10));
                 this.obstacleMaterial = Physijs.createMaterial(new LambertMaterial({ color: 0x000000 }), 0.4, 0);
@@ -287,7 +287,7 @@ var scenes;
          * @method pointerLockChange
          * @return void
          */
-        Play.prototype.pointerLockChange = function (event) {
+        level3.prototype.pointerLockChange = function (event) {
             if (document.pointerLockElement === this.element) {
                 // enable our mouse and keyboard controls
                 this.keyboardControls.enabled = true;
@@ -311,7 +311,7 @@ var scenes;
          * @method pointerLockError
          * @return void
          */
-        Play.prototype.pointerLockError = function (event) {
+        level3.prototype.pointerLockError = function (event) {
             this.instructions.style.display = '';
             console.log("PointerLock Error Detected!!");
         };
@@ -322,7 +322,7 @@ var scenes;
          * @method checkControls
          * @return void
          */
-        Play.prototype.checkControls = function () {
+        level3.prototype.checkControls = function () {
             if (this.keyboardControls.enabled) {
                 this.velocity = new Vector3();
                 var time = performance.now();
@@ -382,7 +382,7 @@ var scenes;
                 this.player.setAngularFactor(new Vector3(0, 0, 0));
             }
         };
-        Play.prototype.if = function (timerB) {
+        level3.prototype.if = function (timerB) {
             if (timerB === void 0) { timerB = false; }
             //setInterval(function(){  isparkor === false;console.log("is false", timerB.valueOf); }, 1);
             setInterval(function () {
@@ -398,7 +398,7 @@ var scenes;
          * @method start
          * @return void
          */
-        Play.prototype.start = function () {
+        level3.prototype.start = function () {
             var _this = this;
             var self = this;
             // Set Up Scoreboard
@@ -468,9 +468,13 @@ var scenes;
                     self.add(self.player);
                 }
                 if (eventObject.name === "goal") {
-                    currentScene = config.Scene.level3;
-                    changeScene();
-                    this._bgmusic.stop();
+                    createjs.Sound.play("over");
+                    self.livesValue = 0;
+                    self.livesLabel.text = "LIVES: " + self.livesValue;
+                    if (self.livesValue <= 0) {
+                        createjs.Sound.play("over");
+                        scene.remove(self.player);
+                    }
                 }
                 if (eventObject.name === "obstacle") {
                     self.isparkor = true;
@@ -489,7 +493,7 @@ var scenes;
          * @method cameraLook
          * @return void
          */
-        Play.prototype.cameraLook = function () {
+        level3.prototype.cameraLook = function () {
             var zenith = THREE.Math.degToRad(90);
             var nadir = THREE.Math.degToRad(-90);
             var cameraPitch = camera.rotation.x + this.mouseControls.pitch;
@@ -500,7 +504,7 @@ var scenes;
          * @method update
          * @returns void
          */
-        Play.prototype.update = function () {
+        level3.prototype.update = function () {
             //setInterval(function() {
             //this.scoreLabel.text = "wind x:"+ windx + "   wind y:"+ windy +  "  wind z: "+ windz;
             //}, 1000);
@@ -518,7 +522,7 @@ var scenes;
          * @method resize
          * @return void
          */
-        Play.prototype.resize = function () {
+        level3.prototype.resize = function () {
             canvas.style.width = "100%";
             this.livesLabel.x = config.Screen.WIDTH * 0.1;
             this.livesLabel.y = (config.Screen.HEIGHT * 0.15) * 0.20;
@@ -526,8 +530,8 @@ var scenes;
             this.scoreLabel.y = (config.Screen.HEIGHT * 0.15) * 0.20;
             this.stage.update();
         };
-        return Play;
+        return level3;
     }(scenes.Scene));
-    scenes.Play = Play;
+    scenes.level3 = level3;
 })(scenes || (scenes = {}));
-//# sourceMappingURL=play.js.map
+//# sourceMappingURL=level3.js.map

@@ -15,7 +15,9 @@ var config;
         }
         Scene.MENU = 0;
         Scene.PLAY = 1;
-        Scene.OVER = 2;
+        Scene.level2 = 2;
+        Scene.level3 = 3;
+        Scene.OVER = 4;
         return Scene;
     }());
     config.Scene = Scene;

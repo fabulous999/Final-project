@@ -325,7 +325,7 @@ module scenes {
                     this.goal.name = "goal";
                     this.goal.receiveShadow = true;
                     this.goal.castShadow = true;
-                    this.goal.position.set(0, 0, 0);
+                    this.goal.position.set(8, 0, 0);
                     this.add(this.goal);
                     console.log("Added goal" + this.goal.name);
                 }
@@ -576,7 +576,7 @@ module scenes {
             //this.differentSizeLong();
             this.differentSizeWide();
             
-            this.spacebg();
+          //  this.spacebg();
 
             // Collision Check
               
@@ -603,15 +603,10 @@ module scenes {
                     self.add(self.player);
                 }
                 if (eventObject.name === "goal") {
-
-                    createjs.Sound.play("over");
-                    self.livesValue = 0;
-                    self.livesLabel.text = "LIVES: " + self.livesValue;
-
-                    if (self.livesValue <= 0) {
-                        createjs.Sound.play("over");
-                        scene.remove(self.player);
-                    }
+                currentScene = config.Scene.level3;
+                changeScene();
+                this._bgmusic.stop();
+      
                 }
                 if (eventObject.name === "obstacle") {
                     self.isparkor = true;
