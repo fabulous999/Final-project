@@ -181,12 +181,12 @@ function changeScene(): void {
             scene = play;
             console.log("Starting PLAY Scene");
             break;
-     /*   case config.Scene.level2:
+        case config.Scene.level2:
             // show level 2 scene
             level2 = new scenes.level2();
             scene = level2;
             console.log("Starting Level 2 Scene");
-            break;*/
+            break;
          case config.Scene.level3:
             // show level 2 scene
             level3 = new scenes.level3();
@@ -195,14 +195,14 @@ function changeScene(): void {
             break;
             
             
-        case config.Scene.OVER:
+     /*   case config.Scene.OVER:
             // show the game OVER scene
             /*
             over = new scenes.Over();
             scene = over;
             console.log("Starting OVER Scene");
             */
-            break;
+        //    break;
     }
 }
 

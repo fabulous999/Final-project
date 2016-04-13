@@ -325,7 +325,7 @@ module scenes {
                     this.goal.name = "goal";
                     this.goal.receiveShadow = true;
                     this.goal.castShadow = true;
-                    this.goal.position.set(8, 0, 0);
+                    this.goal.position.set(10, 0, 0);
                     this.add(this.goal);
                     console.log("Added goal" + this.goal.name);
                 }
