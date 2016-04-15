@@ -136,8 +136,6 @@ module scenes {
             // setup canvas for menu scene
             this._setupCanvas();
 
-
-            //  this.coinCount = 10;
             this.prevTime = 0;
             this.stage = new createjs.Stage(canvas);
             this.velocity = new Vector3(0, 0, 0);
