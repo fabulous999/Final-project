@@ -17,6 +17,7 @@ module scenes {
         private blocker: HTMLElement;
         private instructions: HTMLElement;
         private spotLight: SpotLight;
+        private ambientLight: AmbientLight;
         private groundGeometry: CubeGeometry;
         private groundPhysicsMaterial: Physijs.Material;
         private groundMaterial: PhongMaterial;
@@ -29,15 +30,12 @@ module scenes {
         private keyboardControls: objects.KeyboardControls;
         private mouseControls: objects.MouseControls;
         private isGrounded: boolean;
-   //     private coinGeometry: Geometry;
-   //     private coinMaterial: Physijs.Material;
-   //     private coins: Physijs.ConcaveMesh[];
-   //     private coinCount: number;
+
         private deathPlaneGeometry: CubeGeometry;
         private deathPlaneMaterial: Physijs.Material;
         private deathPlane: Physijs.Mesh;
-         private deathplanetexture: Texture;
-          private groundMaterials: PhongMaterial;
+        private deathplanetexture: Texture;
+        private groundMaterials: PhongMaterial;
 
         private velocity: Vector3;
         private prevTime: number;
@@ -49,33 +47,62 @@ module scenes {
         private scoreValue: number;
         private livesValue: number;
 
-        private goaltextur: Texture;
-        private goalTextureN: Texture;
-        private goal: Physijs.Mesh;
-        private goalGeometry: CubeGeometry;
-        private goalMaterial: Physijs.Material;
-
         private windx: number = 0;
         private windy: number = -10;
         private windz: number = 0;
-
-
-
-        private obstacle: Physijs.Mesh;
-        private obstacleGeometry: CubeGeometry;
-        private obstacleMaterial: Physijs.Material;
 
         private _firstMusic: createjs.AbstractSoundInstance;
 
         private isparkor: boolean = false;
         private timerB: boolean;
-        
-        
-        private spacegeo : SphereGeometry;
+
+        private spacegeo: SphereGeometry;
         private spaceMat: Physijs.Material;
         private space: Physijs.Mesh;
-        private spacetex : Texture;
-     private sapcePhong: PhongMaterial;
+        private spacetex: Texture;
+        private spacePhong: PhongMaterial;
+
+        private obstacleTexture: Texture;
+        private obstacleMat: PhongMaterial;
+
+        private goalTexture: Texture;
+        private goalMat: PhongMaterial;
+
+        private obstacleGeo: CubeGeometry;
+        private obstaclePM: Physijs.Material;
+        private obstacle: Physijs.Mesh;
+
+        private obstacle2Geo: CubeGeometry;
+        private obstacle2PM: Physijs.Material;
+        private obstacle2: Physijs.Mesh;
+
+        private obstacle3Geo: CubeGeometry;
+        private obstacle3PM: Physijs.Material;
+        private obstacle3: Physijs.Mesh;
+
+        private obstacle4Geo: CubeGeometry;
+        private obstacle4PM: Physijs.Material;
+        private obstacle4: Physijs.Mesh;
+
+        private obstacle5Geo: CubeGeometry;
+        private obstacle5PM: Physijs.Material;
+        private obstacle5: Physijs.Mesh;
+
+        private obstacle6Geo: CubeGeometry;
+        private obstacle6PM: Physijs.Material;
+        private obstacle6: Physijs.Mesh;
+
+        private obstacle7Geo: CubeGeometry;
+        private obstacle7PM: Physijs.Material;
+        private obstacle7: Physijs.Mesh;
+
+        private obstacle8Geo: CubeGeometry;
+        private obstacle8PM: Physijs.Material;
+        private obstacle8: Physijs.Mesh;
+
+        private goalGeo: CubeGeometry;
+        private goalPM: Physijs.Material;
+        private goal: Physijs.Mesh;
 
         /**
          * @constructor
@@ -122,7 +149,7 @@ module scenes {
             this._setupCanvas();
 
 
-          //  this.coinCount = 10;
+            //  this.coinCount = 10;
             this.prevTime = 0;
             this.stage = new createjs.Stage(canvas);
             this.velocity = new Vector3(0, 0, 0);
@@ -181,7 +208,7 @@ module scenes {
           */
         private addSpotLight(): void {
             // Spot Light
-            this.spotLight = new SpotLight(0xFF0000);
+            this.spotLight = new SpotLight(0xffffff);
             this.spotLight.position.set(20, 40, -15);
             this.spotLight.castShadow = true;
             this.spotLight.intensity = 2;
@@ -199,7 +226,14 @@ module scenes {
             this.add(this.spotLight);
             console.log("Added spotLight to scene");
         }
-
+        
+        private addAmbientLight(): void {
+            // Ambient Light
+            this.ambientLight = new AmbientLight(0x808080);
+            this.add(this.ambientLight);
+            console.log("Added ambientLight to scene");
+        }
+        
         /**
          * Add a ground plane to the scene
          * 
@@ -223,13 +257,13 @@ module scenes {
             this.groundMaterial.bumpMap = this.groundTextureNormal;
             this.groundMaterial.bumpScale = 0.2;
 
-            this.groundGeometry = new BoxGeometry(32, 1, 32);
+            this.groundGeometry = new BoxGeometry(16, 1, 16);
             this.groundPhysicsMaterial = Physijs.createMaterial(this.groundMaterial, 0, 0);
             this.ground = new Physijs.ConvexMesh(this.groundGeometry, this.groundPhysicsMaterial, 0);
             this.ground.receiveShadow = true;
             this.ground.name = "Ground";
             this.add(this.ground);
-            console.log("Added Burnt Ground to scene");
+            console.log("Added Ground to scene");
         }
         /**
          * Adds the player controller to the scene
@@ -243,12 +277,131 @@ module scenes {
             this.playerMaterial = Physijs.createMaterial(new LambertMaterial({ color: 0x00ff00 }), 0.4, 0);
 
             this.player = new Physijs.BoxMesh(this.playerGeometry, this.playerMaterial, 1);
-            this.player.position.set(0, 30, 10);
+            this.player.position.set(-5, 15, 5);
             this.player.receiveShadow = true;
             this.player.castShadow = true;
             this.player.name = "Player";
             this.add(this.player);
             console.log("Added Player to Scene");
+        }
+
+        /**
+         * Adds obstacles to scene
+         * 
+         * @method addObs
+         * @return void
+         */
+
+        private addObs(): void {
+            // Texture and Material set
+            this.obstacleTexture = new THREE.TextureLoader().load('../../Assets/images/brick.jpg');
+            this.obstacleTexture.wrapS = THREE.RepeatWrapping;
+            this.obstacleTexture.wrapT = THREE.RepeatWrapping;
+            this.obstacleTexture.repeat.set(8, 8);
+
+            this.obstacleMat = new PhongMaterial();
+            this.obstacleMat.map = this.obstacleTexture;
+            this.obstacleMat.bumpScale = 0.2;
+
+            this.goalTexture = new THREE.TextureLoader().load('../../Assets/images/checker.png');
+            this.goalTexture.wrapS = THREE.RepeatWrapping;
+            this.goalTexture.wrapT = THREE.RepeatWrapping;
+            this.goalTexture.repeat.set(8, 8);
+
+            this.goalMat = new PhongMaterial();
+            this.goalMat.map = this.goalTexture;
+            this.goalMat.bumpScale = 0.2;
+
+            // Obstacles
+            this.obstacleGeo = new BoxGeometry(5, 4, 5);
+            this.obstaclePM = Physijs.createMaterial(this.obstacleMat, 0, 0);
+            this.obstacle = new Physijs.BoxMesh(this.obstacleGeo, this.obstaclePM, 0);
+            this.obstacle.receiveShadow = true;
+            this.obstacle.castShadow = true;
+            this.obstacle.position.set(0, 2.5, 0);
+            this.obstacle.name = "obstacle";
+            this.add(this.obstacle);
+            console.log("Added obstacle to scene");
+
+            this.obstacle2Geo = new BoxGeometry(4, 4, 6);
+            this.obstacle2PM = Physijs.createMaterial(this.obstacleMat, 0, 0);
+            this.obstacle2 = new Physijs.BoxMesh(this.obstacle2Geo, this.obstacle2PM, 0);
+            this.obstacle2.receiveShadow = true;
+            this.obstacle2.castShadow = true;
+            this.obstacle2.position.set(0, 6, -6);
+            this.obstacle2.name = "obstacle";
+            this.add(this.obstacle2);
+            console.log("Added obstacle to scene");
+
+            this.obstacle3Geo = new BoxGeometry(2.5, 2, 3);
+            this.obstacle3PM = Physijs.createMaterial(this.obstacleMat, 0, 0);
+            this.obstacle3 = new Physijs.BoxMesh(this.obstacle3Geo, this.obstacle3PM, 0);
+            this.obstacle3.receiveShadow = true;
+            this.obstacle3.castShadow = true;
+            this.obstacle3.position.set(0, 7, -13);
+            this.obstacle3.name = "obstacle";
+            this.add(this.obstacle3);
+            console.log("Added obstacle to scene");
+
+            this.obstacle4Geo = new BoxGeometry(5, 7, 6);
+            this.obstacle4PM = Physijs.createMaterial(this.obstacleMat, 0, 0);
+            this.obstacle4 = new Physijs.BoxMesh(this.obstacle4Geo, this.obstacle4PM, 0);
+            this.obstacle4.receiveShadow = true;
+            this.obstacle4.castShadow = true;
+            this.obstacle4.position.set(0, 10, -19);
+            this.obstacle4.name = "obstacle";
+            this.add(this.obstacle4);
+            console.log("Added obstacle to scene");
+
+            this.obstacle5Geo = new BoxGeometry(0.5, 0.5, 7);
+            this.obstacle5PM = Physijs.createMaterial(this.obstacleMat, 0, 0);
+            this.obstacle5 = new Physijs.BoxMesh(this.obstacle5Geo, this.obstacle5PM, 0);
+            this.obstacle5.receiveShadow = true;
+            this.obstacle5.castShadow = true;
+            this.obstacle5.position.set(0, 11, -29);
+            this.obstacle5.name = "obstacle";
+            this.add(this.obstacle5);
+            console.log("Added obstacle to scene");
+            
+            this.obstacle6Geo = new BoxGeometry(2.5, 5, 1);
+            this.obstacle6PM = Physijs.createMaterial(this.obstacleMat, 0, 0);
+            this.obstacle6 = new Physijs.BoxMesh(this.obstacle6Geo, this.obstacle6PM, 0);
+            this.obstacle6.receiveShadow = true;
+            this.obstacle6.castShadow = true;
+            this.obstacle6.position.set(2, 13.5, -30);
+            this.obstacle6.name = "obstacle";
+            this.add(this.obstacle6);
+            console.log("Added obstacle to scene");
+            
+            this.obstacle7Geo = new BoxGeometry(6, 1, 0.5);
+            this.obstacle7PM = Physijs.createMaterial(this.obstacleMat, 0, 0);
+            this.obstacle7 = new Physijs.BoxMesh(this.obstacle7Geo, this.obstacle7PM, 0);
+            this.obstacle7.receiveShadow = true;
+            this.obstacle7.castShadow = true;
+            this.obstacle7.position.set(4, 17, -31);
+            this.obstacle7.name = "obstacle";
+            this.add(this.obstacle7);
+            console.log("Added obstacle to scene");
+            
+            this.obstacle8Geo = new BoxGeometry(2.5, 10, 2.5);
+            this.obstacle8PM = Physijs.createMaterial(this.obstacleMat, 0, 0);
+            this.obstacle8 = new Physijs.BoxMesh(this.obstacle8Geo, this.obstacle8PM, 0);
+            this.obstacle8.receiveShadow = true;
+            this.obstacle8.castShadow = true;
+            this.obstacle8.position.set(0, 20, -35);
+            this.obstacle8.name = "obstacle";
+            this.add(this.obstacle8);
+            console.log("Added obstacle to scene");
+
+            this.goalGeo = new BoxGeometry(4, 4, 4);
+            this.goalPM = Physijs.createMaterial(this.goalMat, 0, 0);
+            this.goal = new Physijs.BoxMesh(this.goalGeo, this.goalPM, 0);
+            this.goal.receiveShadow = true;
+            this.goal.castShadow = true;
+            this.goal.position.set(0, 10, -50);
+            this.goal.name = "goal";
+            this.add(this.goal);
+            console.log("Added goal to scene");
         }
 
         /**
@@ -258,12 +411,8 @@ module scenes {
          * @return void
          */
         private addDeathPlane(): void {
-            this.deathPlaneGeometry = new BoxGeometry(50, 1, 50,3);
-         //   this.deathPlaneMaterial = Physijs.createMaterial(new MeshBasicMaterial({ color: 0xff0000 }), 0.4, 0.6);
-         this.deathplanetexture = new THREE.TextureLoader().load('../../Assets/images/void.jpg');
-
-         
-        //   this.groundTexture = new THREE.TextureLoader().load('../../Assets/images/floor.jpg');
+            this.deathPlaneGeometry = new BoxGeometry(200, 1, 200);
+            this.deathplanetexture = new THREE.TextureLoader().load('../../Assets/images/void.jpg');
             this.deathplanetexture.wrapS = THREE.RepeatWrapping;
             this.deathplanetexture.wrapT = THREE.RepeatWrapping;
             this.deathplanetexture.repeat.set(1, 1);
@@ -271,123 +420,32 @@ module scenes {
 
             this.groundMaterials = new PhongMaterial();
             this.groundMaterials.map = this.deathplanetexture;
-         //   this.groundMaterial.bumpMap = this.groundTextureNormal;
-        //    this.groundMaterial.bumpScale = 0.2;            
-            
-            
+
             this.deathPlane = new Physijs.BoxMesh(this.deathPlaneGeometry, this.groundMaterials, 0);
             this.deathPlane.position.set(0, -10, 0);
             this.deathPlane.name = "DeathPlane";
             this.add(this.deathPlane);
         }
-   //backgroud
-      private spacebg(): void {
-          
-           this.spacegeo = new SphereGeometry(100,100,100)
-     this.spacetex = THREE.ImageUtils.loadTexture('../../Assets/images/space.jpg');
+        //background
+        private spacebg(): void {
+
+            this.spacegeo = new SphereGeometry(100, 100, 100)
+            this.spacetex = THREE.ImageUtils.loadTexture('../../Assets/images/space.jpg');
 
             this.spacetex.wrapS = THREE.RepeatWrapping;
             this.spacetex.wrapT = THREE.RepeatWrapping;
             this.spacetex.repeat.set(1, 1);
-  
-   // this.space.material.side = THREE.DoubleSide;
-   
-   this.sapcePhong = new PhongMaterial();
-  this.sapcePhong.map = this.deathplanetexture;
-  this.space = new Physijs.SphereMesh(this.deathPlaneGeometry, this.groundMaterials, 0);
+
+            this.spacePhong = new PhongMaterial();
+            this.spacePhong.map = this.deathplanetexture;
+            this.space = new Physijs.SphereMesh(this.deathPlaneGeometry, this.groundMaterials, 0);
             this.space.position.set(0, -10, 0);
             this.space.name = "space";
             this.space.material.side = THREE.DoubleSide;
-            
+
             this.add(this.space);
-  
-          
-      }
-
-        private differentSizeWide(): void {
-            for (var i = 0; i < 5; i++) {
-                this.obstacleGeometry = new BoxGeometry(randomIntInc(5, 10), randomIntInc(5, 10), randomIntInc(5, 10));
-                this.obstacleMaterial = Physijs.createMaterial(new LambertMaterial({ color: 0xffffff }), 0.4, 0);
-                this.obstacle = new Physijs.BoxMesh(this.obstacleGeometry, this.obstacleMaterial, 0);
-                this.obstacle.name = "obstacle";
-                this.obstacle.receiveShadow = true;
-                this.obstacle.castShadow = true;
-                this.obstacle.position.set(randomIntInc(-0, 2), randomIntInc(-1, 30), randomIntInc(-0, 2));
-                this.add(this.obstacle);
-                console.log("Added obstacle to Scene  " + this.obstacle.position.y);
-
-                if (i == 4) {
-                    console.log("asdf " + i);
-
-                    this.goalGeometry = new BoxGeometry(randomIntInc(2, 5), randomIntInc(2, 5), randomIntInc(2, 5));
-                    this.goalMaterial = Physijs.createMaterial(new LambertMaterial({ color: 0xff000000 }), 0.4, 0);
-                    this.goal = new Physijs.BoxMesh(this.goalGeometry, this.goalMaterial, 0);
-                    this.goal.name = "goal";
-                    this.goal.receiveShadow = true;
-                    this.goal.castShadow = true;
-                    this.goal.position.set(0, 0, 0);
-                    this.add(this.goal);
-                    console.log("Added goal" + this.goal.name);
-                }
-            }
         }
 
-        private differentSizeLong(): void {
-            for (var i = 0; i < 5; i++) {
-                this.obstacleGeometry = new BoxGeometry(randomIntInc(-10, 10), randomIntInc(1, 5), randomIntInc(-10, 10));
-                this.obstacleMaterial = Physijs.createMaterial(new LambertMaterial({ color: 0x000000 }), 0.4, 0);
-                this.obstacle = new Physijs.BoxMesh(this.obstacleGeometry, this.obstacleMaterial, 0);
-                this.obstacle.name = "obstacle";
-                this.obstacle.receiveShadow = true;
-                this.obstacle.castShadow = true;
-                this.obstacle.position.set(randomIntInc(-10, 10), randomIntInc(-1, 10), randomIntInc(-10, 10));
-                this.add(this.obstacle);
-                //console.log("Added obstacle to Scene  "  +  obstacle.position.y);
-            }
-        }
-
-        /**
-         * This method adds a coin to the scene
-         * @method addCoinMesh
-         * @return void
-         */
-      /*  private addCoinMesh(): void {
-            var self = this;
-
-            this.coins = new Array<Physijs.ConvexMesh>(); // Instantiate a convex mesh array
-
-            var coinLoader = new THREE.JSONLoader().load("../../Assets/imported/coin.json", function(geometry: THREE.Geometry) {
-                var phongMaterial = new PhongMaterial({ color: 0xE7AB32 });
-                phongMaterial.emissive = new THREE.Color(0xE7AB32);
-
-                var coinMaterial = Physijs.createMaterial((phongMaterial), 0.4, 0.6);
-
-                for (var count: number = 0; count < self.coinCount; count++) {
-                    self.coins[count] = new Physijs.ConvexMesh(geometry, coinMaterial);
-                    self.coins[count].receiveShadow = true;
-                    self.coins[count].castShadow = true;
-                    self.coins[count].name = "Coin";
-                    self.setCoinPosition(self.coins[count]);
-                    console.log("Added Coin Mesh to Scene, at position: " + self.coins[count].position);
-                }
-            });
-
-
-        }*/
-
-        /*
-         * This method randomly sets the coin object's position
-         * 
-         * @method setCoinPosition
-         * @return void
-         */
-  /*      private setCoinPosition(coin: Physijs.ConvexMesh): void {
-            var randomPointX: number = Math.floor(Math.random() * 20) - 10;
-            var randomPointZ: number = Math.floor(Math.random() * 20) - 10;
-            coin.position.set(randomPointX, 10, randomPointZ);
-            this.add(coin);
-        }
-*/
         /*
          * Event Handler method for any pointerLockChange events
          * 
@@ -458,18 +516,14 @@ module scenes {
                             this.isGrounded = false;
                         }
                     }
-                    if (this.keyboardControls.shift) {
-                        if (this.isparkor) {
-                            this.velocity.y += 4000 * delta;
-                            //this.player.position.set(0,30,0);
-                            //this.player.position.set(0,30,0);
-                            console.log("shift");
-                            setTimeout(function() {
-                                this.isparkor = false; this.timerB = false;
-                                console.log("it :" + this.timerB + this.isparkor);
-                            }, 1000);
-                            createjs.Sound.play("jump");
-                        }
+                }
+                if (this.keyboardControls.shift) {
+                    if (this.isparkor) {
+                        this.velocity.y += 4000 * delta;
+                        setTimeout(function() {
+                            this.isparkor = false; this.timerB = false;
+                        }, 1000);
+                        createjs.Sound.play("jump");
                     }
                 }
                 this.player.setDamping(0.7, 0.1);
@@ -498,11 +552,9 @@ module scenes {
         }
 
         if(timerB = false) {
-            //setInterval(function(){  isparkor === false;console.log("is false", timerB.valueOf); }, 1);
             setInterval(function() {
                 this.timerB = true;
                 this.isparkor = false;
-                console.log("is false", this.timerB);
             }, 10000);
         }
 
@@ -557,9 +609,11 @@ module scenes {
                 this.simulate(undefined, 2);
             });
 
-          
             // Add Spot Light to the scene
             this.addSpotLight();
+            
+            // Add Ambient Light to the scene
+            this.addAmbientLight();
 
             // Ground Object
             this.addGround();
@@ -567,61 +621,51 @@ module scenes {
             // Add player controller
             this.addPlayer();
 
-            // Add custom coin imported from Blender
-         //   this.addCoinMesh();
+            this.addObs();
 
             // Add death plane to the scene
             this.addDeathPlane();
 
-            //this.differentSizeLong();
-            this.differentSizeWide();
-            
-          //  this.spacebg();
-
             // Collision Check
-              
-        this.player.addEventListener('collision', function(eventObject) {
+            this.player.addEventListener('collision', function(eventObject) {
 
                 if (eventObject.name === "Ground") {
                     self.isGrounded = true;
                     createjs.Sound.play("land");
                 }
-              /*  if (eventObject.name === "Coin") {
-                    createjs.Sound.play("coin");
-                    self.remove(eventObject);
-                    self.setCoinPosition(eventObject);
-                    self.scoreValue += 100;
-                    // self.scoreLabel.text = "SCORE: " + self.scoreValue;
-                }
-*/
                 if (eventObject.name === "DeathPlane") {
                     createjs.Sound.play("death");
                     self.livesValue--;
                     self.livesLabel.text = "LIVES: " + self.livesValue;
                     self.remove(self.player);
-                    self.player.position.set(0, 30, 10);
+                    self.player.position.set(5, 15, -5);
                     self.add(self.player);
+                    
+                    if (self.livesValue <= 0) {
+                        this._firstMusic.stop();
+                        document.exitPointerLock();
+                        this.children = [];
+                        this.player.remove(camera);
+                        //currentScene = config.Scene.END;
+                        //changeScene();
+                    }
                 }
                 if (eventObject.name === "goal") {
+                    this._firstMusic.stop();
+                    document.exitPointerLock();
+                    this.children = [];
+                    this.player.remove(camera);
+                    //currentScene = config.Scene.END;
+                    //changeScene();
 
-                    createjs.Sound.play("over");
-                    self.livesValue = 0;
-                    self.livesLabel.text = "LIVES: " + self.livesValue;
 
-                    if (self.livesValue <= 0) {
-                        createjs.Sound.play("over");
-                        scene.remove(self.player);
-                    }
                 }
                 if (eventObject.name === "obstacle") {
                     self.isparkor = true;
-                    console.log("is parkour " + self.isparkor);
                 }
             }.bind(self));
 
-                console.log(name);
-                
-         
+            console.log(name);
 
             // create parent-child relationship with camera and player
             this.player.add(camera);
@@ -651,15 +695,7 @@ module scenes {
          */
         public update(): void {
 
-            //setInterval(function() {
-            //this.scoreLabel.text = "wind x:"+ windx + "   wind y:"+ windy +  "  wind z: "+ windz;
-            //}, 1000);
-
             this.scoreLabel.text = "wind x:" + windx + "   wind y:" + windy + "  wind z: " + windz;
-           /* this.coins.forEach(coin => {
-                coin.setAngularFactor(new Vector3(0, 0, 0));
-                coin.setAngularVelocity(new Vector3(0, 1, 0));
-            });*/
 
             this.checkControls();
             this.stage.update();

@@ -11,7 +11,7 @@ module objects {
         public enabled: boolean;
         // CONSTRUCTOR ++++++++++++++++++++++++++    
         constructor() {
-            this.enabled = false;
+            //this.enabled = false;
             document.addEventListener('keydown', this.onKeyDown.bind(this), false);
             document.addEventListener('keyup', this.onKeyUp.bind(this), false);
         }
