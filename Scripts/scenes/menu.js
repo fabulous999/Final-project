@@ -72,7 +72,7 @@ var scenes;
             this._gameLabel.regX = this._gameLabel.getMeasuredWidth() * 0.5;
             this._gameLabel.regY = this._gameLabel.getMeasuredLineHeight() * 0.5;
             this._gameLabel.x = config.Screen.WIDTH * 0.5;
-            this._gameLabel.y = config.Screen.HEIGHT * 0.5;
+            this._gameLabel.y = config.Screen.HEIGHT * 0.5 - 175;
             this._stage.addChild(this._gameLabel);
             this._startButton = new createjs.Bitmap(assets.getResult("StartButton"));
             this._startButton.regX = this._startButton.getBounds().width * 0.5;
@@ -88,6 +88,74 @@ var scenes;
             });
             this._startButton.on("click", function (event) {
                 currentScene = config.Scene.PLAY;
+                changeScene();
+                _this._bgmusic.stop();
+            });
+            this._instructionButton = new createjs.Bitmap(assets.getResult("InstructionsButton"));
+            this._instructionButton.regX = this._instructionButton.getBounds().width * 0.5;
+            this._instructionButton.regY = this._instructionButton.getBounds().height * 0.5;
+            this._instructionButton.x = config.Screen.WIDTH * 0.5 - 150;
+            this._instructionButton.y = (config.Screen.HEIGHT * 0.5) + 175;
+            this._stage.addChild(this._instructionButton);
+            this._instructionButton.on("mouseover", function (event) {
+                event.target.alpha = 0.7;
+            });
+            this._instructionButton.on("mouseout", function (event) {
+                event.target.alpha = 1.0;
+            });
+            this._instructionButton.on("click", function (event) {
+                //currentScene = config.Scene.INSTRUCTIONS;
+                //changeScene();
+                //this._bgmusic.stop();
+            });
+            this._exitButton = new createjs.Bitmap(assets.getResult("ExitButton"));
+            this._exitButton.regX = this._exitButton.getBounds().width * 0.5;
+            this._exitButton.regY = this._exitButton.getBounds().height * 0.5;
+            this._exitButton.x = config.Screen.WIDTH * 0.5 + 150;
+            this._exitButton.y = (config.Screen.HEIGHT * 0.5) + 175;
+            this._stage.addChild(this._exitButton);
+            this._exitButton.on("mouseover", function (event) {
+                event.target.alpha = 0.7;
+            });
+            this._exitButton.on("mouseout", function (event) {
+                event.target.alpha = 1.0;
+            });
+            this._exitButton.on("click", function (event) {
+                //currentScene = config.Scene.END;
+                //changeScene();
+                //this._bgmusic.stop();
+            });
+            this._level2Button = new createjs.Bitmap(assets.getResult("Level2Button"));
+            this._level2Button.regX = this._level2Button.getBounds().width * 0.5;
+            this._level2Button.regY = this._level2Button.getBounds().height * 0.5;
+            this._level2Button.x = config.Screen.WIDTH * 0.5 - 150;
+            this._level2Button.y = (config.Screen.HEIGHT * 0.5) + 25;
+            this._stage.addChild(this._level2Button);
+            this._level2Button.on("mouseover", function (event) {
+                event.target.alpha = 0.7;
+            });
+            this._level2Button.on("mouseout", function (event) {
+                event.target.alpha = 1.0;
+            });
+            this._level2Button.on("click", function (event) {
+                currentScene = config.Scene.level2;
+                changeScene();
+                _this._bgmusic.stop();
+            });
+            this._level3Button = new createjs.Bitmap(assets.getResult("Level3Button"));
+            this._level3Button.regX = this._level3Button.getBounds().width * 0.5;
+            this._level3Button.regY = this._level3Button.getBounds().height * 0.5;
+            this._level3Button.x = config.Screen.WIDTH * 0.5 + 150;
+            this._level3Button.y = (config.Screen.HEIGHT * 0.5) + 25;
+            this._stage.addChild(this._level3Button);
+            this._level3Button.on("mouseover", function (event) {
+                event.target.alpha = 0.7;
+            });
+            this._level3Button.on("mouseout", function (event) {
+                event.target.alpha = 1.0;
+            });
+            this._level3Button.on("click", function (event) {
+                currentScene = config.Scene.level3;
                 changeScene();
                 _this._bgmusic.stop();
             });

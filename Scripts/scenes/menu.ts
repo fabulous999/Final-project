@@ -17,7 +17,11 @@ module scenes {
         private _blocker: HTMLElement;
         private _stage: createjs.Stage;
         private _gameLabel: createjs.Text;
-        private _startButton: createjs.Bitmap;       
+        private _startButton: createjs.Bitmap;
+        private _instructionButton: createjs.Bitmap;
+        private _exitButton: createjs.Bitmap;
+        private _level2Button: createjs.Bitmap;
+        private _level3Button: createjs.Bitmap;   
         private _background: createjs.Bitmap;
         private _bgmusic: createjs.AbstractSoundInstance;
 
@@ -83,7 +87,7 @@ module scenes {
             this._gameLabel.regX = this._gameLabel.getMeasuredWidth() * 0.5;
             this._gameLabel.regY = this._gameLabel.getMeasuredLineHeight() * 0.5;
             this._gameLabel.x = config.Screen.WIDTH * 0.5;
-            this._gameLabel.y = config.Screen.HEIGHT * 0.5;
+            this._gameLabel.y = config.Screen.HEIGHT * 0.5 - 175;
             this._stage.addChild(this._gameLabel);
 
             this._startButton = new createjs.Bitmap(assets.getResult("StartButton"));
@@ -103,6 +107,90 @@ module scenes {
 
             this._startButton.on("click", (event: createjs.MouseEvent) => {
                 currentScene = config.Scene.PLAY;
+                changeScene();
+                this._bgmusic.stop();
+            });
+            
+            this._instructionButton = new createjs.Bitmap(assets.getResult("InstructionsButton"));
+            this._instructionButton.regX = this._instructionButton.getBounds().width * 0.5;
+            this._instructionButton.regY = this._instructionButton.getBounds().height * 0.5;
+            this._instructionButton.x = config.Screen.WIDTH * 0.5 - 150;
+            this._instructionButton.y = (config.Screen.HEIGHT * 0.5) + 175;
+            this._stage.addChild(this._instructionButton);
+            
+            this._instructionButton.on("mouseover", (event:createjs.MouseEvent) => {
+                event.target.alpha = 0.7;
+            });
+            
+            this._instructionButton.on("mouseout", (event:createjs.MouseEvent) => {
+                event.target.alpha = 1.0;
+            });
+            
+            this._instructionButton.on("click", (event: createjs.MouseEvent) => {
+                //currentScene = config.Scene.INSTRUCTIONS;
+                //changeScene();
+                //this._bgmusic.stop();
+            });
+            
+            this._exitButton = new createjs.Bitmap(assets.getResult("ExitButton"));
+            this._exitButton.regX = this._exitButton.getBounds().width * 0.5;
+            this._exitButton.regY = this._exitButton.getBounds().height * 0.5;
+            this._exitButton.x = config.Screen.WIDTH * 0.5 + 150;
+            this._exitButton.y = (config.Screen.HEIGHT * 0.5) + 175;
+            this._stage.addChild(this._exitButton);
+            
+            this._exitButton.on("mouseover", (event:createjs.MouseEvent) => {
+                event.target.alpha = 0.7;
+            });
+            
+            this._exitButton.on("mouseout", (event:createjs.MouseEvent) => {
+                event.target.alpha = 1.0;
+            });
+            
+            this._exitButton.on("click", (event: createjs.MouseEvent) => {
+                //currentScene = config.Scene.END;
+                //changeScene();
+                //this._bgmusic.stop();
+            });
+            
+            this._level2Button = new createjs.Bitmap(assets.getResult("Level2Button"));
+            this._level2Button.regX = this._level2Button.getBounds().width * 0.5;
+            this._level2Button.regY = this._level2Button.getBounds().height * 0.5;
+            this._level2Button.x = config.Screen.WIDTH * 0.5 - 150;
+            this._level2Button.y = (config.Screen.HEIGHT * 0.5) + 25;
+            this._stage.addChild(this._level2Button);
+            
+            this._level2Button.on("mouseover", (event:createjs.MouseEvent) => {
+                event.target.alpha = 0.7;
+            });
+            
+            this._level2Button.on("mouseout", (event:createjs.MouseEvent) => {
+                event.target.alpha = 1.0;
+            });
+            
+            this._level2Button.on("click", (event: createjs.MouseEvent) => {
+                currentScene = config.Scene.level2;
+                changeScene();
+                this._bgmusic.stop();
+            });
+            
+            this._level3Button = new createjs.Bitmap(assets.getResult("Level3Button"));
+            this._level3Button.regX = this._level3Button.getBounds().width * 0.5;
+            this._level3Button.regY = this._level3Button.getBounds().height * 0.5;
+            this._level3Button.x = config.Screen.WIDTH * 0.5 + 150;
+            this._level3Button.y = (config.Screen.HEIGHT * 0.5) + 25;
+            this._stage.addChild(this._level3Button);
+            
+            this._level3Button.on("mouseover", (event: createjs.MouseEvent) => {
+                event.target.alpha = 0.7;
+            });
+            
+            this._level3Button.on("mouseout", (event: createjs.MouseEvent) => {
+                event.target.alpha = 1.0;
+            });
+            
+            this._level3Button.on("click", (event: createjs.MouseEvent) => {
+                currentScene = config.Scene.level3;
                 changeScene();
                 this._bgmusic.stop();
             });

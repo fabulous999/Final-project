@@ -53,6 +53,10 @@ var manifest = [
     { id: "coin", src: "../../Assets/audio/coin.mp3" },
     { id: "jump", src: "../../Assets/audio/jump.wav" },
     { id: "StartButton", src: "../../Assets/images/StartButton.png" },
+    { id: "InstructionsButton", src: "../../Assets/images/InstructionsButton.png" },
+    { id: "ExitButton", src: "../../Assets/images/ExitButton.png" },
+    { id: "Level2Button", src: "../../Assets/images/Level2Button.png" },
+    { id: "Level3Button", src: "../../Assets/images/Level3Button.png" },
     { id: "Background", src: "../../Assets/images/background.png" },
     { id: "bgmusic", src: "../../Assets/audio/bgmusic.wav" },
     { id: "first", src: "../../Assets/audio/level1.wav" }
