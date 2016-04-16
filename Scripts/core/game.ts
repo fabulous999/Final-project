@@ -50,9 +50,9 @@ var level3: scenes.level3;
 var stats: Stats;
 var canvas: HTMLElement;
 var assets: createjs.LoadQueue;
-var windx : number = 0;
-var windy : number = -10;
-var windz : number =0;
+var windx: number = 0;
+var windy: number = -10;
+var windz: number = 0;
 
 
 
@@ -61,10 +61,10 @@ var manifest = [
     { id: "death", src: "../../Assets/audio/death.wav" },
     { id: "coin", src: "../../Assets/audio/coin.mp3" },
     { id: "jump", src: "../../Assets/audio/jump.wav" },
-    { id: "StartButton", src: "../../Assets/images/StartButton.png"},
-    { id: "Background", src: "../../Assets/images/background.png"},
-    { id: "bgmusic", src:"../../Assets/audio/bgmusic.wav"},
-    { id: "first", src:"../../Assets/audio/level1.wav"} 
+    { id: "StartButton", src: "../../Assets/images/StartButton.png" },
+    { id: "Background", src: "../../Assets/images/background.png" },
+    { id: "bgmusic", src: "../../Assets/audio/bgmusic.wav" },
+    { id: "first", src: "../../Assets/audio/level1.wav" }
 ];
 
 function preload(): void {
@@ -125,21 +125,21 @@ function addStatsObject() {
 }
 
 
-  function randomIntInc(low, high) {
-            return Math.floor(Math.random() * (high - low + 1) + low);
-        }
- setInterval(function() {windx = randomIntInc(-2,2) }, 10000); 
- setInterval(function() {windy = randomIntInc(-15,-5) }, 10000); 
- setInterval(function() {windz = randomIntInc(-2,2) }, 10000); 
- 
+function randomIntInc(low, high) {
+    return Math.floor(Math.random() * (high - low + 1) + low);
+}
+setInterval(function () { windx = randomIntInc(-2, 2) }, 10000);
+setInterval(function () { windy = randomIntInc(-15, -5) }, 10000);
+setInterval(function () { windz = randomIntInc(-2, 2) }, 10000);
+
 // Setup main game loop
 function gameLoop(): void {
     stats.update();
 
     scene.update();
-//    this.scoreLabel.text = "wind x:"+ windx + "   wind y:"+ windy +  "  wind z: "+ windz; //windx
-    scene.setGravity(new THREE.Vector3(windx,windy,windz));
-   
+    //    this.scoreLabel.text = "wind x:"+ windx + "   wind y:"+ windy +  "  wind z: "+ windz; //windx
+    scene.setGravity(new THREE.Vector3(windx, windy, windz));
+
     // render using requestAnimationFrame
     requestAnimationFrame(gameLoop);
 
@@ -160,7 +160,7 @@ function setupRenderer(): void {
 
 // Setup main camera for the scene
 function setupCamera(): void {
-    camera = new PerspectiveCamera(35, config.Screen.RATIO, 0.1, 100);
+    camera = new PerspectiveCamera(35, config.Screen.RATIO, 0.1, 1000);
     //camera.position.set(0, 10, 30);
     //camera.lookAt(new Vector3(0, 0, 0));
     console.log("Finished setting up Camera...");
@@ -173,7 +173,7 @@ function changeScene(): void {
             // show the MENU scene
             menu = new scenes.Menu();
             scene = menu;
-            console.log("Starting MENU Scene"); 
+            console.log("Starting MENU Scene");
             break;
         case config.Scene.PLAY:
             // show the PLAY scene
@@ -187,21 +187,21 @@ function changeScene(): void {
             scene = level2;
             console.log("Starting Level 2 Scene");
             break;
-         case config.Scene.level3:
+        case config.Scene.level3:
             // show level 2 scene
             level3 = new scenes.level3();
             scene = level3;
             console.log("Starting Level 3 Scene");
             break;
-            
-            
-     /*   case config.Scene.OVER:
-            // show the game OVER scene
-            /*
-            over = new scenes.Over();
-            scene = over;
-            console.log("Starting OVER Scene");
-            */
+
+
+        /*   case config.Scene.OVER:
+               // show the game OVER scene
+               /*
+               over = new scenes.Over();
+               scene = over;
+               console.log("Starting OVER Scene");
+               */
         //    break;
     }
 }

@@ -17,6 +17,7 @@ module scenes {
         private blocker: HTMLElement;
         private instructions: HTMLElement;
         private spotLight: SpotLight;
+        private ambientLight: AmbientLight;
         private groundGeometry: CubeGeometry;
         private groundPhysicsMaterial: Physijs.Material;
         private groundMaterial: PhongMaterial;
@@ -29,15 +30,12 @@ module scenes {
         private keyboardControls: objects.KeyboardControls;
         private mouseControls: objects.MouseControls;
         private isGrounded: boolean;
-   //     private coinGeometry: Geometry;
-   //     private coinMaterial: Physijs.Material;
-   //     private coins: Physijs.ConcaveMesh[];
-   //     private coinCount: number;
+
         private deathPlaneGeometry: CubeGeometry;
         private deathPlaneMaterial: Physijs.Material;
         private deathPlane: Physijs.Mesh;
-         private deathplanetexture: Texture;
-          private groundMaterials: PhongMaterial;
+        private deathplanetexture: Texture;
+        private groundMaterials: PhongMaterial;
 
         private velocity: Vector3;
         private prevTime: number;
@@ -59,28 +57,24 @@ module scenes {
         private windy: number = -10;
         private windz: number = 0;
 
-
-
         private obstacle: Physijs.Mesh;
         private obstacleGeometry: CubeGeometry;
         private obstacleMaterial: Physijs.Material;
- private obsticaltex : Texture;
- private obsticalpong : PhongMaterial;
+        private obsticaltex: Texture;
+        private obsticalpong: PhongMaterial;
         private _firstMusic: createjs.AbstractSoundInstance;
 
         private isparkor: boolean = false;
         private timerB: boolean;
-        
-        
-        private spacegeo : SphereGeometry;
+
+        private spacegeo: SphereGeometry;
         private spaceMat: Physijs.Material;
         private space: Physijs.Mesh;
-        private spacetex : Texture;
-     private sapcePhong: PhongMaterial;
-     
-     
-           private player_height : number = null;
-            private parkour_height : number = null;
+        private spacetex: Texture;
+        private sapcePhong: PhongMaterial;
+
+        private player_height: number = null;
+        private parkour_height: number = null;
 
         /**
          * @constructor
@@ -126,8 +120,6 @@ module scenes {
             // setup canvas for menu scene
             this._setupCanvas();
 
-
-          //  this.coinCount = 10;
             this.prevTime = 0;
             this.stage = new createjs.Stage(canvas);
             this.velocity = new Vector3(0, 0, 0);
@@ -164,7 +156,7 @@ module scenes {
             // Add Score Label
             this.scoreLabel = new createjs.Text(
                 "SCORE: " + this.scoreValue,
-                "40px Consolas",
+                "25px Consolas",
                 "#ffffff"
             );
             this.scoreLabel.x = config.Screen.WIDTH * 0.4;
@@ -204,6 +196,12 @@ module scenes {
             this.add(this.spotLight);
             console.log("Added spotLight to scene");
         }
+        
+        private addAmbientLight(): void {
+            // Ambient Light
+            this.ambientLight = new AmbientLight(0x808080);
+            this.add(this.ambientLight);
+        }
 
         /**
          * Add a ground plane to the scene
@@ -221,7 +219,7 @@ module scenes {
             this.groundTextureNormal = new THREE.TextureLoader().load('../../Assets/images/earth.jpg');
             this.groundTextureNormal.wrapS = THREE.RepeatWrapping;
             this.groundTextureNormal.wrapT = THREE.RepeatWrapping;
-            this.groundTextureNormal.repeat.set(1,1);
+            this.groundTextureNormal.repeat.set(1, 1);
 
             this.groundMaterial = new PhongMaterial();
             this.groundMaterial.map = this.groundTexture;
@@ -263,147 +261,79 @@ module scenes {
          * @return void
          */
         private addDeathPlane(): void {
-            this.deathPlaneGeometry = new BoxGeometry(50, 1, 50,3);
-         //   this.deathPlaneMaterial = Physijs.createMaterial(new MeshBasicMaterial({ color: 0xff0000 }), 0.4, 0.6);
-         this.deathplanetexture = new THREE.TextureLoader().load('../../Assets/images/void.jpg');
+            this.deathPlaneGeometry = new BoxGeometry(50, 1, 50, 3);
+            this.deathplanetexture = new THREE.TextureLoader().load('../../Assets/images/void.jpg');
 
-         
-        //   this.groundTexture = new THREE.TextureLoader().load('../../Assets/images/floor.jpg');
             this.deathplanetexture.wrapS = THREE.RepeatWrapping;
             this.deathplanetexture.wrapT = THREE.RepeatWrapping;
             this.deathplanetexture.repeat.set(1, 1);
 
-
             this.groundMaterials = new PhongMaterial();
-            this.groundMaterials.map = this.deathplanetexture;
-         //   this.groundMaterial.bumpMap = this.groundTextureNormal;
-        //    this.groundMaterial.bumpScale = 0.2;            
-            
-            
+            this.groundMaterials.map = this.deathplanetexture;          
+
             this.deathPlane = new Physijs.BoxMesh(this.deathPlaneGeometry, this.groundMaterials, 0);
             this.deathPlane.position.set(0, -10, 0);
             this.deathPlane.name = "DeathPlane";
             this.add(this.deathPlane);
         }
-   //backgroud
-      private spacebg(): void {
-          
-           this.spacegeo = new SphereGeometry(200,200,200)
-     this.spacetex = THREE.ImageUtils.loadTexture('../../Assets/images/space.jpg');
+        //background
+        private spacebg(): void {
+
+            this.spacegeo = new SphereGeometry(200, 200, 200)
+            this.spacetex = THREE.ImageUtils.loadTexture('../../Assets/images/space.jpg');
 
             this.spacetex.wrapS = THREE.RepeatWrapping;
             this.spacetex.wrapT = THREE.RepeatWrapping;
             this.spacetex.repeat.set(8, 8);
-  
-   // this.space.material.side = THREE.DoubleSide;
-   
-   this.sapcePhong = new PhongMaterial();
-  this.sapcePhong.map = this.spacetex;
-  this.space = new Physijs.SphereMesh(this.deathPlaneGeometry, this.sapcePhong, 0);
+
+            this.sapcePhong = new PhongMaterial();
+            this.sapcePhong.map = this.spacetex;
+            this.space = new Physijs.SphereMesh(this.deathPlaneGeometry, this.sapcePhong, 0);
             this.space.position.set(0, -10, 0);
             this.space.name = "space";
             this.space.material.side = THREE.DoubleSide;
-            
+
             this.add(this.space);
-  
-          
-      }
-
-      private differentSizeWide(): void {
-          for (var i = 0; i < 20; i++) {
-              this.obstacleGeometry = new BoxGeometry(randomIntInc(4, 5), randomIntInc(5, 5), randomIntInc(5, 5));
-               this.obsticaltex = THREE.ImageUtils.loadTexture('../../Assets/images/moon.png');
-                  this.obsticaltex.wrapS = THREE.RepeatWrapping;
-            this.obsticaltex.wrapT = THREE.RepeatWrapping;
-            this.obsticaltex.repeat.set(1, 1);
-            
-                  this.obsticalpong = new PhongMaterial();
-            this.obsticalpong.map = this.obsticaltex;
-             // this.obstacleMaterial = Physijs.createMaterial(new LambertMaterial({ color: 0xffffff }), 0.4, 0);
-              this.obstacle = new Physijs.BoxMesh(this.obstacleGeometry, this.obsticalpong, 0);
-              this.obstacle.name = "obstacle";
-              this.obstacle.receiveShadow = true;
-              this.obstacle.castShadow = true;
-                
-              //really proud how i did the stair cube down there is basicly a math formula that kinda orginise them randomly
-              this.obstacle.position.set(randomIntInc(-1 + (i * 6), 1 + (i * 5)), randomIntInc(2 + (i * 8), 3 + (i * 8)), randomIntInc(-0, 2));
-              this.add(this.obstacle);
-              console.log("Added obstacle to Scene  " + this.obstacle.position.y);
-
-              if (i == 4) {
-                  console.log("asdf " + i);
-
-                  this.goalGeometry = new BoxGeometry(randomIntInc(2, 5), randomIntInc(2, 5), randomIntInc(2, 5));
-                  this.goalMaterial = Physijs.createMaterial(new LambertMaterial({ color: 0xff000000 }), 0.4, 0);
-                  this.goal = new Physijs.BoxMesh(this.goalGeometry, this.goalMaterial, 0);
-                  this.goal.name = "goal";
-                  this.goal.receiveShadow = true;
-                  this.goal.castShadow = true;
-                  this.goal.position.set(10, 0, 0);
-                  this.add(this.goal);
-                  console.log("Added goal" + this.goal.name);
-              }
-          }
-      }
 
 
+        }
 
-        private differentSizeLong(): void {
-            for (var i = 0; i < 5; i++) {
-                this.obstacleGeometry = new BoxGeometry(randomIntInc(-10, 10), randomIntInc(1, 5), randomIntInc(-10, 10));
-                this.obstacleMaterial = Physijs.createMaterial(new LambertMaterial({ color: 0x000000 }), 0.4, 0);
-                this.obstacle = new Physijs.BoxMesh(this.obstacleGeometry, this.obstacleMaterial, 0);
+        private differentSizeWide(): void {
+            for (var i = 0; i < 20; i++) {
+                this.obstacleGeometry = new BoxGeometry(randomIntInc(4, 5), randomIntInc(5, 5), randomIntInc(5, 5));
+                this.obsticaltex = THREE.ImageUtils.loadTexture('../../Assets/images/moon.png');
+                this.obsticaltex.wrapS = THREE.RepeatWrapping;
+                this.obsticaltex.wrapT = THREE.RepeatWrapping;
+                this.obsticaltex.repeat.set(1, 1);
+
+                this.obsticalpong = new PhongMaterial();
+                this.obsticalpong.map = this.obsticaltex;
+                // this.obstacleMaterial = Physijs.createMaterial(new LambertMaterial({ color: 0xffffff }), 0.4, 0);
+                this.obstacle = new Physijs.BoxMesh(this.obstacleGeometry, this.obsticalpong, 0);
                 this.obstacle.name = "obstacle";
                 this.obstacle.receiveShadow = true;
                 this.obstacle.castShadow = true;
-                this.obstacle.position.set(randomIntInc(-5+( i *2) , 5 + ( i *2)), randomIntInc(-1, 10), randomIntInc(-5+( i *2), 5+( i *2)));
+
+                //really proud how i did the stair cube down there is basicly a math formula that kinda orginise them randomly
+                this.obstacle.position.set(randomIntInc(-1 + (i * 6), 1 + (i * 5)), randomIntInc(2 + (i * 8), 3 + (i * 8)), randomIntInc(-0, 2));
                 this.add(this.obstacle);
-                //console.log("Added obstacle to Scene  "  +  obstacle.position.y);
+                console.log("Added obstacle to Scene  " + this.obstacle.position.y);
+
+                if (i == 4) {
+                    console.log("asdf " + i);
+
+                    this.goalGeometry = new BoxGeometry(randomIntInc(2, 5), randomIntInc(2, 5), randomIntInc(2, 5));
+                    this.goalMaterial = Physijs.createMaterial(new LambertMaterial({ color: 0xff000000 }), 0.4, 0);
+                    this.goal = new Physijs.BoxMesh(this.goalGeometry, this.goalMaterial, 0);
+                    this.goal.name = "goal";
+                    this.goal.receiveShadow = true;
+                    this.goal.castShadow = true;
+                    this.goal.position.set(10, 0, 0);
+                    this.add(this.goal);
+                    console.log("Added goal" + this.goal.name);
+                }
             }
         }
-
-        /**
-         * This method adds a coin to the scene
-         * @method addCoinMesh
-         * @return void
-         */
-      /*  private addCoinMesh(): void {
-            var self = this;
-
-            this.coins = new Array<Physijs.ConvexMesh>(); // Instantiate a convex mesh array
-
-            var coinLoader = new THREE.JSONLoader().load("../../Assets/imported/coin.json", function(geometry: THREE.Geometry) {
-                var phongMaterial = new PhongMaterial({ color: 0xE7AB32 });
-                phongMaterial.emissive = new THREE.Color(0xE7AB32);
-
-                var coinMaterial = Physijs.createMaterial((phongMaterial), 0.4, 0.6);
-
-                for (var count: number = 0; count < self.coinCount; count++) {
-                    self.coins[count] = new Physijs.ConvexMesh(geometry, coinMaterial);
-                    self.coins[count].receiveShadow = true;
-                    self.coins[count].castShadow = true;
-                    self.coins[count].name = "Coin";
-                    self.setCoinPosition(self.coins[count]);
-                    console.log("Added Coin Mesh to Scene, at position: " + self.coins[count].position);
-                }
-            });
-
-
-        }*/
-
-        /*
-         * This method randomly sets the coin object's position
-         * 
-         * @method setCoinPosition
-         * @return void
-         */
-  /*      private setCoinPosition(coin: Physijs.ConvexMesh): void {
-            var randomPointX: number = Math.floor(Math.random() * 20) - 10;
-            var randomPointZ: number = Math.floor(Math.random() * 20) - 10;
-            coin.position.set(randomPointX, 10, randomPointZ);
-            this.add(coin);
-        }
-*/
         /*
          * Event Handler method for any pointerLockChange events
          * 
@@ -473,7 +403,7 @@ module scenes {
 
                         this.velocity.y += 4000.0 * delta;
                         //   this.isGrounded = false;
-                         
+
                         if (this.player.position.y > (this.player_height + 0.5)) {
                             this.isGrounded = false;
                             console.log("it false " + this.player_height);
@@ -487,7 +417,7 @@ module scenes {
                                 if (this.player.position.y > (this.parkour_height + 0.2)) {
                                     this.isparkor = false;
                                     console.log("it false " + this.player_height);
-                                }                            
+                                }
                             }
                         }
                     }
@@ -518,15 +448,6 @@ module scenes {
                 this.player.setAngularFactor(new Vector3(0, 0, 0));
             }
         }
-
-      /*  if(timerB = false) {
-            //setInterval(function(){  isparkor === false;console.log("is false", timerB.valueOf); }, 1);
-            setInterval(function() {
-                this.timerB = true;
-                this.isparkor = false;
-                console.log("is false", this.timerB);
-            }, 10000);
-        }*/
 
         // PUBLIC METHODS +++++++++++++++++++++++++++++++++++++++++++
         /**
@@ -579,9 +500,12 @@ module scenes {
                 this.simulate(undefined, 2);
             });
 
-          
+
             // Add Spot Light to the scene
             this.addSpotLight();
+            
+            // Add Ambient Light to the scene
+            this.addAmbientLight();
 
             // Ground Object
             this.addGround();
@@ -589,38 +513,25 @@ module scenes {
             // Add player controller
             this.addPlayer();
 
-            // Add custom coin imported from Blender
-         //   this.addCoinMesh();
-
             // Add death plane to the scene
             this.addDeathPlane();
 
-            //this.differentSizeLong();
             this.differentSizeWide();
-            
-          //  this.spacebg();
+
+            //  this.spacebg();
 
             // Collision Check
-              
-        this.player.addEventListener('collision', function(eventObject) {
 
-                
- if (eventObject.name === "Ground") {
+            this.player.addEventListener('collision', function (eventObject) {
+
+
+                if (eventObject.name === "Ground") {
                     self.isGrounded = true;
                     self.player_height = this.player.position.y;
                     createjs.Sound.play("land");
-                     console.log("player_height is " + this.player_height);
+                    console.log("player_height is " + this.player_height);
                 }
 
-
-              /*  if (eventObject.name === "Coin") {
-                    createjs.Sound.play("coin");
-                    self.remove(eventObject);
-                    self.setCoinPosition(eventObject);
-                    self.scoreValue += 100;
-                    // self.scoreLabel.text = "SCORE: " + self.scoreValue;
-                }
-*/
                 if (eventObject.name === "DeathPlane") {
                     createjs.Sound.play("death");
                     self.livesValue--;
@@ -630,23 +541,23 @@ module scenes {
                     self.add(self.player);
                 }
                 if (eventObject.name === "goal") {
-                currentScene = config.Scene.level3;
-                changeScene();
-                this._bgmusic.stop();
-      
+                    currentScene = config.Scene.level3;
+                    changeScene();
+                    this._bgmusic.stop();
+
                 }
-               if (eventObject.name === "obstacle") {
+                if (eventObject.name === "obstacle") {
                     self.isparkor = true;
                     self.isGrounded = true;
                     self.player_height = this.player.position.y;
-                     self.parkour_height = self.player.position.y; //self.obstacle.position.y;
+                    self.parkour_height = self.player.position.y; //self.obstacle.position.y;
                     console.log("is parkour " + this.parkour_height);
                 }
             }.bind(self));
 
-                console.log(name);
-                
-         
+            console.log(name);
+
+
 
             // create parent-child relationship with camera and player
             this.player.add(camera);
@@ -676,15 +587,7 @@ module scenes {
          */
         public update(): void {
 
-            //setInterval(function() {
-            //this.scoreLabel.text = "wind x:"+ windx + "   wind y:"+ windy +  "  wind z: "+ windz;
-            //}, 1000);
-
             this.scoreLabel.text = "wind x:" + windx + "   wind y:" + windy + "  wind z: " + windz;
-           /* this.coins.forEach(coin => {
-                coin.setAngularFactor(new Vector3(0, 0, 0));
-                coin.setAngularVelocity(new Vector3(0, 1, 0));
-            });*/
 
             this.checkControls();
             this.stage.update();

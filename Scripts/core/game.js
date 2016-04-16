@@ -130,7 +130,7 @@ function setupRenderer() {
 }
 // Setup main camera for the scene
 function setupCamera() {
-    camera = new PerspectiveCamera(35, config.Screen.RATIO, 0.1, 100);
+    camera = new PerspectiveCamera(35, config.Screen.RATIO, 0.1, 1000);
     //camera.position.set(0, 10, 30);
     //camera.lookAt(new Vector3(0, 0, 0));
     console.log("Finished setting up Camera...");
@@ -165,4 +165,5 @@ function changeScene() {
     }
 }
 window.onload = preload;
+
 //# sourceMappingURL=game.js.map
