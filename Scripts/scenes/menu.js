@@ -114,4 +114,5 @@ var scenes;
     }(scenes.Scene));
     scenes.Menu = Menu;
 })(scenes || (scenes = {}));
+
 //# sourceMappingURL=menu.js.map

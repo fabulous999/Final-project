@@ -59,7 +59,6 @@ var scenes;
             this.blocker.style.display = "block";
             // setup canvas for menu scene
             this._setupCanvas();
-            //  this.coinCount = 10;
             this.prevTime = 0;
             this.stage = new createjs.Stage(canvas);
             this.velocity = new Vector3(0, 0, 0);
@@ -86,7 +85,7 @@ var scenes;
             this.stage.addChild(this.livesLabel);
             console.log("Added Lives Label to stage");
             // Add Score Label
-            this.scoreLabel = new createjs.Text("SCORE: " + this.scoreValue, "40px Consolas", "#ffffff");
+            this.scoreLabel = new createjs.Text("SCORE: " + this.scoreValue, "25px Consolas", "#ffffff");
             this.scoreLabel.x = config.Screen.WIDTH * 0.4;
             this.scoreLabel.y = (config.Screen.HEIGHT * 0.15) * 0.20;
             this.stage.addChild(this.scoreLabel);
@@ -120,6 +119,11 @@ var scenes;
             this.spotLight.name = "Spot Light";
             this.add(this.spotLight);
             console.log("Added spotLight to scene");
+        };
+        Play.prototype.addAmbientLight = function () {
+            // Ambient Light
+            this.ambientLight = new AmbientLight(0x808080);
+            this.add(this.ambientLight);
         };
         /**
          * Add a ground plane to the scene
@@ -173,23 +177,24 @@ var scenes;
          * @return void
          */
         Play.prototype.addDeathPlane = function () {
+<<<<<<< HEAD
             this.deathPlaneGeometry = new BoxGeometry(500, 1, 500, 3);
             //   this.deathPlaneMaterial = Physijs.createMaterial(new MeshBasicMaterial({ color: 0xff0000 }), 0.4, 0.6);
+=======
+            this.deathPlaneGeometry = new BoxGeometry(50, 1, 50, 3);
+>>>>>>> b8307f01431604baa55605d52ced865e37208a9c
             this.deathplanetexture = new THREE.TextureLoader().load('../../Assets/images/void.jpg');
-            //   this.groundTexture = new THREE.TextureLoader().load('../../Assets/images/floor.jpg');
             this.deathplanetexture.wrapS = THREE.RepeatWrapping;
             this.deathplanetexture.wrapT = THREE.RepeatWrapping;
             this.deathplanetexture.repeat.set(16, 16);
             this.groundMaterials = new PhongMaterial();
             this.groundMaterials.map = this.deathplanetexture;
-            //   this.groundMaterial.bumpMap = this.groundTextureNormal;
-            //    this.groundMaterial.bumpScale = 0.2;            
             this.deathPlane = new Physijs.BoxMesh(this.deathPlaneGeometry, this.groundMaterials, 0);
             this.deathPlane.position.set(0, -10, 0);
             this.deathPlane.name = "DeathPlane";
             this.add(this.deathPlane);
         };
-        //backgroud
+        //background
         Play.prototype.spacebg = function () {
             /* new THREE.Mesh(
         new THREE.SphereGeometry(90, 64, 64),
@@ -202,7 +207,11 @@ var scenes;
             map: this.spacetex = THREE.ImageUtils.loadTexture('../../Assets/images/space.jpg');
             this.spacetex.wrapS = THREE.RepeatWrapping;
             this.spacetex.wrapT = THREE.RepeatWrapping;
+<<<<<<< HEAD
             this.spacetex.repeat.set(2, 2);
+=======
+            this.spacetex.repeat.set(8, 8);
+>>>>>>> b8307f01431604baa55605d52ced865e37208a9c
             this.sapcePhong = new PhongMaterial();
             this.sapcePhong.map = this.spacetex;
             // this.space =  new Physijs.SphereMesh();
@@ -291,6 +300,7 @@ var scenes;
                 }
             }
         };
+<<<<<<< HEAD
         Play.prototype.level3 = function () {
             for (var i = 0; i < 10; i++) {
                 this.obstacleGeometry = new BoxGeometry(randomIntInc(2, 5), randomIntInc(5, 20), randomIntInc(2, 5));
@@ -376,6 +386,8 @@ var scenes;
                   this.add(coin);
               }
       */
+=======
+>>>>>>> b8307f01431604baa55605d52ced865e37208a9c
         /*
          * Event Handler method for any pointerLockChange events
          *
@@ -477,14 +489,6 @@ var scenes;
                 this.player.setAngularFactor(new Vector3(0, 0, 0));
             }
         };
-        /*  if(timerB = false) {
-              //setInterval(function(){  isparkor === false;console.log("is false", timerB.valueOf); }, 1);
-              setInterval(function() {
-                  this.timerB = true;
-                  this.isparkor = false;
-                  console.log("is false", this.timerB);
-              }, 10000);
-          }*/
         // PUBLIC METHODS +++++++++++++++++++++++++++++++++++++++++++
         /**
          * The start method is the main method for the scene class
@@ -527,20 +531,29 @@ var scenes;
                 _this.simulate(undefined, 2);
             });
             // Add Spot Light to the scene
+<<<<<<< HEAD
             // this.addSpotLight();
             this.AmbientLightss();
+=======
+            this.addSpotLight();
+            // Add Ambient Light to the scene
+            this.addAmbientLight();
+>>>>>>> b8307f01431604baa55605d52ced865e37208a9c
             // Ground Object
             this.addGround();
             // Add player controller
             this.addPlayer();
-            // Add custom coin imported from Blender
-            //   this.addCoinMesh();
             // Add death plane to the scene
             this.addDeathPlane();
+<<<<<<< HEAD
             //  this.differentSizeWide();
             //    this.level2();
             this.level3();
             this.spacebg();
+=======
+            this.differentSizeWide();
+            //  this.spacebg();
+>>>>>>> b8307f01431604baa55605d52ced865e37208a9c
             // Collision Check
             this.player.addEventListener('collision', function (eventObject) {
                 if (eventObject.name === "Ground") {
@@ -549,14 +562,6 @@ var scenes;
                     createjs.Sound.play("land");
                     console.log("player_height is " + this.player_height);
                 }
-                /*  if (eventObject.name === "Coin") {
-                      createjs.Sound.play("coin");
-                      self.remove(eventObject);
-                      self.setCoinPosition(eventObject);
-                      self.scoreValue += 100;
-                      // self.scoreLabel.text = "SCORE: " + self.scoreValue;
-                  }
-  */
                 if (eventObject.name === "DeathPlane") {
                     createjs.Sound.play("death");
                     self.livesValue--;
@@ -602,14 +607,7 @@ var scenes;
          * @returns void
          */
         Play.prototype.update = function () {
-            //setInterval(function() {
-            //this.scoreLabel.text = "wind x:"+ windx + "   wind y:"+ windy +  "  wind z: "+ windz;
-            //}, 1000);
             this.scoreLabel.text = "wind x:" + windx + "   wind y:" + windy + "  wind z: " + windz;
-            /* this.coins.forEach(coin => {
-                 coin.setAngularFactor(new Vector3(0, 0, 0));
-                 coin.setAngularVelocity(new Vector3(0, 1, 0));
-             });*/
             this.checkControls();
             this.stage.update();
         };
@@ -631,4 +629,5 @@ var scenes;
     }(scenes.Scene));
     scenes.Play = Play;
 })(scenes || (scenes = {}));
+
 //# sourceMappingURL=play.js.map
