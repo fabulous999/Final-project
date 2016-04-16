@@ -54,6 +54,7 @@ module scenes {
         private goal: Physijs.Mesh;
         private goalGeometry: CubeGeometry;
         private goalMaterial: Physijs.Material;
+        private goalpong : PhongMaterial;
 
         private windx: number = 0;
         private windy: number = -10;
@@ -73,14 +74,17 @@ module scenes {
         
         
         private spacegeo : SphereGeometry;
-        private spaceMat: Physijs.Material;
-        private space: Physijs.Mesh;
+        private spaceMat: THREE.Material;
+        private space: THREE.Mesh;
         private spacetex : Texture;
      private sapcePhong: PhongMaterial;
      
      
            private player_height : number = null;
             private parkour_height : number = null;
+
+
+private ambientLight: AmbientLight;
 
         /**
          * @constructor
@@ -263,7 +267,7 @@ module scenes {
          * @return void
          */
         private addDeathPlane(): void {
-            this.deathPlaneGeometry = new BoxGeometry(50, 1, 50,3);
+            this.deathPlaneGeometry = new BoxGeometry(500, 1, 500,3);
          //   this.deathPlaneMaterial = Physijs.createMaterial(new MeshBasicMaterial({ color: 0xff0000 }), 0.4, 0.6);
          this.deathplanetexture = new THREE.TextureLoader().load('../../Assets/images/void.jpg');
 
@@ -271,7 +275,7 @@ module scenes {
         //   this.groundTexture = new THREE.TextureLoader().load('../../Assets/images/floor.jpg');
             this.deathplanetexture.wrapS = THREE.RepeatWrapping;
             this.deathplanetexture.wrapT = THREE.RepeatWrapping;
-            this.deathplanetexture.repeat.set(1, 1);
+            this.deathplanetexture.repeat.set(16, 16);
 
 
             this.groundMaterials = new PhongMaterial();
@@ -287,30 +291,37 @@ module scenes {
         }
    //backgroud
       private spacebg(): void {
-          
-           this.spacegeo = new SphereGeometry(200,200,200)
-     this.spacetex = THREE.ImageUtils.loadTexture('../../Assets/images/space.jpg');
-
+      /* new THREE.Mesh(
+  new THREE.SphereGeometry(90, 64, 64), 
+  new THREE.MeshBasicMaterial({
+    map: THREE.ImageUtils.loadTexture('../../Assets/images/space.jpg'), 
+    side: THREE.BackSide
+  })
+);*/
+           this.spacegeo = new SphereGeometry(80,80,80)
+  map : this.spacetex = THREE.ImageUtils.loadTexture('../../Assets/images/space.jpg');
+  
             this.spacetex.wrapS = THREE.RepeatWrapping;
             this.spacetex.wrapT = THREE.RepeatWrapping;
-            this.spacetex.repeat.set(8, 8);
+            this.spacetex.repeat.set(2, 2);
   
-   // this.space.material.side = THREE.DoubleSide;
+ 
    
    this.sapcePhong = new PhongMaterial();
   this.sapcePhong.map = this.spacetex;
-  this.space = new Physijs.SphereMesh(this.deathPlaneGeometry, this.sapcePhong, 0);
-            this.space.position.set(0, -10, 0);
+ // this.space =  new Physijs.SphereMesh();
+  this.space = new THREE.Mesh(this.spacegeo, this.sapcePhong);
+            this.space.position.set(0, 10, 0);
             this.space.name = "space";
-            this.space.material.side = THREE.DoubleSide;
-            
+         //   this.space.material.side = THREE.DoubleSide;
+            side :  this.space.material.side = THREE.BackSide;
             this.add(this.space);
   
           
       }
 
       private differentSizeWide(): void {
-          for (var i = 0; i < 20; i++) {
+          for (var i = 0; i < 10; i++) {
               this.obstacleGeometry = new BoxGeometry(randomIntInc(4, 5), randomIntInc(5, 5), randomIntInc(5, 5));
                this.obsticaltex = THREE.ImageUtils.loadTexture('../../Assets/images/moon.png');
                   this.obsticaltex.wrapS = THREE.RepeatWrapping;
@@ -330,38 +341,129 @@ module scenes {
               this.add(this.obstacle);
               console.log("Added obstacle to Scene  " + this.obstacle.position.y);
 
-              if (i == 4) {
+              if (i == 9) {
                   console.log("asdf " + i);
 
                   this.goalGeometry = new BoxGeometry(randomIntInc(2, 5), randomIntInc(2, 5), randomIntInc(2, 5));
-                  this.goalMaterial = Physijs.createMaterial(new LambertMaterial({ color: 0xff000000 }), 0.4, 0);
-                  this.goal = new Physijs.BoxMesh(this.goalGeometry, this.goalMaterial, 0);
+                //  this.goalMaterial = Physijs.createMaterial(new LambertMaterial({ color: 0xff000000 }), 0.4, 0);
+                this.goaltextur = THREE.ImageUtils.loadTexture('../../Assets/images/pl_sun.jpg');
+                this.goaltextur.wrapS = THREE.RepeatWrapping;
+                this.goaltextur.wrapT = THREE.RepeatWrapping;
+                this.goaltextur.repeat.set(1, 1);
+                this.goalpong = new PhongMaterial();
+                this.goalpong.map = this.goaltextur;
+                
+                  this.goal = new Physijs.BoxMesh(this.goalGeometry, this.goalpong, 0);
                   this.goal.name = "goal";
                   this.goal.receiveShadow = true;
                   this.goal.castShadow = true;
-                  this.goal.position.set(10, 0, 0);
+                  this.goal.position.set(randomIntInc(-1 + (i * 6), 1 + (i * 5)), randomIntInc(2 + (i * 8), 3 + (i * 8)), randomIntInc(-0, 2));
+                 // this.goal.position.set(10, 0, 0);
+                  this.add(this.goal);
+                  console.log("Added goal" + this.goal.name);
+              }
+          }
+      }
+      
+            private level2(): void {
+          for (var i = 0; i < 20; i++) {
+              this.obstacleGeometry = new BoxGeometry(randomIntInc(4, 10), randomIntInc(2, 5), randomIntInc(2, 5));
+               this.obsticaltex = THREE.ImageUtils.loadTexture('../../Assets/images/moon.png');
+                  this.obsticaltex.wrapS = THREE.RepeatWrapping;
+            this.obsticaltex.wrapT = THREE.RepeatWrapping;
+            this.obsticaltex.repeat.set(1, 1);
+            
+                  this.obsticalpong = new PhongMaterial();
+            this.obsticalpong.map = this.obsticaltex;
+             // this.obstacleMaterial = Physijs.createMaterial(new LambertMaterial({ color: 0xffffff }), 0.4, 0);
+              this.obstacle = new Physijs.BoxMesh(this.obstacleGeometry, this.obsticalpong, 0);
+              this.obstacle.name = "obstacle";
+              this.obstacle.receiveShadow = true;
+              this.obstacle.castShadow = true;
+                
+              //really proud how i did the stair cube down there is basicly a math formula that kinda orginise them randomly
+              this.obstacle.position.set(randomIntInc((i * 5),(i * 6)), randomIntInc((i * 0),(i * 2)), randomIntInc((i * -2),(i * 2)));
+              this.add(this.obstacle);
+              console.log("Added obstacle to Scene  " + this.obstacle.position.y);
+
+              if (i == 19) {
+                  console.log("asdf " + i);
+
+                  this.goalGeometry = new BoxGeometry(randomIntInc(2, 5), randomIntInc(2, 5), randomIntInc(2, 5));
+                //  this.goalMaterial = Physijs.createMaterial(new LambertMaterial({ color: 0xff000000 }), 0.4, 0);
+                this.goaltextur = THREE.ImageUtils.loadTexture('../../Assets/images/pl_sun.jpg');
+                this.goaltextur.wrapS = THREE.RepeatWrapping;
+                this.goaltextur.wrapT = THREE.RepeatWrapping;
+                this.goaltextur.repeat.set(1, 1);
+                this.goalpong = new PhongMaterial();
+                this.goalpong.map = this.goaltextur;
+                
+                  this.goal = new Physijs.BoxMesh(this.goalGeometry, this.goalpong, 0);
+                  this.goal.name = "goal";
+                  this.goal.receiveShadow = true;
+                  this.goal.castShadow = true;
+                  this.goal.position.set(randomIntInc((i * 5),(i * 6)), randomIntInc((i * 0),(i * 1)), randomIntInc((i * -2),(i * 2)));
+                 // this.goal.position.set(10, 0, 0);
+                  this.add(this.goal);
+                  console.log("Added goal" + this.goal.name);
+              }
+          }
+      }
+      
+            private level3(): void {
+          for (var i = 0; i < 10; i++) {
+              this.obstacleGeometry = new BoxGeometry(randomIntInc(2, 5), randomIntInc(5, 20), randomIntInc(2, 5));
+               this.obsticaltex = THREE.ImageUtils.loadTexture('../../Assets/images/moon.png');
+                  this.obsticaltex.wrapS = THREE.RepeatWrapping;
+            this.obsticaltex.wrapT = THREE.RepeatWrapping;
+            this.obsticaltex.repeat.set(1, 1);
+            
+                  this.obsticalpong = new PhongMaterial();
+            this.obsticalpong.map = this.obsticaltex;
+             // this.obstacleMaterial = Physijs.createMaterial(new LambertMaterial({ color: 0xffffff }), 0.4, 0);
+              this.obstacle = new Physijs.BoxMesh(this.obstacleGeometry, this.obsticalpong, 0);
+              this.obstacle.name = "obstacle";
+              this.obstacle.receiveShadow = true;
+              this.obstacle.castShadow = true;
+                
+              //really proud how i did the stair cube down there is basicly a math formula that kinda orginise them randomly
+              this.obstacle.position.set(randomIntInc((i * -2),(i * 2)), randomIntInc((i * 5), (i * 6)), randomIntInc((i * -2),(i * 2)));
+              this.add(this.obstacle);
+              console.log("Added obstacle to Scene  " + this.obstacle.position.y);
+
+              if (i == 9) {
+                  console.log("asdf " + i);
+
+                  this.goalGeometry = new BoxGeometry(randomIntInc(4, 5), randomIntInc(4, 5), randomIntInc(4, 5));
+                //  this.goalMaterial = Physijs.createMaterial(new LambertMaterial({ color: 0xff000000 }), 0.4, 0);
+                this.goaltextur = THREE.ImageUtils.loadTexture('../../Assets/images/pl_sun.jpg');
+                this.goaltextur.wrapS = THREE.RepeatWrapping;
+                this.goaltextur.wrapT = THREE.RepeatWrapping;
+                this.goaltextur.repeat.set(1, 1);
+                this.goalpong = new PhongMaterial();
+                this.goalpong.map = this.goaltextur;
+                
+                  this.goal = new Physijs.BoxMesh(this.goalGeometry, this.goalpong, 0);
+                  this.goal.name = "goal";
+                  this.goal.receiveShadow = true;
+                  this.goal.castShadow = true;
+                this.goal.position.set(randomIntInc((i * -2),(i * 2)), randomIntInc((i * 5), (i * 6)), randomIntInc((i * -2),(i * 2)));
+                // this.goal.position.set(10, 0, 0);
                   this.add(this.goal);
                   console.log("Added goal" + this.goal.name);
               }
           }
       }
 
+private AmbientLightss(): void
+{
+     this.ambientLight = new AmbientLight(0x090909 *10);
+   // ambientLight.intensity = 0.5;
+    this.add(this.ambientLight);
+    
+}
 
-
-        private differentSizeLong(): void {
-            for (var i = 0; i < 5; i++) {
-                this.obstacleGeometry = new BoxGeometry(randomIntInc(-10, 10), randomIntInc(1, 5), randomIntInc(-10, 10));
-                this.obstacleMaterial = Physijs.createMaterial(new LambertMaterial({ color: 0x000000 }), 0.4, 0);
-                this.obstacle = new Physijs.BoxMesh(this.obstacleGeometry, this.obstacleMaterial, 0);
-                this.obstacle.name = "obstacle";
-                this.obstacle.receiveShadow = true;
-                this.obstacle.castShadow = true;
-                this.obstacle.position.set(randomIntInc(-5+( i *2) , 5 + ( i *2)), randomIntInc(-1, 10), randomIntInc(-5+( i *2), 5+( i *2)));
-                this.add(this.obstacle);
-                //console.log("Added obstacle to Scene  "  +  obstacle.position.y);
-            }
-        }
-
+       
         /**
          * This method adds a coin to the scene
          * @method addCoinMesh
@@ -484,7 +586,7 @@ module scenes {
                             {
                                 this.velocity.y += 4000.0 * delta;
                                 console.log(this.obstacle.position.y);
-                                if (this.player.position.y > (this.parkour_height + 0.2)) {
+                                if (this.player.position.y > (this.parkour_height + 0.3)) {
                                     this.isparkor = false;
                                     console.log("it false " + this.player_height);
                                 }                            
@@ -581,8 +683,8 @@ module scenes {
 
           
             // Add Spot Light to the scene
-            this.addSpotLight();
-
+           // this.addSpotLight();
+this.AmbientLightss();
             // Ground Object
             this.addGround();
 
@@ -595,10 +697,12 @@ module scenes {
             // Add death plane to the scene
             this.addDeathPlane();
 
-            //this.differentSizeLong();
-            this.differentSizeWide();
+          
+          //  this.differentSizeWide();
+      //    this.level2();
+            this.level3();
             
-          //  this.spacebg();
+           this.spacebg();
 
             // Collision Check
               

@@ -106,7 +106,7 @@ function randomIntInc(low, high) {
     return Math.floor(Math.random() * (high - low + 1) + low);
 }
 setInterval(function () { windx = randomIntInc(-2, 2); }, 10000);
-setInterval(function () { windy = randomIntInc(-15, -5); }, 10000);
+setInterval(function () { windy = randomIntInc(-15, -7); }, 10000);
 setInterval(function () { windz = randomIntInc(-2, 2); }, 10000);
 // Setup main game loop
 function gameLoop() {
@@ -130,7 +130,7 @@ function setupRenderer() {
 }
 // Setup main camera for the scene
 function setupCamera() {
-    camera = new PerspectiveCamera(35, config.Screen.RATIO, 0.1, 100);
+    camera = new PerspectiveCamera(35, config.Screen.RATIO, 0.1, 300);
     //camera.position.set(0, 10, 30);
     //camera.lookAt(new Vector3(0, 0, 0));
     console.log("Finished setting up Camera...");
