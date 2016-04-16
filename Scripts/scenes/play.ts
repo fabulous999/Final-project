@@ -34,8 +34,8 @@ module scenes {
         private deathPlaneGeometry: CubeGeometry;
         private deathPlaneMaterial: Physijs.Material;
         private deathPlane: Physijs.Mesh;
-        private deathplanetexture: Texture;
-        private groundMaterials: PhongMaterial;
+        private deathPlaneTexture: Texture;
+        private deathPlanePhong: PhongMaterial;
 
         private velocity: Vector3;
         private prevTime: number;
@@ -47,12 +47,10 @@ module scenes {
         private scoreValue: number;
         private livesValue: number;
 
-        private goaltextur: Texture;
-        private goalTextureN: Texture;
+        private goalTexture: Texture;
         private goal: Physijs.Mesh;
         private goalGeometry: CubeGeometry;
-        private goalMaterial: Physijs.Material;
-        private goalpong : PhongMaterial;
+        private goalMaterial: PhongMaterial;
 
         private windx: number = 0;
         private windy: number = -10;
@@ -61,38 +59,21 @@ module scenes {
         private obstacle: Physijs.Mesh;
         private obstacleGeometry: CubeGeometry;
         private obstacleMaterial: Physijs.Material;
-        private obsticaltex: Texture;
-        private obsticalpong: PhongMaterial;
+        private obstacleTexture: Texture;
+        private obstaclePhong: PhongMaterial;
         private _firstMusic: createjs.AbstractSoundInstance;
 
         private isparkor: boolean = false;
         private timerB: boolean;
-<<<<<<< HEAD
-        
-        
-        private spacegeo : SphereGeometry;
+
+        private spaceGeo: SphereGeometry;
         private spaceMat: THREE.Material;
         private space: THREE.Mesh;
-        private spacetex : Texture;
-     private sapcePhong: PhongMaterial;
-     
-     
-           private player_height : number = null;
-            private parkour_height : number = null;
-=======
-
-        private spacegeo: SphereGeometry;
-        private spaceMat: Physijs.Material;
-        private space: Physijs.Mesh;
-        private spacetex: Texture;
-        private sapcePhong: PhongMaterial;
+        private spaceTexture: Texture;
+        private spacePhong: PhongMaterial;
 
         private player_height: number = null;
         private parkour_height: number = null;
->>>>>>> b8307f01431604baa55605d52ced865e37208a9c
-
-
-private ambientLight: AmbientLight;
 
         /**
          * @constructor
@@ -214,7 +195,7 @@ private ambientLight: AmbientLight;
             this.add(this.spotLight);
             console.log("Added spotLight to scene");
         }
-        
+
         private addAmbientLight(): void {
             // Ambient Light
             this.ambientLight = new AmbientLight(0x808080);
@@ -279,246 +260,62 @@ private ambientLight: AmbientLight;
          * @return void
          */
         private addDeathPlane(): void {
-<<<<<<< HEAD
-            this.deathPlaneGeometry = new BoxGeometry(500, 1, 500,3);
-         //   this.deathPlaneMaterial = Physijs.createMaterial(new MeshBasicMaterial({ color: 0xff0000 }), 0.4, 0.6);
-         this.deathplanetexture = new THREE.TextureLoader().load('../../Assets/images/void.jpg');
-=======
+
             this.deathPlaneGeometry = new BoxGeometry(50, 1, 50, 3);
-            this.deathplanetexture = new THREE.TextureLoader().load('../../Assets/images/void.jpg');
->>>>>>> b8307f01431604baa55605d52ced865e37208a9c
+            this.deathPlaneTexture = new THREE.TextureLoader().load('../../Assets/images/void.jpg');
 
-            this.deathplanetexture.wrapS = THREE.RepeatWrapping;
-            this.deathplanetexture.wrapT = THREE.RepeatWrapping;
-            this.deathplanetexture.repeat.set(16, 16);
+            this.deathPlaneTexture.wrapS = THREE.RepeatWrapping;
+            this.deathPlaneTexture.wrapT = THREE.RepeatWrapping;
+            this.deathPlaneTexture.repeat.set(16, 16);
 
-            this.groundMaterials = new PhongMaterial();
-            this.groundMaterials.map = this.deathplanetexture;          
+            this.deathPlanePhong = new PhongMaterial();
+            this.deathPlanePhong.map = this.deathPlaneTexture;
 
-            this.deathPlane = new Physijs.BoxMesh(this.deathPlaneGeometry, this.groundMaterials, 0);
+            this.deathPlane = new Physijs.BoxMesh(this.deathPlaneGeometry, this.deathPlanePhong, 0);
             this.deathPlane.position.set(0, -10, 0);
             this.deathPlane.name = "DeathPlane";
             this.add(this.deathPlane);
         }
-<<<<<<< HEAD
-   //backgroud
-      private spacebg(): void {
-      /* new THREE.Mesh(
-  new THREE.SphereGeometry(90, 64, 64), 
-  new THREE.MeshBasicMaterial({
-    map: THREE.ImageUtils.loadTexture('../../Assets/images/space.jpg'), 
-    side: THREE.BackSide
-  })
-);*/
-           this.spacegeo = new SphereGeometry(80,80,80)
-  map : this.spacetex = THREE.ImageUtils.loadTexture('../../Assets/images/space.jpg');
-  
-            this.spacetex.wrapS = THREE.RepeatWrapping;
-            this.spacetex.wrapT = THREE.RepeatWrapping;
-            this.spacetex.repeat.set(2, 2);
-  
- 
-   
-   this.sapcePhong = new PhongMaterial();
-  this.sapcePhong.map = this.spacetex;
- // this.space =  new Physijs.SphereMesh();
-  this.space = new THREE.Mesh(this.spacegeo, this.sapcePhong);
-            this.space.position.set(0, 10, 0);
-            this.space.name = "space";
-         //   this.space.material.side = THREE.DoubleSide;
-            side :  this.space.material.side = THREE.BackSide;
-            this.add(this.space);
-  
-          
-      }
-
-      private differentSizeWide(): void {
-          for (var i = 0; i < 10; i++) {
-              this.obstacleGeometry = new BoxGeometry(randomIntInc(4, 5), randomIntInc(5, 5), randomIntInc(5, 5));
-               this.obsticaltex = THREE.ImageUtils.loadTexture('../../Assets/images/moon.png');
-                  this.obsticaltex.wrapS = THREE.RepeatWrapping;
-            this.obsticaltex.wrapT = THREE.RepeatWrapping;
-            this.obsticaltex.repeat.set(1, 1);
-            
-                  this.obsticalpong = new PhongMaterial();
-            this.obsticalpong.map = this.obsticaltex;
-             // this.obstacleMaterial = Physijs.createMaterial(new LambertMaterial({ color: 0xffffff }), 0.4, 0);
-              this.obstacle = new Physijs.BoxMesh(this.obstacleGeometry, this.obsticalpong, 0);
-              this.obstacle.name = "obstacle";
-              this.obstacle.receiveShadow = true;
-              this.obstacle.castShadow = true;
-                
-              //really proud how i did the stair cube down there is basicly a math formula that kinda orginise them randomly
-              this.obstacle.position.set(randomIntInc(-1 + (i * 6), 1 + (i * 5)), randomIntInc(2 + (i * 8), 3 + (i * 8)), randomIntInc(-0, 2));
-              this.add(this.obstacle);
-              console.log("Added obstacle to Scene  " + this.obstacle.position.y);
-
-              if (i == 9) {
-                  console.log("asdf " + i);
-
-                  this.goalGeometry = new BoxGeometry(randomIntInc(2, 5), randomIntInc(2, 5), randomIntInc(2, 5));
-                //  this.goalMaterial = Physijs.createMaterial(new LambertMaterial({ color: 0xff000000 }), 0.4, 0);
-                this.goaltextur = THREE.ImageUtils.loadTexture('../../Assets/images/pl_sun.jpg');
-                this.goaltextur.wrapS = THREE.RepeatWrapping;
-                this.goaltextur.wrapT = THREE.RepeatWrapping;
-                this.goaltextur.repeat.set(1, 1);
-                this.goalpong = new PhongMaterial();
-                this.goalpong.map = this.goaltextur;
-                
-                  this.goal = new Physijs.BoxMesh(this.goalGeometry, this.goalpong, 0);
-                  this.goal.name = "goal";
-                  this.goal.receiveShadow = true;
-                  this.goal.castShadow = true;
-                  this.goal.position.set(randomIntInc(-1 + (i * 6), 1 + (i * 5)), randomIntInc(2 + (i * 8), 3 + (i * 8)), randomIntInc(-0, 2));
-                 // this.goal.position.set(10, 0, 0);
-                  this.add(this.goal);
-                  console.log("Added goal" + this.goal.name);
-              }
-          }
-      }
-      
-            private level2(): void {
-          for (var i = 0; i < 20; i++) {
-              this.obstacleGeometry = new BoxGeometry(randomIntInc(4, 10), randomIntInc(2, 5), randomIntInc(2, 5));
-               this.obsticaltex = THREE.ImageUtils.loadTexture('../../Assets/images/moon.png');
-                  this.obsticaltex.wrapS = THREE.RepeatWrapping;
-            this.obsticaltex.wrapT = THREE.RepeatWrapping;
-            this.obsticaltex.repeat.set(1, 1);
-            
-                  this.obsticalpong = new PhongMaterial();
-            this.obsticalpong.map = this.obsticaltex;
-             // this.obstacleMaterial = Physijs.createMaterial(new LambertMaterial({ color: 0xffffff }), 0.4, 0);
-              this.obstacle = new Physijs.BoxMesh(this.obstacleGeometry, this.obsticalpong, 0);
-              this.obstacle.name = "obstacle";
-              this.obstacle.receiveShadow = true;
-              this.obstacle.castShadow = true;
-                
-              //really proud how i did the stair cube down there is basicly a math formula that kinda orginise them randomly
-              this.obstacle.position.set(randomIntInc((i * 5),(i * 6)), randomIntInc((i * 0),(i * 2)), randomIntInc((i * -2),(i * 2)));
-              this.add(this.obstacle);
-              console.log("Added obstacle to Scene  " + this.obstacle.position.y);
-
-              if (i == 19) {
-                  console.log("asdf " + i);
-
-                  this.goalGeometry = new BoxGeometry(randomIntInc(2, 5), randomIntInc(2, 5), randomIntInc(2, 5));
-                //  this.goalMaterial = Physijs.createMaterial(new LambertMaterial({ color: 0xff000000 }), 0.4, 0);
-                this.goaltextur = THREE.ImageUtils.loadTexture('../../Assets/images/pl_sun.jpg');
-                this.goaltextur.wrapS = THREE.RepeatWrapping;
-                this.goaltextur.wrapT = THREE.RepeatWrapping;
-                this.goaltextur.repeat.set(1, 1);
-                this.goalpong = new PhongMaterial();
-                this.goalpong.map = this.goaltextur;
-                
-                  this.goal = new Physijs.BoxMesh(this.goalGeometry, this.goalpong, 0);
-                  this.goal.name = "goal";
-                  this.goal.receiveShadow = true;
-                  this.goal.castShadow = true;
-                  this.goal.position.set(randomIntInc((i * 5),(i * 6)), randomIntInc((i * 0),(i * 1)), randomIntInc((i * -2),(i * 2)));
-                 // this.goal.position.set(10, 0, 0);
-                  this.add(this.goal);
-                  console.log("Added goal" + this.goal.name);
-              }
-          }
-      }
-      
-            private level3(): void {
-          for (var i = 0; i < 10; i++) {
-              this.obstacleGeometry = new BoxGeometry(randomIntInc(2, 5), randomIntInc(5, 20), randomIntInc(2, 5));
-               this.obsticaltex = THREE.ImageUtils.loadTexture('../../Assets/images/moon.png');
-                  this.obsticaltex.wrapS = THREE.RepeatWrapping;
-            this.obsticaltex.wrapT = THREE.RepeatWrapping;
-            this.obsticaltex.repeat.set(1, 1);
-            
-                  this.obsticalpong = new PhongMaterial();
-            this.obsticalpong.map = this.obsticaltex;
-             // this.obstacleMaterial = Physijs.createMaterial(new LambertMaterial({ color: 0xffffff }), 0.4, 0);
-              this.obstacle = new Physijs.BoxMesh(this.obstacleGeometry, this.obsticalpong, 0);
-              this.obstacle.name = "obstacle";
-              this.obstacle.receiveShadow = true;
-              this.obstacle.castShadow = true;
-                
-              //really proud how i did the stair cube down there is basicly a math formula that kinda orginise them randomly
-              this.obstacle.position.set(randomIntInc((i * -2),(i * 2)), randomIntInc((i * 5), (i * 6)), randomIntInc((i * -2),(i * 2)));
-              this.add(this.obstacle);
-              console.log("Added obstacle to Scene  " + this.obstacle.position.y);
-
-              if (i == 9) {
-                  console.log("asdf " + i);
-
-                  this.goalGeometry = new BoxGeometry(randomIntInc(4, 5), randomIntInc(4, 5), randomIntInc(4, 5));
-                //  this.goalMaterial = Physijs.createMaterial(new LambertMaterial({ color: 0xff000000 }), 0.4, 0);
-                this.goaltextur = THREE.ImageUtils.loadTexture('../../Assets/images/pl_sun.jpg');
-                this.goaltextur.wrapS = THREE.RepeatWrapping;
-                this.goaltextur.wrapT = THREE.RepeatWrapping;
-                this.goaltextur.repeat.set(1, 1);
-                this.goalpong = new PhongMaterial();
-                this.goalpong.map = this.goaltextur;
-                
-                  this.goal = new Physijs.BoxMesh(this.goalGeometry, this.goalpong, 0);
-                  this.goal.name = "goal";
-                  this.goal.receiveShadow = true;
-                  this.goal.castShadow = true;
-                this.goal.position.set(randomIntInc((i * -2),(i * 2)), randomIntInc((i * 5), (i * 6)), randomIntInc((i * -2),(i * 2)));
-                // this.goal.position.set(10, 0, 0);
-                  this.add(this.goal);
-                  console.log("Added goal" + this.goal.name);
-              }
-          }
-      }
-
-private AmbientLightss(): void
-{
-     this.ambientLight = new AmbientLight(0x090909 *10);
-   // ambientLight.intensity = 0.5;
-    this.add(this.ambientLight);
-    
-}
-
-       
-        /**
-         * This method adds a coin to the scene
-         * @method addCoinMesh
-         * @return void
-         */
-      /*  private addCoinMesh(): void {
-            var self = this;
-=======
+        
         //background
         private spacebg(): void {
+            /* new THREE.Mesh(
+        new THREE.SphereGeometry(90, 64, 64), 
+        new THREE.MeshBasicMaterial({
+          map: THREE.ImageUtils.loadTexture('../../Assets/images/space.jpg'), 
+          side: THREE.BackSide
+        })
+      );*/
+            this.spaceGeo = new SphereGeometry(80, 80, 80)
+            this.spaceTexture = THREE.ImageUtils.loadTexture('../../Assets/images/space.jpg');
 
-            this.spacegeo = new SphereGeometry(200, 200, 200)
-            this.spacetex = THREE.ImageUtils.loadTexture('../../Assets/images/space.jpg');
-
-            this.spacetex.wrapS = THREE.RepeatWrapping;
-            this.spacetex.wrapT = THREE.RepeatWrapping;
-            this.spacetex.repeat.set(8, 8);
-
-            this.sapcePhong = new PhongMaterial();
-            this.sapcePhong.map = this.spacetex;
-            this.space = new Physijs.SphereMesh(this.deathPlaneGeometry, this.sapcePhong, 0);
-            this.space.position.set(0, -10, 0);
+            this.spaceTexture.wrapS = THREE.RepeatWrapping;
+            this.spaceTexture.wrapT = THREE.RepeatWrapping;
+            this.spaceTexture.repeat.set(2, 2);
+            
+            this.spacePhong = new PhongMaterial();
+            this.spacePhong.map = this.spaceTexture;
+            // this.space =  new Physijs.SphereMesh();
+            this.space = new THREE.Mesh(this.spaceGeo, this.spacePhong);
+            this.space.position.set(0, 10, 0);
             this.space.name = "space";
-            this.space.material.side = THREE.DoubleSide;
-
+            //   this.space.material.side = THREE.DoubleSide;
+            this.space.material.side = THREE.BackSide;
             this.add(this.space);
->>>>>>> b8307f01431604baa55605d52ced865e37208a9c
-
-
         }
 
         private differentSizeWide(): void {
-            for (var i = 0; i < 20; i++) {
+            for (var i = 0; i < 10; i++) {
                 this.obstacleGeometry = new BoxGeometry(randomIntInc(4, 5), randomIntInc(5, 5), randomIntInc(5, 5));
-                this.obsticaltex = THREE.ImageUtils.loadTexture('../../Assets/images/moon.png');
-                this.obsticaltex.wrapS = THREE.RepeatWrapping;
-                this.obsticaltex.wrapT = THREE.RepeatWrapping;
-                this.obsticaltex.repeat.set(1, 1);
+                this.obstacleTexture = THREE.ImageUtils.loadTexture('../../Assets/images/moon.png');
+                this.obstacleTexture.wrapS = THREE.RepeatWrapping;
+                this.obstacleTexture.wrapT = THREE.RepeatWrapping;
+                this.obstacleTexture.repeat.set(1, 1);
 
-                this.obsticalpong = new PhongMaterial();
-                this.obsticalpong.map = this.obsticaltex;
+                this.obstaclePhong = new PhongMaterial();
+                this.obstaclePhong.map = this.obstacleTexture;
                 // this.obstacleMaterial = Physijs.createMaterial(new LambertMaterial({ color: 0xffffff }), 0.4, 0);
-                this.obstacle = new Physijs.BoxMesh(this.obstacleGeometry, this.obsticalpong, 0);
+                this.obstacle = new Physijs.BoxMesh(this.obstacleGeometry, this.obstaclePhong, 0);
                 this.obstacle.name = "obstacle";
                 this.obstacle.receiveShadow = true;
                 this.obstacle.castShadow = true;
@@ -528,21 +325,126 @@ private AmbientLightss(): void
                 this.add(this.obstacle);
                 console.log("Added obstacle to Scene  " + this.obstacle.position.y);
 
-                if (i == 4) {
+                if (i == 9) {
                     console.log("asdf " + i);
 
                     this.goalGeometry = new BoxGeometry(randomIntInc(2, 5), randomIntInc(2, 5), randomIntInc(2, 5));
-                    this.goalMaterial = Physijs.createMaterial(new LambertMaterial({ color: 0xff000000 }), 0.4, 0);
+                    //  this.goalMaterialerial = Physijs.createMaterial(new LambertMaterial({ color: 0xff000000 }), 0.4, 0);
+                    this.goalTexture = THREE.ImageUtils.loadTexture('../../Assets/images/pl_sun.jpg');
+                    this.goalTexture.wrapS = THREE.RepeatWrapping;
+                    this.goalTexture.wrapT = THREE.RepeatWrapping;
+                    this.goalTexture.repeat.set(1, 1);
+                    this.goalMaterial = new PhongMaterial();
+                    this.goalMaterial.map = this.goalTexture;
+
                     this.goal = new Physijs.BoxMesh(this.goalGeometry, this.goalMaterial, 0);
                     this.goal.name = "goal";
                     this.goal.receiveShadow = true;
                     this.goal.castShadow = true;
-                    this.goal.position.set(10, 0, 0);
+                    this.goal.position.set(randomIntInc(-1 + (i * 6), 1 + (i * 5)), randomIntInc(2 + (i * 8), 3 + (i * 8)), randomIntInc(-0, 2));
+                    // this.goal.position.set(10, 0, 0);
                     this.add(this.goal);
                     console.log("Added goal" + this.goal.name);
                 }
             }
         }
+
+        private level2(): void {
+            for (var i = 0; i < 20; i++) {
+                this.obstacleGeometry = new BoxGeometry(randomIntInc(4, 10), randomIntInc(2, 5), randomIntInc(2, 5));
+                this.obstacleTexture = THREE.ImageUtils.loadTexture('../../Assets/images/moon.png');
+                this.obstacleTexture.wrapS = THREE.RepeatWrapping;
+                this.obstacleTexture.wrapT = THREE.RepeatWrapping;
+                this.obstacleTexture.repeat.set(1, 1);
+
+                this.obstaclePhong = new PhongMaterial();
+                this.obstaclePhong.map = this.obstacleTexture;
+                // this.obstacleMaterial = Physijs.createMaterial(new LambertMaterial({ color: 0xffffff }), 0.4, 0);
+                this.obstacle = new Physijs.BoxMesh(this.obstacleGeometry, this.obstaclePhong, 0);
+                this.obstacle.name = "obstacle";
+                this.obstacle.receiveShadow = true;
+                this.obstacle.castShadow = true;
+
+                //really proud how i did the stair cube down there is basicly a math formula that kinda orginise them randomly
+                this.obstacle.position.set(randomIntInc((i * 5), (i * 6)), randomIntInc((i * 0), (i * 2)), randomIntInc((i * -2), (i * 2)));
+                this.add(this.obstacle);
+                console.log("Added obstacle to Scene  " + this.obstacle.position.y);
+
+                if (i == 19) {
+                    console.log("asdf " + i);
+
+                    this.goalGeometry = new BoxGeometry(randomIntInc(2, 5), randomIntInc(2, 5), randomIntInc(2, 5));
+                    //  this.goalMaterialerial = Physijs.createMaterial(new LambertMaterial({ color: 0xff000000 }), 0.4, 0);
+                    this.goalTexture = THREE.ImageUtils.loadTexture('../../Assets/images/pl_sun.jpg');
+                    this.goalTexture.wrapS = THREE.RepeatWrapping;
+                    this.goalTexture.wrapT = THREE.RepeatWrapping;
+                    this.goalTexture.repeat.set(1, 1);
+                    this.goalMaterial = new PhongMaterial();
+                    this.goalMaterial.map = this.goalTexture;
+
+                    this.goal = new Physijs.BoxMesh(this.goalGeometry, this.goalMaterial, 0);
+                    this.goal.name = "goal";
+                    this.goal.receiveShadow = true;
+                    this.goal.castShadow = true;
+                    this.goal.position.set(randomIntInc((i * 5), (i * 6)), randomIntInc((i * 0), (i * 1)), randomIntInc((i * -2), (i * 2)));
+                    // this.goal.position.set(10, 0, 0);
+                    this.add(this.goal);
+                    console.log("Added goal" + this.goal.name);
+                }
+            }
+        }
+
+        private level3(): void {
+            for (var i = 0; i < 10; i++) {
+                this.obstacleGeometry = new BoxGeometry(randomIntInc(2, 5), randomIntInc(5, 20), randomIntInc(2, 5));
+                this.obstacleTexture = THREE.ImageUtils.loadTexture('../../Assets/images/moon.png');
+                this.obstacleTexture.wrapS = THREE.RepeatWrapping;
+                this.obstacleTexture.wrapT = THREE.RepeatWrapping;
+                this.obstacleTexture.repeat.set(1, 1);
+
+                this.obstaclePhong = new PhongMaterial();
+                this.obstaclePhong.map = this.obstacleTexture;
+                // this.obstacleMaterial = Physijs.createMaterial(new LambertMaterial({ color: 0xffffff }), 0.4, 0);
+                this.obstacle = new Physijs.BoxMesh(this.obstacleGeometry, this.obstaclePhong, 0);
+                this.obstacle.name = "obstacle";
+                this.obstacle.receiveShadow = true;
+                this.obstacle.castShadow = true;
+
+                //really proud how i did the stair cube down there is basicly a math formula that kinda orginise them randomly
+                this.obstacle.position.set(randomIntInc((i * -2), (i * 2)), randomIntInc((i * 5), (i * 6)), randomIntInc((i * -2), (i * 2)));
+                this.add(this.obstacle);
+                console.log("Added obstacle to Scene  " + this.obstacle.position.y);
+
+                if (i == 9) {
+                    console.log("asdf " + i);
+
+                    this.goalGeometry = new BoxGeometry(randomIntInc(4, 5), randomIntInc(4, 5), randomIntInc(4, 5));
+                    //  this.goalMaterialerial = Physijs.createMaterial(new LambertMaterial({ color: 0xff000000 }), 0.4, 0);
+                    this.goalTexture = THREE.ImageUtils.loadTexture('../../Assets/images/pl_sun.jpg');
+                    this.goalTexture.wrapS = THREE.RepeatWrapping;
+                    this.goalTexture.wrapT = THREE.RepeatWrapping;
+                    this.goalTexture.repeat.set(1, 1);
+                    this.goalMaterial = new PhongMaterial();
+                    this.goalMaterial.map = this.goalTexture;
+
+                    this.goal = new Physijs.BoxMesh(this.goalGeometry, this.goalMaterial, 0);
+                    this.goal.name = "goal";
+                    this.goal.receiveShadow = true;
+                    this.goal.castShadow = true;
+                    this.goal.position.set(randomIntInc((i * -2), (i * 2)), randomIntInc((i * 5), (i * 6)), randomIntInc((i * -2), (i * 2)));
+                    // this.goal.position.set(10, 0, 0);
+                    this.add(this.goal);
+                    console.log("Added goal" + this.goal.name);
+                }
+            }
+        }
+
+        private AmbientLight(): void {
+            this.ambientLight = new AmbientLight(0x808080);
+            this.add(this.ambientLight);
+
+        }
+
         /*
          * Event Handler method for any pointerLockChange events
          * 
@@ -711,16 +613,11 @@ private AmbientLightss(): void
 
 
             // Add Spot Light to the scene
-<<<<<<< HEAD
-           // this.addSpotLight();
-this.AmbientLightss();
-=======
             this.addSpotLight();
-            
+
             // Add Ambient Light to the scene
             this.addAmbientLight();
 
->>>>>>> b8307f01431604baa55605d52ced865e37208a9c
             // Ground Object
             this.addGround();
 
@@ -730,18 +627,11 @@ this.AmbientLightss();
             // Add death plane to the scene
             this.addDeathPlane();
 
-<<<<<<< HEAD
-          
-          //  this.differentSizeWide();
-      //    this.level2();
             this.level3();
-            
-           this.spacebg();
-=======
+
+            this.spacebg();
             this.differentSizeWide();
 
-            //  this.spacebg();
->>>>>>> b8307f01431604baa55605d52ced865e37208a9c
 
             // Collision Check
 

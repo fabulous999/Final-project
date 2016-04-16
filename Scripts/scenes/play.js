@@ -177,19 +177,14 @@ var scenes;
          * @return void
          */
         Play.prototype.addDeathPlane = function () {
-<<<<<<< HEAD
-            this.deathPlaneGeometry = new BoxGeometry(500, 1, 500, 3);
-            //   this.deathPlaneMaterial = Physijs.createMaterial(new MeshBasicMaterial({ color: 0xff0000 }), 0.4, 0.6);
-=======
             this.deathPlaneGeometry = new BoxGeometry(50, 1, 50, 3);
->>>>>>> b8307f01431604baa55605d52ced865e37208a9c
-            this.deathplanetexture = new THREE.TextureLoader().load('../../Assets/images/void.jpg');
-            this.deathplanetexture.wrapS = THREE.RepeatWrapping;
-            this.deathplanetexture.wrapT = THREE.RepeatWrapping;
-            this.deathplanetexture.repeat.set(16, 16);
-            this.groundMaterials = new PhongMaterial();
-            this.groundMaterials.map = this.deathplanetexture;
-            this.deathPlane = new Physijs.BoxMesh(this.deathPlaneGeometry, this.groundMaterials, 0);
+            this.deathPlaneTexture = new THREE.TextureLoader().load('../../Assets/images/void.jpg');
+            this.deathPlaneTexture.wrapS = THREE.RepeatWrapping;
+            this.deathPlaneTexture.wrapT = THREE.RepeatWrapping;
+            this.deathPlaneTexture.repeat.set(16, 16);
+            this.deathPlanePhong = new PhongMaterial();
+            this.deathPlanePhong.map = this.deathPlaneTexture;
+            this.deathPlane = new Physijs.BoxMesh(this.deathPlaneGeometry, this.deathPlanePhong, 0);
             this.deathPlane.position.set(0, -10, 0);
             this.deathPlane.name = "DeathPlane";
             this.add(this.deathPlane);
@@ -203,36 +198,32 @@ var scenes;
           side: THREE.BackSide
         })
       );*/
-            this.spacegeo = new SphereGeometry(80, 80, 80);
-            map: this.spacetex = THREE.ImageUtils.loadTexture('../../Assets/images/space.jpg');
-            this.spacetex.wrapS = THREE.RepeatWrapping;
-            this.spacetex.wrapT = THREE.RepeatWrapping;
-<<<<<<< HEAD
-            this.spacetex.repeat.set(2, 2);
-=======
-            this.spacetex.repeat.set(8, 8);
->>>>>>> b8307f01431604baa55605d52ced865e37208a9c
-            this.sapcePhong = new PhongMaterial();
-            this.sapcePhong.map = this.spacetex;
+            this.spaceGeo = new SphereGeometry(80, 80, 80);
+            this.spaceTexture = THREE.ImageUtils.loadTexture('../../Assets/images/space.jpg');
+            this.spaceTexture.wrapS = THREE.RepeatWrapping;
+            this.spaceTexture.wrapT = THREE.RepeatWrapping;
+            this.spaceTexture.repeat.set(2, 2);
+            this.spacePhong = new PhongMaterial();
+            this.spacePhong.map = this.spaceTexture;
             // this.space =  new Physijs.SphereMesh();
-            this.space = new THREE.Mesh(this.spacegeo, this.sapcePhong);
+            this.space = new THREE.Mesh(this.spaceGeo, this.spacePhong);
             this.space.position.set(0, 10, 0);
             this.space.name = "space";
             //   this.space.material.side = THREE.DoubleSide;
-            side: this.space.material.side = THREE.BackSide;
+            this.space.material.side = THREE.BackSide;
             this.add(this.space);
         };
         Play.prototype.differentSizeWide = function () {
             for (var i = 0; i < 10; i++) {
                 this.obstacleGeometry = new BoxGeometry(randomIntInc(4, 5), randomIntInc(5, 5), randomIntInc(5, 5));
-                this.obsticaltex = THREE.ImageUtils.loadTexture('../../Assets/images/moon.png');
-                this.obsticaltex.wrapS = THREE.RepeatWrapping;
-                this.obsticaltex.wrapT = THREE.RepeatWrapping;
-                this.obsticaltex.repeat.set(1, 1);
-                this.obsticalpong = new PhongMaterial();
-                this.obsticalpong.map = this.obsticaltex;
+                this.obstacleTexture = THREE.ImageUtils.loadTexture('../../Assets/images/moon.png');
+                this.obstacleTexture.wrapS = THREE.RepeatWrapping;
+                this.obstacleTexture.wrapT = THREE.RepeatWrapping;
+                this.obstacleTexture.repeat.set(1, 1);
+                this.obstaclePhong = new PhongMaterial();
+                this.obstaclePhong.map = this.obstacleTexture;
                 // this.obstacleMaterial = Physijs.createMaterial(new LambertMaterial({ color: 0xffffff }), 0.4, 0);
-                this.obstacle = new Physijs.BoxMesh(this.obstacleGeometry, this.obsticalpong, 0);
+                this.obstacle = new Physijs.BoxMesh(this.obstacleGeometry, this.obstaclePhong, 0);
                 this.obstacle.name = "obstacle";
                 this.obstacle.receiveShadow = true;
                 this.obstacle.castShadow = true;
@@ -243,14 +234,14 @@ var scenes;
                 if (i == 9) {
                     console.log("asdf " + i);
                     this.goalGeometry = new BoxGeometry(randomIntInc(2, 5), randomIntInc(2, 5), randomIntInc(2, 5));
-                    //  this.goalMaterial = Physijs.createMaterial(new LambertMaterial({ color: 0xff000000 }), 0.4, 0);
-                    this.goaltextur = THREE.ImageUtils.loadTexture('../../Assets/images/pl_sun.jpg');
-                    this.goaltextur.wrapS = THREE.RepeatWrapping;
-                    this.goaltextur.wrapT = THREE.RepeatWrapping;
-                    this.goaltextur.repeat.set(1, 1);
-                    this.goalpong = new PhongMaterial();
-                    this.goalpong.map = this.goaltextur;
-                    this.goal = new Physijs.BoxMesh(this.goalGeometry, this.goalpong, 0);
+                    //  this.goalMaterialerial = Physijs.createMaterial(new LambertMaterial({ color: 0xff000000 }), 0.4, 0);
+                    this.goalTexture = THREE.ImageUtils.loadTexture('../../Assets/images/pl_sun.jpg');
+                    this.goalTexture.wrapS = THREE.RepeatWrapping;
+                    this.goalTexture.wrapT = THREE.RepeatWrapping;
+                    this.goalTexture.repeat.set(1, 1);
+                    this.goalMaterial = new PhongMaterial();
+                    this.goalMaterial.map = this.goalTexture;
+                    this.goal = new Physijs.BoxMesh(this.goalGeometry, this.goalMaterial, 0);
                     this.goal.name = "goal";
                     this.goal.receiveShadow = true;
                     this.goal.castShadow = true;
@@ -264,14 +255,14 @@ var scenes;
         Play.prototype.level2 = function () {
             for (var i = 0; i < 20; i++) {
                 this.obstacleGeometry = new BoxGeometry(randomIntInc(4, 10), randomIntInc(2, 5), randomIntInc(2, 5));
-                this.obsticaltex = THREE.ImageUtils.loadTexture('../../Assets/images/moon.png');
-                this.obsticaltex.wrapS = THREE.RepeatWrapping;
-                this.obsticaltex.wrapT = THREE.RepeatWrapping;
-                this.obsticaltex.repeat.set(1, 1);
-                this.obsticalpong = new PhongMaterial();
-                this.obsticalpong.map = this.obsticaltex;
+                this.obstacleTexture = THREE.ImageUtils.loadTexture('../../Assets/images/moon.png');
+                this.obstacleTexture.wrapS = THREE.RepeatWrapping;
+                this.obstacleTexture.wrapT = THREE.RepeatWrapping;
+                this.obstacleTexture.repeat.set(1, 1);
+                this.obstaclePhong = new PhongMaterial();
+                this.obstaclePhong.map = this.obstacleTexture;
                 // this.obstacleMaterial = Physijs.createMaterial(new LambertMaterial({ color: 0xffffff }), 0.4, 0);
-                this.obstacle = new Physijs.BoxMesh(this.obstacleGeometry, this.obsticalpong, 0);
+                this.obstacle = new Physijs.BoxMesh(this.obstacleGeometry, this.obstaclePhong, 0);
                 this.obstacle.name = "obstacle";
                 this.obstacle.receiveShadow = true;
                 this.obstacle.castShadow = true;
@@ -282,14 +273,14 @@ var scenes;
                 if (i == 19) {
                     console.log("asdf " + i);
                     this.goalGeometry = new BoxGeometry(randomIntInc(2, 5), randomIntInc(2, 5), randomIntInc(2, 5));
-                    //  this.goalMaterial = Physijs.createMaterial(new LambertMaterial({ color: 0xff000000 }), 0.4, 0);
-                    this.goaltextur = THREE.ImageUtils.loadTexture('../../Assets/images/pl_sun.jpg');
-                    this.goaltextur.wrapS = THREE.RepeatWrapping;
-                    this.goaltextur.wrapT = THREE.RepeatWrapping;
-                    this.goaltextur.repeat.set(1, 1);
-                    this.goalpong = new PhongMaterial();
-                    this.goalpong.map = this.goaltextur;
-                    this.goal = new Physijs.BoxMesh(this.goalGeometry, this.goalpong, 0);
+                    //  this.goalMaterialerial = Physijs.createMaterial(new LambertMaterial({ color: 0xff000000 }), 0.4, 0);
+                    this.goalTexture = THREE.ImageUtils.loadTexture('../../Assets/images/pl_sun.jpg');
+                    this.goalTexture.wrapS = THREE.RepeatWrapping;
+                    this.goalTexture.wrapT = THREE.RepeatWrapping;
+                    this.goalTexture.repeat.set(1, 1);
+                    this.goalMaterial = new PhongMaterial();
+                    this.goalMaterial.map = this.goalTexture;
+                    this.goal = new Physijs.BoxMesh(this.goalGeometry, this.goalMaterial, 0);
                     this.goal.name = "goal";
                     this.goal.receiveShadow = true;
                     this.goal.castShadow = true;
@@ -300,18 +291,17 @@ var scenes;
                 }
             }
         };
-<<<<<<< HEAD
         Play.prototype.level3 = function () {
             for (var i = 0; i < 10; i++) {
                 this.obstacleGeometry = new BoxGeometry(randomIntInc(2, 5), randomIntInc(5, 20), randomIntInc(2, 5));
-                this.obsticaltex = THREE.ImageUtils.loadTexture('../../Assets/images/moon.png');
-                this.obsticaltex.wrapS = THREE.RepeatWrapping;
-                this.obsticaltex.wrapT = THREE.RepeatWrapping;
-                this.obsticaltex.repeat.set(1, 1);
-                this.obsticalpong = new PhongMaterial();
-                this.obsticalpong.map = this.obsticaltex;
+                this.obstacleTexture = THREE.ImageUtils.loadTexture('../../Assets/images/moon.png');
+                this.obstacleTexture.wrapS = THREE.RepeatWrapping;
+                this.obstacleTexture.wrapT = THREE.RepeatWrapping;
+                this.obstacleTexture.repeat.set(1, 1);
+                this.obstaclePhong = new PhongMaterial();
+                this.obstaclePhong.map = this.obstacleTexture;
                 // this.obstacleMaterial = Physijs.createMaterial(new LambertMaterial({ color: 0xffffff }), 0.4, 0);
-                this.obstacle = new Physijs.BoxMesh(this.obstacleGeometry, this.obsticalpong, 0);
+                this.obstacle = new Physijs.BoxMesh(this.obstacleGeometry, this.obstaclePhong, 0);
                 this.obstacle.name = "obstacle";
                 this.obstacle.receiveShadow = true;
                 this.obstacle.castShadow = true;
@@ -322,14 +312,14 @@ var scenes;
                 if (i == 9) {
                     console.log("asdf " + i);
                     this.goalGeometry = new BoxGeometry(randomIntInc(4, 5), randomIntInc(4, 5), randomIntInc(4, 5));
-                    //  this.goalMaterial = Physijs.createMaterial(new LambertMaterial({ color: 0xff000000 }), 0.4, 0);
-                    this.goaltextur = THREE.ImageUtils.loadTexture('../../Assets/images/pl_sun.jpg');
-                    this.goaltextur.wrapS = THREE.RepeatWrapping;
-                    this.goaltextur.wrapT = THREE.RepeatWrapping;
-                    this.goaltextur.repeat.set(1, 1);
-                    this.goalpong = new PhongMaterial();
-                    this.goalpong.map = this.goaltextur;
-                    this.goal = new Physijs.BoxMesh(this.goalGeometry, this.goalpong, 0);
+                    //  this.goalMaterialerial = Physijs.createMaterial(new LambertMaterial({ color: 0xff000000 }), 0.4, 0);
+                    this.goalTexture = THREE.ImageUtils.loadTexture('../../Assets/images/pl_sun.jpg');
+                    this.goalTexture.wrapS = THREE.RepeatWrapping;
+                    this.goalTexture.wrapT = THREE.RepeatWrapping;
+                    this.goalTexture.repeat.set(1, 1);
+                    this.goalMaterial = new PhongMaterial();
+                    this.goalMaterial.map = this.goalTexture;
+                    this.goal = new Physijs.BoxMesh(this.goalGeometry, this.goalMaterial, 0);
                     this.goal.name = "goal";
                     this.goal.receiveShadow = true;
                     this.goal.castShadow = true;
@@ -340,54 +330,10 @@ var scenes;
                 }
             }
         };
-        Play.prototype.AmbientLightss = function () {
-            this.ambientLight = new AmbientLight(0x090909 * 10);
-            // ambientLight.intensity = 0.5;
+        Play.prototype.AmbientLight = function () {
+            this.ambientLight = new AmbientLight(0x808080);
             this.add(this.ambientLight);
         };
-        /**
-         * This method adds a coin to the scene
-         * @method addCoinMesh
-         * @return void
-         */
-        /*  private addCoinMesh(): void {
-              var self = this;
-  
-              this.coins = new Array<Physijs.ConvexMesh>(); // Instantiate a convex mesh array
-  
-              var coinLoader = new THREE.JSONLoader().load("../../Assets/imported/coin.json", function(geometry: THREE.Geometry) {
-                  var phongMaterial = new PhongMaterial({ color: 0xE7AB32 });
-                  phongMaterial.emissive = new THREE.Color(0xE7AB32);
-  
-                  var coinMaterial = Physijs.createMaterial((phongMaterial), 0.4, 0.6);
-  
-                  for (var count: number = 0; count < self.coinCount; count++) {
-                      self.coins[count] = new Physijs.ConvexMesh(geometry, coinMaterial);
-                      self.coins[count].receiveShadow = true;
-                      self.coins[count].castShadow = true;
-                      self.coins[count].name = "Coin";
-                      self.setCoinPosition(self.coins[count]);
-                      console.log("Added Coin Mesh to Scene, at position: " + self.coins[count].position);
-                  }
-              });
-  
-  
-          }*/
-        /*
-         * This method randomly sets the coin object's position
-         *
-         * @method setCoinPosition
-         * @return void
-         */
-        /*      private setCoinPosition(coin: Physijs.ConvexMesh): void {
-                  var randomPointX: number = Math.floor(Math.random() * 20) - 10;
-                  var randomPointZ: number = Math.floor(Math.random() * 20) - 10;
-                  coin.position.set(randomPointX, 10, randomPointZ);
-                  this.add(coin);
-              }
-      */
-=======
->>>>>>> b8307f01431604baa55605d52ced865e37208a9c
         /*
          * Event Handler method for any pointerLockChange events
          *
@@ -531,29 +477,18 @@ var scenes;
                 _this.simulate(undefined, 2);
             });
             // Add Spot Light to the scene
-<<<<<<< HEAD
-            // this.addSpotLight();
-            this.AmbientLightss();
-=======
             this.addSpotLight();
             // Add Ambient Light to the scene
             this.addAmbientLight();
->>>>>>> b8307f01431604baa55605d52ced865e37208a9c
             // Ground Object
             this.addGround();
             // Add player controller
             this.addPlayer();
             // Add death plane to the scene
             this.addDeathPlane();
-<<<<<<< HEAD
-            //  this.differentSizeWide();
-            //    this.level2();
             this.level3();
             this.spacebg();
-=======
             this.differentSizeWide();
-            //  this.spacebg();
->>>>>>> b8307f01431604baa55605d52ced865e37208a9c
             // Collision Check
             this.player.addEventListener('collision', function (eventObject) {
                 if (eventObject.name === "Ground") {

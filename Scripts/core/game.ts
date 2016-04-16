@@ -125,29 +125,18 @@ function addStatsObject() {
 }
 
 
-<<<<<<< HEAD
-  function randomIntInc(low, high) {
-            return Math.floor(Math.random() * (high - low + 1) + low);
-        }
- setInterval(function() {windx = randomIntInc(-2,2) }, 10000); 
- setInterval(function() {windy = randomIntInc(-15,-7) }, 10000); 
- setInterval(function() {windz = randomIntInc(-2,2) }, 10000); 
- 
-=======
 function randomIntInc(low, high) {
     return Math.floor(Math.random() * (high - low + 1) + low);
 }
 setInterval(function () { windx = randomIntInc(-2, 2) }, 10000);
-setInterval(function () { windy = randomIntInc(-15, -5) }, 10000);
+setInterval(function () { windy = randomIntInc(-15, -7) }, 10000);
 setInterval(function () { windz = randomIntInc(-2, 2) }, 10000);
 
->>>>>>> b8307f01431604baa55605d52ced865e37208a9c
 // Setup main game loop
 function gameLoop(): void {
     stats.update();
 
     scene.update();
-    //    this.scoreLabel.text = "wind x:"+ windx + "   wind y:"+ windy +  "  wind z: "+ windz; //windx
     scene.setGravity(new THREE.Vector3(windx, windy, windz));
 
     // render using requestAnimationFrame
@@ -170,13 +159,7 @@ function setupRenderer(): void {
 
 // Setup main camera for the scene
 function setupCamera(): void {
-<<<<<<< HEAD
     camera = new PerspectiveCamera(35, config.Screen.RATIO, 0.1, 300);
-=======
-    camera = new PerspectiveCamera(35, config.Screen.RATIO, 0.1, 1000);
->>>>>>> b8307f01431604baa55605d52ced865e37208a9c
-    //camera.position.set(0, 10, 30);
-    //camera.lookAt(new Vector3(0, 0, 0));
     console.log("Finished setting up Camera...");
 }
 
@@ -207,8 +190,6 @@ function changeScene(): void {
             scene = level3;
             console.log("Starting Level 3 Scene");
             break;
-
-
         /*   case config.Scene.OVER:
                // show the game OVER scene
                /*
