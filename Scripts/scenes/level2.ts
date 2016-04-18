@@ -390,7 +390,7 @@ module scenes {
          * @return void
          */
         private addDeathPlane(): void {
-            this.deathPlaneGeometry = new BoxGeometry(80, 1, 80);
+            this.deathPlaneGeometry = new BoxGeometry(300, 1, 300);
             this.deathPlaneTexture = new THREE.TextureLoader().load('../../Assets/images/void.jpg');
             this.deathPlaneTexture.wrapS = THREE.RepeatWrapping;
             this.deathPlaneTexture.wrapT = THREE.RepeatWrapping;

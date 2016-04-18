@@ -83,20 +83,20 @@ module scenes {
             console.log(this._background);
             
             this._gameLabel = new createjs.Text(
-                "Press start to play",
+                "Press Start to Play",
                 "80px Consolas",
                 "#000000");
             this._gameLabel.regX = this._gameLabel.getMeasuredWidth() * 0.5;
             this._gameLabel.regY = this._gameLabel.getMeasuredLineHeight() * 0.5;
             this._gameLabel.x = config.Screen.WIDTH * 0.5;
-            this._gameLabel.y = config.Screen.HEIGHT * 0.5 - 175;
+            this._gameLabel.y = config.Screen.HEIGHT * 0.5 - 300;
             this._stage.addChild(this._gameLabel);
 
             this._startButton = new createjs.Bitmap(assets.getResult("StartButton"));
             this._startButton.regX = this._startButton.getBounds().width * 0.5;
             this._startButton.regY = this._startButton.getBounds().height * 0.5;
-            this._startButton.x = config.Screen.WIDTH * 0.5;
-            this._startButton.y = (config.Screen.HEIGHT * 0.5) + 100;
+            this._startButton.x = config.Screen.WIDTH * 0.5 - 150;
+            this._startButton.y = config.Screen.HEIGHT * 0.5;
             this._stage.addChild(this._startButton);
 
             this._startButton.on("mouseover", (event: createjs.MouseEvent) => {
@@ -116,8 +116,8 @@ module scenes {
             this._instructionButton = new createjs.Bitmap(assets.getResult("InstructionsButton"));
             this._instructionButton.regX = this._instructionButton.getBounds().width * 0.5;
             this._instructionButton.regY = this._instructionButton.getBounds().height * 0.5;
-            this._instructionButton.x = config.Screen.WIDTH * 0.5 - 150;
-            this._instructionButton.y = (config.Screen.HEIGHT * 0.5) + 175;
+            this._instructionButton.x = config.Screen.WIDTH * 0.5 + 150;
+            this._instructionButton.y = config.Screen.HEIGHT * 0.5;
             this._stage.addChild(this._instructionButton);
             
             this._instructionButton.on("mouseover", (event:createjs.MouseEvent) => {
@@ -137,8 +137,10 @@ module scenes {
             this._exitButton = new createjs.Bitmap(assets.getResult("ExitButton"));
             this._exitButton.regX = this._exitButton.getBounds().width * 0.5;
             this._exitButton.regY = this._exitButton.getBounds().height * 0.5;
-            this._exitButton.x = config.Screen.WIDTH * 0.5 + 150;
-            this._exitButton.y = (config.Screen.HEIGHT * 0.5) + 175;
+            this._exitButton.x = config.Screen.WIDTH * 1 - 80
+            this._exitButton.y = 80;
+            this._exitButton.scaleX = 0.5;
+            this._exitButton.scaleY = 0.5;
             this._stage.addChild(this._exitButton);
             
             this._exitButton.on("mouseover", (event:createjs.MouseEvent) => {
@@ -158,8 +160,10 @@ module scenes {
             this._level2Button = new createjs.Bitmap(assets.getResult("Level2Button"));
             this._level2Button.regX = this._level2Button.getBounds().width * 0.5;
             this._level2Button.regY = this._level2Button.getBounds().height * 0.5;
-            this._level2Button.x = config.Screen.WIDTH * 0.5 - 150;
-            this._level2Button.y = (config.Screen.HEIGHT * 0.5) + 25;
+            this._level2Button.x = 80;
+            this._level2Button.y = 80;
+            this._level2Button.scaleX = 0.5;
+            this._level2Button.scaleY = 0.5;
             this._stage.addChild(this._level2Button);
             
             this._level2Button.on("mouseover", (event:createjs.MouseEvent) => {
@@ -179,8 +183,10 @@ module scenes {
             this._level3Button = new createjs.Bitmap(assets.getResult("Level3Button"));
             this._level3Button.regX = this._level3Button.getBounds().width * 0.5;
             this._level3Button.regY = this._level3Button.getBounds().height * 0.5;
-            this._level3Button.x = config.Screen.WIDTH * 0.5 + 150;
-            this._level3Button.y = (config.Screen.HEIGHT * 0.5) + 25;
+            this._level3Button.x = 80;
+            this._level3Button.y = 110
+            this._level3Button.scaleX = 0.5;
+            this._level3Button.scaleY = 0.5;
             this._stage.addChild(this._level3Button);
             
             this._level3Button.on("mouseover", (event: createjs.MouseEvent) => {
@@ -197,11 +203,13 @@ module scenes {
                 this._bgmusic.stop();
             });
             
-            this._level4Button = new createjs.Bitmap(assets.getResult("Level3Button"));
-            this._level4Button.regX = this._level4Button.getBounds().width * -0.2;
-            this._level4Button.regY = this._level4Button.getBounds().height * -5.2;
-            this._level4Button.x = config.Screen.WIDTH * 0.5 + 150;
-            this._level4Button.y = (config.Screen.HEIGHT * 0.5) + 25;
+            this._level4Button = new createjs.Bitmap(assets.getResult("Level4Button"));
+            this._level4Button.regX = this._level4Button.getBounds().width * 0.5;
+            this._level4Button.regY = this._level4Button.getBounds().height * 0.5;
+            this._level4Button.x = 80;
+            this._level4Button.y = 140;
+            this._level4Button.scaleX = 0.5;
+            this._level4Button.scaleY = 0.5;
             this._stage.addChild(this._level4Button);
             
             this._level4Button.on("mouseover", (event: createjs.MouseEvent) => {
@@ -218,11 +226,13 @@ module scenes {
                 this._bgmusic.stop();
             });
             
-             this._level5Button = new createjs.Bitmap(assets.getResult("Level3Button"));
-            this._level5Button.regX = this._level5Button.getBounds().width * -1.5;
-            this._level5Button.regY = this._level5Button.getBounds().height * -6.1;
-            this._level5Button.x = config.Screen.WIDTH * 0.5 + 150;
-            this._level5Button.y = (config.Screen.HEIGHT * 0.5) + 25;
+             this._level5Button = new createjs.Bitmap(assets.getResult("Level5Button"));
+            this._level5Button.regX = this._level5Button.getBounds().width * 0.5;
+            this._level5Button.regY = this._level5Button.getBounds().height * 0.5;
+            this._level5Button.x = 80;
+            this._level5Button.y = 170;
+            this._level5Button.scaleX = 0.5;
+            this._level5Button.scaleY = 0.5;
             this._stage.addChild(this._level5Button);
             
             this._level5Button.on("mouseover", (event: createjs.MouseEvent) => {

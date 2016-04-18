@@ -46,4 +46,5 @@ var scenes;
     }(Physijs.Scene));
     scenes.Scene = Scene;
 })(scenes || (scenes = {}));
+
 //# sourceMappingURL=scene.js.map

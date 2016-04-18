@@ -262,7 +262,7 @@ var scenes;
          * @return void
          */
         level2.prototype.addDeathPlane = function () {
-            this.deathPlaneGeometry = new BoxGeometry(80, 1, 80);
+            this.deathPlaneGeometry = new BoxGeometry(300, 1, 300);
             this.deathPlaneTexture = new THREE.TextureLoader().load('../../Assets/images/void.jpg');
             this.deathPlaneTexture.wrapS = THREE.RepeatWrapping;
             this.deathPlaneTexture.wrapT = THREE.RepeatWrapping;
@@ -612,4 +612,5 @@ var scenes;
     }(scenes.Scene));
     scenes.level2 = level2;
 })(scenes || (scenes = {}));
+
 //# sourceMappingURL=level2.js.map
