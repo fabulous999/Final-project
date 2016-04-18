@@ -442,8 +442,6 @@ var scenes;
                             document.exitPointerLock();
                             this.children = [];
                             this.player.remove(camera);
-                            //currentScene = config.Scene.END;
-                            changeScene();
                         }
                     }
                 }
@@ -460,17 +458,14 @@ var scenes;
                         document.exitPointerLock();
                         this.children = [];
                         this.player.remove(camera);
-                        //currentScene = config.Scene.END;
-                        changeScene();
                     }
                 }
                 if (eventObject.name === "goal") {
-                    this._bgmusic.stop();
                     this._firstMusic.stop();
                     document.exitPointerLock();
                     this.children = [];
                     this.player.remove(camera);
-                    currentScene = config.Scene.level2;
+                    currentScene = config.Scene.MENU;
                     changeScene();
                 }
                 if (eventObject.name === "obstacle") {
@@ -493,8 +488,6 @@ var scenes;
                             document.exitPointerLock();
                             this.children = [];
                             this.player.remove(camera);
-                            //currentScene = config.Scene.END;
-                            changeScene();
                         }
                     }
                 }

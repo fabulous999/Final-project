@@ -554,8 +554,6 @@ var scenes;
                         document.exitPointerLock();
                         this.children = [];
                         this.player.remove(camera);
-                        //currentScene = config.Scene.END;
-                        changeScene();
                     }
                 }
                 if (eventObject.name === "goal") {
@@ -563,6 +561,8 @@ var scenes;
                     document.exitPointerLock();
                     this.children = [];
                     this.player.remove(camera);
+                    currentScene = config.Scene.MENU;
+                    changeScene();
                 }
                 if (eventObject.name === "obstacle") {
                     self.isparkor = true;
@@ -584,8 +584,6 @@ var scenes;
                             document.exitPointerLock();
                             this.children = [];
                             this.player.remove(camera);
-                            //currentScene = config.Scene.END;
-                            changeScene();
                         }
                     }
                 }
