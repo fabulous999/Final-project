@@ -185,5 +185,4 @@ function changeScene() {
     }
 }
 window.onload = preload;
-
 //# sourceMappingURL=game.js.map
