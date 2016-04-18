@@ -41,12 +41,15 @@ var play;
 var menu;
 var level2;
 var level3;
+var level4;
+var level5;
 var stats;
 var canvas;
 var assets;
 var windx = 0;
 var windy = -10;
 var windz = 0;
+var score = 100;
 var manifest = [
     { id: "land", src: "../../Assets/audio/Land.wav" },
     { id: "death", src: "../../Assets/audio/death.wav" },
@@ -112,11 +115,13 @@ function randomIntInc(low, high) {
 setInterval(function () { windx = randomIntInc(-2, 2); }, 10000);
 setInterval(function () { windy = randomIntInc(-15, -7); }, 10000);
 setInterval(function () { windz = randomIntInc(-2, 2); }, 10000);
+//setInterval(score - 1 , 1000 );
 // Setup main game loop
 function gameLoop() {
     stats.update();
     scene.update();
     scene.setGravity(new THREE.Vector3(windx, windy, windz));
+    //this.timeLabel.text = "score" + this.score + "   time :" + this.time ;
     // render using requestAnimationFrame
     requestAnimationFrame(gameLoop);
     // render the scene
@@ -133,7 +138,7 @@ function setupRenderer() {
 }
 // Setup main camera for the scene
 function setupCamera() {
-    camera = new PerspectiveCamera(35, config.Screen.RATIO, 0.1, 300);
+    camera = new PerspectiveCamera(35, config.Screen.RATIO, 0.2, 100);
     console.log("Finished setting up Camera...");
 }
 function changeScene() {
@@ -163,8 +168,19 @@ function changeScene() {
             scene = level3;
             console.log("Starting Level 3 Scene");
             break;
+        case config.Scene.level4:
+            // show level 2 scene
+            level4 = new scenes.level4();
+            scene = level4;
+            console.log("Starting Level 4 Scene");
+            break;
+        case config.Scene.level5:
+            // show level 2 scene
+            level5 = new scenes.level5();
+            scene = level5;
+            console.log("Starting Level 5 Scene");
+            break;
     }
 }
 window.onload = preload;
-
 //# sourceMappingURL=game.js.map

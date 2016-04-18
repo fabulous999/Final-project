@@ -56,17 +56,16 @@ module scenes {
         private isparkor: boolean = false;
         private timerB: boolean;
 
-        private spacegeo: SphereGeometry;
-        private spaceMat: Physijs.Material;
-        private space: Physijs.Mesh;
-        private spacetex: Texture;
-        private sapcePhong: PhongMaterial;
-
+         private spaceGeo: SphereGeometry;
+        private spaceMat: THREE.Material;
+        private space: THREE.Mesh;
+        private spaceTexture: Texture;
+        private spacePhong: PhongMaterial;
+        
         private obstacleTexture: Texture;
         private obstacleMat: PhongMaterial;
         
-        private goalTexture: Texture;
-        private goalMat: PhongMaterial;
+       private goalMat: PhongMaterial;
 
         private obstacleGeo: CubeGeometry;
         private obstaclePM: Physijs.Material;
@@ -90,8 +89,21 @@ module scenes {
 
         private goalGeo: CubeGeometry;
         private goalPM: Physijs.Material;
+   
+        private goalTexture: Texture;
         private goal: Physijs.Mesh;
-
+        private goalGeometry: CubeGeometry;
+        private goalMaterial: PhongMaterial;
+        
+        private obstacleGeometry: CubeGeometry;
+        private obstaclePhong: PhongMaterial;
+        
+        private player_height: number = null;
+        private parkour_height: number = null;
+        private timeLabel: createjs.Text;
+          private pre_height: number = null;
+        
+        private score: number = 10000;
         /**
          * @constructor
          */
@@ -179,6 +191,19 @@ module scenes {
             this.scoreLabel.y = (config.Screen.HEIGHT * 0.15) * 0.20;
             this.stage.addChild(this.scoreLabel);
             console.log("Added Score Label to stage");
+            
+                  // Add Score Label
+            this.timeLabel = new createjs.Text(
+                "SCORE: " + this.scoreValue,
+                "25px Consolas",
+                "#ffffff"
+            );
+            this.timeLabel.x = config.Screen.WIDTH * 0.8;
+            this.timeLabel.y = (config.Screen.HEIGHT * 0.15) * 0.20;
+            this.stage.addChild(this.timeLabel);
+            console.log("Added Score Label to stage");
+            
+        
         }
 
 
@@ -226,28 +251,28 @@ module scenes {
          */
 
         private addGround(): void {
-            this.groundTexture = new THREE.TextureLoader().load('../../Assets/images/floor.jpg');
+            this.groundTexture = new THREE.TextureLoader().load('../../Assets/images/earth.jpg');
             this.groundTexture.wrapS = THREE.RepeatWrapping;
             this.groundTexture.wrapT = THREE.RepeatWrapping;
-            this.groundTexture.repeat.set(8, 8);
+            this.groundTexture.repeat.set(1, 1);
 
-            this.groundTextureNormal = new THREE.TextureLoader().load('../../Assets/images/floor.jpg');
+            this.groundTextureNormal = new THREE.TextureLoader().load('../../Assets/images/earth.jpg');
             this.groundTextureNormal.wrapS = THREE.RepeatWrapping;
             this.groundTextureNormal.wrapT = THREE.RepeatWrapping;
-            this.groundTextureNormal.repeat.set(8, 8);
+            this.groundTextureNormal.repeat.set(1, 1);
 
             this.groundMaterial = new PhongMaterial();
             this.groundMaterial.map = this.groundTexture;
             this.groundMaterial.bumpMap = this.groundTextureNormal;
             this.groundMaterial.bumpScale = 0.2;
-
-            this.groundGeometry = new BoxGeometry(16, 1, 16);
+            
+            this.groundGeometry = new BoxGeometry(32, 1, 32);
             this.groundPhysicsMaterial = Physijs.createMaterial(this.groundMaterial, 0, 0);
             this.ground = new Physijs.ConvexMesh(this.groundGeometry, this.groundPhysicsMaterial, 0);
             this.ground.receiveShadow = true;
             this.ground.name = "Ground";
             this.add(this.ground);
-            console.log("Added Ground to scene");
+            console.log("Added Burnt Ground to scene");
         }
         /**
          * Adds the player controller to the scene
@@ -261,7 +286,7 @@ module scenes {
             this.playerMaterial = Physijs.createMaterial(new LambertMaterial({ color: 0x00ff00 }), 0.4, 0);
 
             this.player = new Physijs.BoxMesh(this.playerGeometry, this.playerMaterial, 1);
-            this.player.position.set(-5, 15, -5);
+            this.player.position.set(-5, 10, -5);
             this.player.receiveShadow = true;
             this.player.castShadow = true;
             this.player.name = "Player";
@@ -278,7 +303,7 @@ module scenes {
 
         private addObs(): void {
             // Texture and Material set
-            this.obstacleTexture = new THREE.TextureLoader().load('../../Assets/images/brick.jpg');
+            this.obstacleTexture = new THREE.TextureLoader().load('../../Assets/images/moon.png');
             this.obstacleTexture.wrapS = THREE.RepeatWrapping;
             this.obstacleTexture.wrapT = THREE.RepeatWrapping;
             this.obstacleTexture.repeat.set(8, 8);
@@ -287,7 +312,7 @@ module scenes {
             this.obstacleMat.map = this.obstacleTexture;
             this.obstacleMat.bumpScale = 0.2;
             
-            this.goalTexture = new THREE.TextureLoader().load('../../Assets/images/checker.png');
+            this.goalTexture = new THREE.TextureLoader().load('../../Assets/images/pl_sun.jpg');
             this.goalTexture.wrapS = THREE.RepeatWrapping;
             this.goalTexture.wrapT = THREE.RepeatWrapping;
             this.goalTexture.repeat.set(8,8);
@@ -365,11 +390,11 @@ module scenes {
          * @return void
          */
         private addDeathPlane(): void {
-            this.deathPlaneGeometry = new BoxGeometry(200, 1, 200);
+            this.deathPlaneGeometry = new BoxGeometry(80, 1, 80);
             this.deathPlaneTexture = new THREE.TextureLoader().load('../../Assets/images/void.jpg');
             this.deathPlaneTexture.wrapS = THREE.RepeatWrapping;
             this.deathPlaneTexture.wrapT = THREE.RepeatWrapping;
-            this.deathPlaneTexture.repeat.set(1, 1);
+            this.deathPlaneTexture.repeat.set(16, 16);
 
 
             this.groundMaterials = new PhongMaterial();
@@ -383,21 +408,66 @@ module scenes {
         //background
         private spacebg(): void {
 
-            this.spacegeo = new SphereGeometry(100, 100, 100)
-            this.spacetex = THREE.ImageUtils.loadTexture('../../Assets/images/space.jpg');
+           this.spaceGeo = new SphereGeometry(80, 80, 80)
+            this.spaceTexture = THREE.ImageUtils.loadTexture('../../Assets/images/space.jpg');
 
-            this.spacetex.wrapS = THREE.RepeatWrapping;
-            this.spacetex.wrapT = THREE.RepeatWrapping;
-            this.spacetex.repeat.set(1, 1);
-
-            this.sapcePhong = new PhongMaterial();
-            this.sapcePhong.map = this.deathPlaneTexture;
-            this.space = new Physijs.SphereMesh(this.deathPlaneGeometry, this.groundMaterials, 0);
-            this.space.position.set(0, -10, 0);
+            this.spaceTexture.wrapS = THREE.RepeatWrapping;
+            this.spaceTexture.wrapT = THREE.RepeatWrapping;
+            this.spaceTexture.repeat.set(2, 2);
+            
+            this.spacePhong = new PhongMaterial();
+            this.spacePhong.map = this.spaceTexture;
+            // this.space =  new Physijs.SphereMesh();
+            this.space = new THREE.Mesh(this.spaceGeo, this.spacePhong);
+            this.space.position.set(0, 10, 0);
             this.space.name = "space";
-            this.space.material.side = THREE.DoubleSide;
-
+            //   this.space.material.side = THREE.DoubleSide;
+            this.space.material.side = THREE.BackSide;
             this.add(this.space);
+        }
+         private level2(): void {
+            for (var i = 0; i < 15; i++) {
+                this.obstacleGeometry = new BoxGeometry(randomIntInc(4, 10), randomIntInc(2, 5), randomIntInc(2, 5));
+                this.obstacleTexture = THREE.ImageUtils.loadTexture('../../Assets/images/moon.png');
+                this.obstacleTexture.wrapS = THREE.RepeatWrapping;
+                this.obstacleTexture.wrapT = THREE.RepeatWrapping;
+                this.obstacleTexture.repeat.set(1, 1);
+
+                this.obstaclePhong = new PhongMaterial();
+                this.obstaclePhong.map = this.obstacleTexture;
+                // this.obstacleMaterial = Physijs.createMaterial(new LambertMaterial({ color: 0xffffff }), 0.4, 0);
+                this.obstacle = new Physijs.BoxMesh(this.obstacleGeometry, this.obstaclePhong, 0);
+                this.obstacle.name = "obstacle";
+                this.obstacle.receiveShadow = true;
+                this.obstacle.castShadow = true;
+
+                //really proud how i did the stair cube down there is basicly a math formula that kinda orginise them randomly
+                this.obstacle.position.set(randomIntInc((i * 5), (i * 6)), randomIntInc((i * 0), (i * 2)), randomIntInc((i * -2), (i * 2)));
+                this.add(this.obstacle);
+                console.log("Added obstacle to Scene  " + this.obstacle.position.y);
+
+                if (i == 14) {
+                    console.log("asdf " + i);
+
+                    this.goalGeometry = new BoxGeometry(randomIntInc(2, 5), randomIntInc(2, 5), randomIntInc(2, 5));
+                    //  this.goalMaterialerial = Physijs.createMaterial(new LambertMaterial({ color: 0xff000000 }), 0.4, 0);
+                    this.goalTexture = THREE.ImageUtils.loadTexture('../../Assets/images/pl_sun.jpg');
+                    this.goalTexture.wrapS = THREE.RepeatWrapping;
+                    this.goalTexture.wrapT = THREE.RepeatWrapping;
+                    this.goalTexture.repeat.set(1, 1);
+                    this.goalMaterial = new PhongMaterial();
+                    this.goalMaterial.map = this.goalTexture;
+
+                    this.goal = new Physijs.BoxMesh(this.goalGeometry, this.goalMaterial, 0);
+                    this.goal.name = "goal";
+                    this.goal.receiveShadow = true;
+                    this.goal.castShadow = true;
+                    this.goal.position.set(randomIntInc((i * 5), (i * 6)), randomIntInc((i * 0), (i * 1)), randomIntInc((i * -2), (i * 2)));
+                    // this.goal.position.set(10, 0, 0);
+                    this.add(this.goal);
+                    console.log("Added goal" + this.goal.name);
+                }
+            }
         }
 
         /*
@@ -463,22 +533,32 @@ module scenes {
                     this.velocity.x += 400.0 * delta;
                 }
 
-                if (this.isGrounded) {
+               if (this.isGrounded) {
+
                     if (this.keyboardControls.jump) {
+
                         this.velocity.y += 4000.0 * delta;
-                        if (this.player.position.y > 4) {
+                        //   this.isGrounded = false;
+
+                        if (this.player.position.y > (this.player_height + 0.5)) {
                             this.isGrounded = false;
+                            console.log("it false " + this.player_height);
                         }
                     }
-                }
-                if (this.keyboardControls.shift) {
                     if (this.isparkor) {
-                        this.velocity.y += 4000 * delta;
-                        setTimeout(function() {
-                            this.isparkor = false; this.timerB = false;
-                        }, 1000);
-                        createjs.Sound.play("jump");
+                        if (this.keyboardControls.shift) {
+                            {
+                                this.velocity.y += 4000.0 * delta;
+                                console.log(this.obstacle.position.y);
+                                if (this.player.position.y > (this.parkour_height + 0.3)) {
+                                    this.isparkor = false;
+                                    this.score =  this.score + 1000;
+                                    console.log("it false " + this.player_height);
+                                }
+                            }
+                        }
                     }
+
                 }
                 this.player.setDamping(0.7, 0.1);
                 // Changing player's rotation
@@ -505,12 +585,7 @@ module scenes {
             }
         }
 
-        if(timerB = false) {
-            setInterval(function() {
-                this.timerB = true;
-                this.isparkor = false;
-            }, 10000);
-        }
+
 
         // PUBLIC METHODS +++++++++++++++++++++++++++++++++++++++++++
         /**
@@ -574,47 +649,101 @@ module scenes {
             // Add player controller
             this.addPlayer();
 
-            this.addObs();
-
+           // this.addObs();
+this.spacebg();
+  this.level2();
             // Add death plane to the scene
             this.addDeathPlane();
 
             // Collision Check
             this.player.addEventListener('collision', function(eventObject) {
 
+               
+
                 if (eventObject.name === "Ground") {
                     self.isGrounded = true;
+                    self.pre_height =  self.player_height;
+                    self.player_height = self.player.position.y;
                     createjs.Sound.play("land");
+                    console.log("player_height is " + this.player_height);
+                     console.log("pre_height is " + this.pre_height);
+                     if (this.player_height + 10 < this.pre_height  )
+                     {
+                          createjs.Sound.play("death");
+                    self.livesValue--;
+                     this.score =   this.score - 1000;
+                    self.livesLabel.text = "LIVES: " + self.livesValue;
+                    self.remove(self.player);
+                    self.player.position.set(0, 10, 10);
+                    self.add(self.player);
+                    if (self.livesValue <= 0) {
+                        this._firstMusic.stop();
+                        document.exitPointerLock();
+                        this.children = [];
+                        this.player.remove(camera);
+                     
+                        //currentScene = config.Scene.END;
+                        changeScene();
+                    }
+                         
+                     }
                 }
+
                 if (eventObject.name === "DeathPlane") {
                     createjs.Sound.play("death");
                     self.livesValue--;
+                    this.score =   this.score - 1000;
                     self.livesLabel.text = "LIVES: " + self.livesValue;
                     self.remove(self.player);
-                    self.player.position.set(-5, 15, 5);
+                    self.player.position.set(0, 10, 10);
                     self.add(self.player);
-                    
                     if (self.livesValue <= 0) {
                         this._firstMusic.stop();
+                        document.exitPointerLock();
+                        this.children = [];
+                        this.player.remove(camera);
+                        
+                        //currentScene = config.Scene.END;
+                        changeScene();
+                    }
+                }
+                if (eventObject.name === "goal") {
+                     this._bgmusic.stop();
+                    this._firstMusic.stop();
+                    document.exitPointerLock();
+                     this.children = [];
+                    this.player.remove(camera);
+                    currentScene = config.Scene.level2;
+                    changeScene();
+                   
+
+                }
+                if (eventObject.name === "obstacle") {
+                    self.isparkor = true;
+                    self.isGrounded = true;
+                    self.pre_height =  self.player_height;
+                    self.player_height = self.player.position.y;
+                    self.parkour_height = self.player.position.y; //self.obstacle.position.y;
+                  //  console.log("is parkour " + self.parkour_height);
+                     if (this.player_height + 10 < this.pre_height  )
+                     {
+                    createjs.Sound.play("death");
+                    self.livesValue--;
+                     this.score =   this.score - 1000;
+                    self.livesLabel.text = "LIVES: " + self.livesValue;
+                    self.remove(self.player);
+                    self.player.position.set(0, 10, 10);
+                    self.add(self.player);
+                    if (self.livesValue <= 0) {
+                        this._firstMusic.stop();
+                  
                         document.exitPointerLock();
                         this.children = [];
                         this.player.remove(camera);
                         //currentScene = config.Scene.END;
                         changeScene();
                     }
-                }
-                if (eventObject.name === "goal") {
-                    this._firstMusic.stop();
-                    document.exitPointerLock();
-                    this.children = [];
-                    this.player.remove(camera);
-                    currentScene = config.Scene.level3;
-                    changeScene();
-
-
-                }
-                if (eventObject.name === "obstacle") {
-                    self.isparkor = true;
+                  }
                 }
             }.bind(self));
 
@@ -649,7 +778,8 @@ module scenes {
         public update(): void {
 
             this.scoreLabel.text = "wind x:" + windx + "   wind y:" + windy + "  wind z: " + windz;
-
+this.score --;
+this.timeLabel.text = "score: " + this.score ;
             this.checkControls();
             this.stage.update();
         }

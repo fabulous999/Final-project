@@ -23,12 +23,14 @@ var scenes;
          */
         function Play() {
             _super.call(this);
+            this.score = 10000;
             this.windx = 0;
             this.windy = -10;
             this.windz = 0;
             this.isparkor = false;
             this.player_height = null;
             this.parkour_height = null;
+            this.pre_height = null;
             this._initialize();
             this.start();
         }
@@ -86,9 +88,15 @@ var scenes;
             console.log("Added Lives Label to stage");
             // Add Score Label
             this.scoreLabel = new createjs.Text("SCORE: " + this.scoreValue, "25px Consolas", "#ffffff");
-            this.scoreLabel.x = config.Screen.WIDTH * 0.4;
+            this.scoreLabel.x = config.Screen.WIDTH * 0.3;
             this.scoreLabel.y = (config.Screen.HEIGHT * 0.15) * 0.20;
             this.stage.addChild(this.scoreLabel);
+            console.log("Added Score Label to stage");
+            // Add Score Label
+            this.timeLabel = new createjs.Text("SCORE: " + this.scoreValue, "25px Consolas", "#ffffff");
+            this.timeLabel.x = config.Screen.WIDTH * 0.7;
+            this.timeLabel.y = (config.Screen.HEIGHT * 0.15) * 0.20;
+            this.stage.addChild(this.timeLabel);
             console.log("Added Score Label to stage");
         };
         Play.prototype.randomIntInc = function (low, high) {
@@ -177,7 +185,7 @@ var scenes;
          * @return void
          */
         Play.prototype.addDeathPlane = function () {
-            this.deathPlaneGeometry = new BoxGeometry(50, 1, 50, 3);
+            this.deathPlaneGeometry = new BoxGeometry(100, 1, 100, 3);
             this.deathPlaneTexture = new THREE.TextureLoader().load('../../Assets/images/void.jpg');
             this.deathPlaneTexture.wrapS = THREE.RepeatWrapping;
             this.deathPlaneTexture.wrapT = THREE.RepeatWrapping;
@@ -308,9 +316,9 @@ var scenes;
                 //really proud how i did the stair cube down there is basicly a math formula that kinda orginise them randomly
                 this.obstacle.position.set(randomIntInc((i * -2), (i * 2)), randomIntInc((i * 5), (i * 6)), randomIntInc((i * -2), (i * 2)));
                 this.add(this.obstacle);
-                console.log("Added obstacle to Scene  " + this.obstacle.position.y);
+                //  console.log("Added obstacle to Scene  " + this.obstacle.position.y);
                 if (i == 9) {
-                    console.log("asdf " + i);
+                    //  console.log("asdf " + i);
                     this.goalGeometry = new BoxGeometry(randomIntInc(4, 5), randomIntInc(4, 5), randomIntInc(4, 5));
                     //  this.goalMaterialerial = Physijs.createMaterial(new LambertMaterial({ color: 0xff000000 }), 0.4, 0);
                     this.goalTexture = THREE.ImageUtils.loadTexture('../../Assets/images/pl_sun.jpg');
@@ -409,7 +417,7 @@ var scenes;
                                 console.log(this.obstacle.position.y);
                                 if (this.player.position.y > (this.parkour_height + 0.3)) {
                                     this.isparkor = false;
-                                    console.log("it false " + this.player_height);
+                                    this.score = this.score + 1000;
                                 }
                             }
                         }
@@ -451,6 +459,7 @@ var scenes;
             this.havePointerLock = 'pointerLockElement' in document ||
                 'mozPointerLockElement' in document ||
                 'webkitPointerLockElement' in document;
+            //this.time
             // Check to see if we have pointerLock
             if (this.havePointerLock) {
                 this.element = document.body;
@@ -486,36 +495,86 @@ var scenes;
             this.addPlayer();
             // Add death plane to the scene
             this.addDeathPlane();
-            this.level3();
+            // this.level3();
             this.spacebg();
             this.differentSizeWide();
             // Collision Check
             this.player.addEventListener('collision', function (eventObject) {
                 if (eventObject.name === "Ground") {
                     self.isGrounded = true;
-                    self.player_height = this.player.position.y;
+                    self.pre_height = self.player_height;
+                    self.player_height = self.player.position.y;
                     createjs.Sound.play("land");
                     console.log("player_height is " + this.player_height);
+                    console.log("pre_height is " + this.pre_height);
+                    if (this.player_height + 10 < this.pre_height) {
+                        createjs.Sound.play("death");
+                        self.livesValue--;
+                        this.score = this.score - 1000;
+                        self.livesLabel.text = "LIVES: " + self.livesValue;
+                        self.remove(self.player);
+                        self.player.position.set(0, 10, 10);
+                        self.add(self.player);
+                        if (self.livesValue <= 0) {
+                            this._firstMusic.stop();
+                            document.exitPointerLock();
+                            this.children = [];
+                            this.player.remove(camera);
+                            //currentScene = config.Scene.END;
+                            changeScene();
+                        }
+                    }
                 }
                 if (eventObject.name === "DeathPlane") {
                     createjs.Sound.play("death");
                     self.livesValue--;
+                    this.score = this.score - 1000;
                     self.livesLabel.text = "LIVES: " + self.livesValue;
                     self.remove(self.player);
-                    self.player.position.set(0, 30, 10);
+                    self.player.position.set(0, 10, 10);
                     self.add(self.player);
+                    if (self.livesValue <= 0) {
+                        this._firstMusic.stop();
+                        document.exitPointerLock();
+                        this.children = [];
+                        this.player.remove(camera);
+                        //currentScene = config.Scene.END;
+                        changeScene();
+                    }
                 }
                 if (eventObject.name === "goal") {
-                    currentScene = config.Scene.level3;
-                    changeScene();
                     this._bgmusic.stop();
+                    this._firstMusic.stop();
+                    document.exitPointerLock();
+                    this.children = [];
+                    this.player.remove(camera);
+                    currentScene = config.Scene.level2;
+                    changeScene();
                 }
                 if (eventObject.name === "obstacle") {
                     self.isparkor = true;
                     self.isGrounded = true;
-                    self.player_height = this.player.position.y;
+                    self.pre_height = self.player_height;
+                    self.player_height = self.player.position.y;
                     self.parkour_height = self.player.position.y; //self.obstacle.position.y;
-                    console.log("is parkour " + this.parkour_height);
+                    //  console.log("is parkour " + self.parkour_height);
+                    if (this.player_height + 10 < this.pre_height) {
+                        createjs.Sound.play("death");
+                        self.livesValue--;
+                        this.score = this.score - 1000;
+                        self.livesLabel.text = "LIVES: " + self.livesValue;
+                        self.remove(self.player);
+                        self.player.position.set(0, 10, 10);
+                        self.add(self.player);
+                        if (self.livesValue <= 0) {
+                            this._firstMusic.stop();
+                            document.exitPointerLock();
+                            this.children = [];
+                            this.player.remove(camera);
+                            //currentScene = config.Scene.END;
+                            changeScene();
+                        }
+                    }
                 }
             }.bind(self));
             console.log(name);
@@ -543,6 +602,9 @@ var scenes;
          */
         Play.prototype.update = function () {
             this.scoreLabel.text = "wind x:" + windx + "   wind y:" + windy + "  wind z: " + windz;
+            this.score--;
+            this.timeLabel.text = "score: " + this.score;
+            //console.log("score" + this.score + "   wind y:" + this.time);
             this.checkControls();
             this.stage.update();
         };
@@ -558,11 +620,12 @@ var scenes;
             this.livesLabel.y = (config.Screen.HEIGHT * 0.15) * 0.20;
             this.scoreLabel.x = config.Screen.WIDTH * 0.8;
             this.scoreLabel.y = (config.Screen.HEIGHT * 0.15) * 0.20;
+            this.timeLabel.x = config.Screen.WIDTH * 0.8;
+            this.timeLabel.y = (config.Screen.HEIGHT * 0.15) * 0.20;
             this.stage.update();
         };
         return Play;
     }(scenes.Scene));
     scenes.Play = Play;
 })(scenes || (scenes = {}));
-
 //# sourceMappingURL=play.js.map

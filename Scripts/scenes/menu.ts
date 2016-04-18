@@ -24,6 +24,8 @@ module scenes {
         private _level3Button: createjs.Bitmap;   
         private _background: createjs.Bitmap;
         private _bgmusic: createjs.AbstractSoundInstance;
+        private _level4Button: createjs.Bitmap;
+        private _level5Button: createjs.Bitmap;
 
         /**
          * Empty Constructor - calls _initialize and start methods
@@ -194,6 +196,50 @@ module scenes {
                 changeScene();
                 this._bgmusic.stop();
             });
+            
+            this._level4Button = new createjs.Bitmap(assets.getResult("Level3Button"));
+            this._level4Button.regX = this._level4Button.getBounds().width * -0.2;
+            this._level4Button.regY = this._level4Button.getBounds().height * -5.2;
+            this._level4Button.x = config.Screen.WIDTH * 0.5 + 150;
+            this._level4Button.y = (config.Screen.HEIGHT * 0.5) + 25;
+            this._stage.addChild(this._level4Button);
+            
+            this._level4Button.on("mouseover", (event: createjs.MouseEvent) => {
+                event.target.alpha = 0.7;
+            });
+            
+            this._level4Button.on("mouseout", (event: createjs.MouseEvent) => {
+                event.target.alpha = 1.0;
+            });
+            
+            this._level4Button.on("click", (event: createjs.MouseEvent) => {
+                currentScene = config.Scene.level4;
+                changeScene();
+                this._bgmusic.stop();
+            });
+            
+             this._level5Button = new createjs.Bitmap(assets.getResult("Level3Button"));
+            this._level5Button.regX = this._level5Button.getBounds().width * -1.5;
+            this._level5Button.regY = this._level5Button.getBounds().height * -6.1;
+            this._level5Button.x = config.Screen.WIDTH * 0.5 + 150;
+            this._level5Button.y = (config.Screen.HEIGHT * 0.5) + 25;
+            this._stage.addChild(this._level5Button);
+            
+            this._level5Button.on("mouseover", (event: createjs.MouseEvent) => {
+                event.target.alpha = 0.7;
+            });
+            
+            this._level5Button.on("mouseout", (event: createjs.MouseEvent) => {
+                event.target.alpha = 1.0;
+            });
+            
+            this._level5Button.on("click", (event: createjs.MouseEvent) => {
+                currentScene = config.Scene.level5;
+                changeScene();
+                this._bgmusic.stop();
+            });
+            
+            
         }
 
         /**

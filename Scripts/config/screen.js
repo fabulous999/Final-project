@@ -17,10 +17,11 @@ var config;
         Scene.PLAY = 1;
         Scene.level2 = 2;
         Scene.level3 = 3;
-        Scene.OVER = 4;
+        Scene.level4 = 4;
+        Scene.level5 = 5;
+        Scene.OVER = 6;
         return Scene;
     }());
     config.Scene = Scene;
 })(config || (config = {}));
-
 //# sourceMappingURL=screen.js.map

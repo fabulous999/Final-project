@@ -159,6 +159,40 @@ var scenes;
                 changeScene();
                 _this._bgmusic.stop();
             });
+            this._level4Button = new createjs.Bitmap(assets.getResult("Level3Button"));
+            this._level4Button.regX = this._level4Button.getBounds().width * -0.2;
+            this._level4Button.regY = this._level4Button.getBounds().height * -5.2;
+            this._level4Button.x = config.Screen.WIDTH * 0.5 + 150;
+            this._level4Button.y = (config.Screen.HEIGHT * 0.5) + 25;
+            this._stage.addChild(this._level4Button);
+            this._level4Button.on("mouseover", function (event) {
+                event.target.alpha = 0.7;
+            });
+            this._level4Button.on("mouseout", function (event) {
+                event.target.alpha = 1.0;
+            });
+            this._level4Button.on("click", function (event) {
+                currentScene = config.Scene.level4;
+                changeScene();
+                _this._bgmusic.stop();
+            });
+            this._level5Button = new createjs.Bitmap(assets.getResult("Level3Button"));
+            this._level5Button.regX = this._level5Button.getBounds().width * -1.5;
+            this._level5Button.regY = this._level5Button.getBounds().height * -6.1;
+            this._level5Button.x = config.Screen.WIDTH * 0.5 + 150;
+            this._level5Button.y = (config.Screen.HEIGHT * 0.5) + 25;
+            this._stage.addChild(this._level5Button);
+            this._level5Button.on("mouseover", function (event) {
+                event.target.alpha = 0.7;
+            });
+            this._level5Button.on("mouseout", function (event) {
+                event.target.alpha = 1.0;
+            });
+            this._level5Button.on("click", function (event) {
+                currentScene = config.Scene.level5;
+                changeScene();
+                _this._bgmusic.stop();
+            });
         };
         /**
          * The update method updates the animation loop and other objects
@@ -182,5 +216,4 @@ var scenes;
     }(scenes.Scene));
     scenes.Menu = Menu;
 })(scenes || (scenes = {}));
-
 //# sourceMappingURL=menu.js.map
