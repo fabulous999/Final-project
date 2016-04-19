@@ -690,7 +690,6 @@ module scenes {
                 }
                 if (eventObject.name === "goal") {
                     this._firstMusic.stop();
-                    document.exitPointerLock();
                     this.children = [];
                     this.player.remove(camera);
                     currentScene = config.Scene.MENU;

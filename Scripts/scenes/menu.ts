@@ -129,9 +129,9 @@ module scenes {
             });
             
             this._instructionButton.on("click", (event: createjs.MouseEvent) => {
-                //currentScene = config.Scene.INSTRUCTIONS;
-                //changeScene();
-                //this._bgmusic.stop();
+                currentScene = config.Scene.INSTRUCTIONS;
+                changeScene();
+                this._bgmusic.stop();
             });
             
             this._exitButton = new createjs.Bitmap(assets.getResult("ExitButton"));

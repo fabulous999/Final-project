@@ -37,8 +37,9 @@ var scene;
 var currentScene;
 var renderer;
 var camera;
-var play;
 var menu;
+var instructions;
+var play;
 var level2;
 var level3;
 var level4;
@@ -58,6 +59,7 @@ var manifest = [
     { id: "StartButton", src: "../../Assets/images/StartButton.png" },
     { id: "InstructionsButton", src: "../../Assets/images/InstructionsButton.png" },
     { id: "ExitButton", src: "../../Assets/images/ExitButton.png" },
+    { id: "BackButton", src: "../../Assets/images/BackButton.png" },
     { id: "Level2Button", src: "../../Assets/images/Level2Button.png" },
     { id: "Level3Button", src: "../../Assets/images/Level3Button.png" },
     { id: "Level4Button", src: "../../Assets/images/Level4Button.png" },
@@ -117,13 +119,11 @@ function randomIntInc(low, high) {
 setInterval(function () { windx = randomIntInc(-2, 2); }, 10000);
 setInterval(function () { windy = randomIntInc(-15, -7); }, 10000);
 setInterval(function () { windz = randomIntInc(-2, 2); }, 10000);
-//setInterval(score - 1 , 1000 );
 // Setup main game loop
 function gameLoop() {
     stats.update();
     scene.update();
     scene.setGravity(new THREE.Vector3(windx, windy, windz));
-    //this.timeLabel.text = "score" + this.score + "   time :" + this.time ;
     // render using requestAnimationFrame
     requestAnimationFrame(gameLoop);
     // render the scene
@@ -151,6 +151,12 @@ function changeScene() {
             menu = new scenes.Menu();
             scene = menu;
             console.log("Starting MENU Scene");
+            break;
+        case config.Scene.INSTRUCTIONS:
+            // show the INSTRUCTIONS scene
+            instructions = new scenes.Instructions();
+            scene = instructions;
+            console.log("Started INSTRUCTIONS Scene");
             break;
         case config.Scene.PLAY:
             // show the PLAY scene

@@ -104,9 +104,9 @@ var scenes;
                 event.target.alpha = 1.0;
             });
             this._instructionButton.on("click", function (event) {
-                //currentScene = config.Scene.INSTRUCTIONS;
-                //changeScene();
-                //this._bgmusic.stop();
+                currentScene = config.Scene.INSTRUCTIONS;
+                changeScene();
+                _this._bgmusic.stop();
             });
             this._exitButton = new createjs.Bitmap(assets.getResult("ExitButton"));
             this._exitButton.regX = this._exitButton.getBounds().width * 0.5;
