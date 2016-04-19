@@ -27,7 +27,7 @@ var scenes;
             this.windx = 0;
             this.windy = -10;
             this.windz = 0;
-            this.isparkor = false;
+            this.isParkour = false;
             this.player_height = null;
             this.parkour_height = null;
             this.pre_height = null;
@@ -77,26 +77,26 @@ var scenes;
          * @returns void
          */
         Play.prototype.setupScoreboard = function () {
-            // initialize  score and lives values
+            // initialize score, wind and lives values
             this.scoreValue = 0;
             this.livesValue = 5;
             // Add Lives Label
-            this.livesLabel = new createjs.Text("LIVES: " + this.livesValue, "40px Consolas", "#ffffff");
+            this.livesLabel = new createjs.Text("LIVES: " + this.livesValue, "30px Monotype Corsiva", "#ffffff");
             this.livesLabel.x = config.Screen.WIDTH * 0.1;
             this.livesLabel.y = (config.Screen.HEIGHT * 0.15) * 0.20;
             this.stage.addChild(this.livesLabel);
             console.log("Added Lives Label to stage");
-            // Add Score Label
-            this.scoreLabel = new createjs.Text("SCORE: " + this.scoreValue, "25px Consolas", "#ffffff");
-            this.scoreLabel.x = config.Screen.WIDTH * 0.3;
-            this.scoreLabel.y = (config.Screen.HEIGHT * 0.15) * 0.20;
-            this.stage.addChild(this.scoreLabel);
+            // Add Wind Label
+            this.windLabel = new createjs.Text("Wind: " + this.scoreValue, "30px Monotype Corsiva", "#ffffff");
+            this.windLabel.x = config.Screen.WIDTH * 0.3;
+            this.windLabel.y = (config.Screen.HEIGHT * 0.15) * 0.20;
+            this.stage.addChild(this.windLabel);
             console.log("Added Score Label to stage");
             // Add Score Label
-            this.timeLabel = new createjs.Text("SCORE: " + this.scoreValue, "25px Consolas", "#ffffff");
-            this.timeLabel.x = config.Screen.WIDTH * 0.7;
-            this.timeLabel.y = (config.Screen.HEIGHT * 0.15) * 0.20;
-            this.stage.addChild(this.timeLabel);
+            this.scoreLabel = new createjs.Text("Score: " + this.scoreValue, "30px Monotype Corsiva", "#ffffff");
+            this.scoreLabel.x = config.Screen.WIDTH * 0.8;
+            this.scoreLabel.y = (config.Screen.HEIGHT * 0.15) * 0.20;
+            this.stage.addChild(this.scoreLabel);
             console.log("Added Score Label to stage");
         };
         Play.prototype.randomIntInc = function (low, high) {
@@ -158,7 +158,7 @@ var scenes;
             this.ground.receiveShadow = true;
             this.ground.name = "Ground";
             this.add(this.ground);
-            console.log("Added Burnt Ground to scene");
+            console.log("Added Ground to scene");
         };
         /**
          * Adds the player controller to the scene
@@ -221,17 +221,8 @@ var scenes;
             this.obstaclePhong.map = this.obstacleTexture;
             for (var i = 0; i < 10; i++) {
                 this.obstacleGeometry = new BoxGeometry(randomIntInc(4, 5), randomIntInc(5, 5), randomIntInc(5, 5));
-                /* this.obstacleTexture.wrapS = THREE.RepeatWrapping;
-                  this.obstacleTexture.wrapT = THREE.RepeatWrapping;
-                  this.obstacleTexture.repeat.set(1, 1);
-                  this.goalTexture.wrapS = THREE.RepeatWrapping;
-                      this.goalTexture.wrapT = THREE.RepeatWrapping;
-                      this.goalTexture.repeat.set(1, 1);*/
-                // this.obstacleMaterial = Physijs.createMaterial(new LambertMaterial({ color: 0xffffff }), 0.4, 0);
                 this.obstacle = new Physijs.BoxMesh(this.obstacleGeometry, this.obstaclePhong, 0);
                 this.obstacle.name = "obstacle";
-                //     this.obstacle.receiveShadow = true;
-                //     this.obstacle.castShadow = true;
                 //really proud how i did the stair cube down there is basicly a math formula that kinda orginise them randomly
                 this.obstacle.position.set(randomIntInc(-1 + (i * 6), 1 + (i * 5)), randomIntInc(2 + (i * 8), 3 + (i * 8)), randomIntInc(-0, 2));
                 this.add(this.obstacle);
@@ -240,10 +231,7 @@ var scenes;
                     this.goalGeometry = new BoxGeometry(randomIntInc(2, 5), randomIntInc(2, 5), randomIntInc(2, 5));
                     this.goal = new Physijs.BoxMesh(this.goalGeometry, this.goalMaterial, 0);
                     this.goal.name = "goal";
-                    //  this.goal.receiveShadow = true;
-                    //  this.goal.castShadow = true;
                     this.goal.position.set(randomIntInc(-1 + (i * 6), 1 + (i * 5)), randomIntInc(2 + (i * 8), 3 + (i * 8)), randomIntInc(-0, 2));
-                    // this.goal.position.set(10, 0, 0);
                     this.add(this.goal);
                     console.log("Added goal" + this.goal.name);
                 }
@@ -315,19 +303,17 @@ var scenes;
                 if (this.isGrounded) {
                     if (this.keyboardControls.jump) {
                         this.velocity.y += 4000.0 * delta;
-                        //   this.isGrounded = false;
                         if (this.player.position.y > (this.player_height + 0.5)) {
                             this.isGrounded = false;
-                            console.log("it false " + this.player_height);
                         }
                     }
-                    if (this.isparkor) {
+                    if (this.isParkour) {
                         if (this.keyboardControls.shift) {
                             {
                                 this.velocity.y += 4000.0 * delta;
                                 console.log(this.obstacle.position.y);
                                 if (this.player.position.y > (this.parkour_height + 0.3)) {
-                                    this.isparkor = false;
+                                    this.isParkour = false;
                                     this.score = this.score + 1000;
                                 }
                             }
@@ -370,7 +356,6 @@ var scenes;
             this.havePointerLock = 'pointerLockElement' in document ||
                 'mozPointerLockElement' in document ||
                 'webkitPointerLockElement' in document;
-            //this.time
             // Check to see if we have pointerLock
             if (this.havePointerLock) {
                 this.element = document.body;
@@ -406,7 +391,9 @@ var scenes;
             this.addPlayer();
             // Add death plane to the scene
             this.addDeathPlane();
+            // Add background to scene
             this.spacebg();
+            // Add randomly generated obstacles to scene
             this.differentSizeWide();
             // Collision Check
             this.player.addEventListener('collision', function (eventObject) {
@@ -430,6 +417,8 @@ var scenes;
                             document.exitPointerLock();
                             this.children = [];
                             this.player.remove(camera);
+                            currentScene = config.Scene.DEATH;
+                            changeScene();
                         }
                     }
                 }
@@ -446,6 +435,8 @@ var scenes;
                         document.exitPointerLock();
                         this.children = [];
                         this.player.remove(camera);
+                        currentScene = config.Scene.DEATH;
+                        changeScene();
                     }
                 }
                 if (eventObject.name === "goal") {
@@ -457,7 +448,7 @@ var scenes;
                     changeScene();
                 }
                 if (eventObject.name === "obstacle") {
-                    self.isparkor = true;
+                    self.isParkour = true;
                     self.isGrounded = true;
                     self.pre_height = self.player_height;
                     self.player_height = self.player.position.y;
@@ -475,6 +466,8 @@ var scenes;
                             document.exitPointerLock();
                             this.children = [];
                             this.player.remove(camera);
+                            currentScene = config.Scene.DEATH;
+                            changeScene();
                         }
                     }
                 }
@@ -503,10 +496,9 @@ var scenes;
          * @returns void
          */
         Play.prototype.update = function () {
-            this.scoreLabel.text = "wind x:" + windx + "   wind y:" + windy + "  wind z: " + windz;
+            this.windLabel.text = "Wind X: " + windx + "   Wind Y: " + windy + "  Wind Z: " + windz;
             this.score--;
-            this.timeLabel.text = "score: " + this.score;
-            //console.log("score" + this.score + "   wind y:" + this.time);
+            this.scoreLabel.text = "Score: " + this.score;
             this.checkControls();
             this.stage.update();
         };
@@ -520,10 +512,10 @@ var scenes;
             canvas.style.width = "100%";
             this.livesLabel.x = config.Screen.WIDTH * 0.1;
             this.livesLabel.y = (config.Screen.HEIGHT * 0.15) * 0.20;
-            this.scoreLabel.x = config.Screen.WIDTH * 0.8;
+            this.windLabel.x = config.Screen.WIDTH * 0.8;
+            this.windLabel.y = (config.Screen.HEIGHT * 0.15) * 0.20;
+            this.scoreLabel.x = config.Screen.WIDTH * 1.5;
             this.scoreLabel.y = (config.Screen.HEIGHT * 0.15) * 0.20;
-            this.timeLabel.x = config.Screen.WIDTH * 0.8;
-            this.timeLabel.y = (config.Screen.HEIGHT * 0.15) * 0.20;
             this.stage.update();
         };
         return Play;

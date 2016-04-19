@@ -27,7 +27,7 @@ var scenes;
             this.windx = 0;
             this.windy = -10;
             this.windz = 0;
-            this.isparkor = false;
+            this.isParkour = false;
             this.player_height = null;
             this.parkour_height = null;
             this.pre_height = null;
@@ -77,26 +77,26 @@ var scenes;
          * @returns void
          */
         level5.prototype.setupScoreboard = function () {
-            // initialize  score and lives values
+            // initialize score, wind and lives values
             this.scoreValue = 0;
             this.livesValue = 5;
             // Add Lives Label
-            this.livesLabel = new createjs.Text("LIVES: " + this.livesValue, "40px Consolas", "#ffffff");
+            this.livesLabel = new createjs.Text("LIVES: " + this.livesValue, "30px Monotype Corsiva", "#ffffff");
             this.livesLabel.x = config.Screen.WIDTH * 0.1;
             this.livesLabel.y = (config.Screen.HEIGHT * 0.15) * 0.20;
             this.stage.addChild(this.livesLabel);
             console.log("Added Lives Label to stage");
+            // Add Wind Label
+            this.windLabel = new createjs.Text("SCORE: " + this.scoreValue, "30px Monotype Corsiva", "#ffffff");
+            this.windLabel.x = config.Screen.WIDTH * 0.3;
+            this.windLabel.y = (config.Screen.HEIGHT * 0.15) * 0.20;
+            this.stage.addChild(this.windLabel);
+            console.log("Added Wind Label to stage");
             // Add Score Label
-            this.scoreLabel = new createjs.Text("SCORE: " + this.scoreValue, "25px Consolas", "#ffffff");
-            this.scoreLabel.x = config.Screen.WIDTH * 0.3;
+            this.scoreLabel = new createjs.Text("SCORE: " + this.scoreValue, "30px Monotype Corsiva", "#ffffff");
+            this.scoreLabel.x = config.Screen.WIDTH * 0.8;
             this.scoreLabel.y = (config.Screen.HEIGHT * 0.15) * 0.20;
             this.stage.addChild(this.scoreLabel);
-            console.log("Added Score Label to stage");
-            // Add Score Label
-            this.timeLabel = new createjs.Text("SCORE: " + this.scoreValue, "25px Consolas", "#ffffff");
-            this.timeLabel.x = config.Screen.WIDTH * 0.8;
-            this.timeLabel.y = (config.Screen.HEIGHT * 0.15) * 0.20;
-            this.stage.addChild(this.timeLabel);
             console.log("Added Score Label to stage");
         };
         level5.prototype.randomIntInc = function (low, high) {
@@ -306,13 +306,13 @@ var scenes;
                             this.isGrounded = false;
                         }
                     }
-                    if (this.isparkor) {
+                    if (this.isParkour) {
                         if (this.keyboardControls.shift) {
                             {
                                 this.velocity.y += 4000.0 * delta;
                                 console.log(this.obstacle.position.y);
                                 if (this.player.position.y > (this.parkour_height + 0.3)) {
-                                    this.isparkor = false;
+                                    this.isParkour = false;
                                     this.score = this.score + 100;
                                 }
                             }
@@ -440,7 +440,7 @@ var scenes;
                     changeScene();
                 }
                 if (eventObject.name === "obstacle") {
-                    self.isparkor = true;
+                    self.isParkour = true;
                     self.isGrounded = true;
                     self.pre_height = self.player_height;
                     self.player_height = self.player.position.y;
@@ -486,9 +486,9 @@ var scenes;
          * @returns void
          */
         level5.prototype.update = function () {
-            this.scoreLabel.text = "wind x:" + windx + "   wind y:" + windy + "  wind z: " + windz;
+            this.windLabel.text = "wind x: " + windx + "   wind y: " + windy + "  wind z: " + windz;
             this.score--;
-            this.timeLabel.text = "Score: " + this.score;
+            this.scoreLabel.text = "Score: " + this.score;
             this.checkControls();
             this.stage.update();
         };
@@ -502,10 +502,10 @@ var scenes;
             canvas.style.width = "100%";
             this.livesLabel.x = config.Screen.WIDTH * 0.1;
             this.livesLabel.y = (config.Screen.HEIGHT * 0.15) * 0.20;
+            this.windLabel.x = config.Screen.WIDTH * 0.8;
+            this.windLabel.y = (config.Screen.HEIGHT * 0.15) * 0.20;
             this.scoreLabel.x = config.Screen.WIDTH * 0.8;
             this.scoreLabel.y = (config.Screen.HEIGHT * 0.15) * 0.20;
-            this.timeLabel.x = config.Screen.WIDTH * 0.8;
-            this.timeLabel.y = (config.Screen.HEIGHT * 0.15) * 0.20;
             this.stage.update();
         };
         return level5;
