@@ -21,7 +21,7 @@ var config;
         Scene.level3 = 5;
         Scene.level4 = 6;
         Scene.level5 = 7;
-        Scene.OVER = 8;
+        Scene.DEATH = 8;
         return Scene;
     }());
     config.Scene = Scene;

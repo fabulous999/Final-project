@@ -45,6 +45,7 @@ var level2;
 var level3;
 var level4;
 var level5;
+var death;
 var stats;
 var canvas;
 var assets;
@@ -194,6 +195,12 @@ function changeScene() {
             level5 = new scenes.level5();
             scene = level5;
             console.log("Starting Level 5 Scene");
+            break;
+        case config.Scene.DEATH:
+            // show the game DEATH scene
+            death = new scenes.Death();
+            scene = death;
+            console.log("Starting DEATH Scene");
             break;
     }
 }

@@ -15,7 +15,7 @@ module config {
         public static level3: number = 5;
         public static level4: number = 6;
         public static level5: number = 7;
-        public static OVER: number = 8;
+        public static DEATH: number = 8;
     }
     
 }
