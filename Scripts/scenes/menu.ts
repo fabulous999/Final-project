@@ -84,12 +84,12 @@ module scenes {
             
             this._gameLabel = new createjs.Text(
                 "Press Start to Play",
-                "80px Consolas",
+                "80px Haettenschweiler",
                 "#000000");
             this._gameLabel.regX = this._gameLabel.getMeasuredWidth() * 0.5;
             this._gameLabel.regY = this._gameLabel.getMeasuredLineHeight() * 0.5;
             this._gameLabel.x = config.Screen.WIDTH * 0.5;
-            this._gameLabel.y = config.Screen.HEIGHT * 0.5 - 300;
+            this._gameLabel.y = config.Screen.HEIGHT * 0.5 - 275;
             this._stage.addChild(this._gameLabel);
 
             this._startButton = new createjs.Bitmap(assets.getResult("StartButton"));
@@ -152,9 +152,9 @@ module scenes {
             });
             
             this._exitButton.on("click", (event: createjs.MouseEvent) => {
-                //currentScene = config.Scene.END;
-                //changeScene();
-                //this._bgmusic.stop();
+                currentScene = config.Scene.EXIT;
+                changeScene();
+                this._bgmusic.stop();
             });
             
             this._level2Button = new createjs.Bitmap(assets.getResult("Level2Button"));

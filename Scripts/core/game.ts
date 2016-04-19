@@ -43,6 +43,7 @@ var renderer: Renderer;
 var camera: PerspectiveCamera;
 
 var menu: scenes.Menu;
+var exit: scenes.Exit;
 var instructions: scenes.Instructions;
 var play: scenes.Play;
 var level2: scenes.level2;
@@ -182,6 +183,12 @@ function changeScene(): void {
             menu = new scenes.Menu();
             scene = menu;
             console.log("Starting MENU Scene");
+            break;
+        case config.Scene.EXIT:
+            // show the EXIT scene
+            exit = new scenes.Exit();
+            scene = exit;
+            console.log("Started EXIT Scene");
             break;
         case config.Scene.INSTRUCTIONS:
             // show the INSTRUCTIONS scene

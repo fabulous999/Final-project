@@ -38,6 +38,7 @@ var currentScene;
 var renderer;
 var camera;
 var menu;
+var exit;
 var instructions;
 var play;
 var level2;
@@ -151,6 +152,12 @@ function changeScene() {
             menu = new scenes.Menu();
             scene = menu;
             console.log("Starting MENU Scene");
+            break;
+        case config.Scene.EXIT:
+            // show the EXIT scene
+            exit = new scenes.Exit();
+            scene = exit;
+            console.log("Started EXIT Scene");
             break;
         case config.Scene.INSTRUCTIONS:
             // show the INSTRUCTIONS scene
