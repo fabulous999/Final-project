@@ -202,8 +202,6 @@ module scenes {
             this.timeLabel.y = (config.Screen.HEIGHT * 0.15) * 0.20;
             this.stage.addChild(this.timeLabel);
             console.log("Added Score Label to stage");
-
-
         }
 
 
@@ -272,7 +270,7 @@ module scenes {
             this.ground.receiveShadow = true;
             this.ground.name = "Ground";
             this.add(this.ground);
-            console.log("Added Burnt Ground to scene");
+            console.log("Added Ground to scene");
         }
         /**
          * Adds the player controller to the scene
@@ -437,17 +435,10 @@ module scenes {
 
             for (var i = 0; i < 15; i++) {
                 this.obstacleGeometry = new BoxGeometry(randomIntInc(4, 10), randomIntInc(2, 5), randomIntInc(2, 5));
-               
-                /*    this.obstacleTexture.wrapS = THREE.RepeatWrapping;
-                    this.obstacleTexture.wrapT = THREE.RepeatWrapping;
-                    this.obstacleTexture.repeat.set(1, 1);
-    */
-            
-                // this.obstacleMaterial = Physijs.createMaterial(new LambertMaterial({ color: 0xffffff }), 0.4, 0);
+
                 this.obstacle = new Physijs.BoxMesh(this.obstacleGeometry, this.obstaclePhong, 0);
                 this.obstacle.name = "obstacle";
-                //     this.obstacle.receiveShadow = true;
-                //     this.obstacle.castShadow = true;
+
                 //really proud how i did the stair cube down there is basicly a math formula that kinda orginise them randomly
                 this.obstacle.position.set(randomIntInc((i * 4), (i * 5)), randomIntInc((i * 0), (i * 2)), randomIntInc((i * -2), (i * 2)));
                 this.add(this.obstacle);
@@ -455,19 +446,10 @@ module scenes {
 
                 if (i == 14) {
                     this.goalGeometry = new BoxGeometry(randomIntInc(2, 5), randomIntInc(2, 5), randomIntInc(2, 5));
-                    //  this.goalMaterialerial = Physijs.createMaterial(new LambertMaterial({ color: 0xff000000 }), 0.4, 0);
-                   
-                    /*   this.goalTexture.wrapS = THREE.RepeatWrapping;
-                       this.goalTexture.wrapT = THREE.RepeatWrapping;
-                       this.goalTexture.repeat.set(1, 1);*/
 
                     this.goal = new Physijs.BoxMesh(this.goalGeometry, this.goalMaterial, 0);
                     this.goal.name = "goal";
-                    //  this.goal.receiveShadow = true;
-                    //  this.goal.castShadow = true;
-                    console.log("asdf " + i);
                     this.goal.position.set(randomIntInc((i * 4), (i * 5)), randomIntInc((i * 0), (i * 1)), randomIntInc((i * -2), (i * 2)));
-                    // this.goal.position.set(10, 0, 0);
                     this.add(this.goal);
                     console.log("Added goal" + this.goal.name);
                 }
@@ -542,11 +524,9 @@ module scenes {
                     if (this.keyboardControls.jump) {
 
                         this.velocity.y += 4000.0 * delta;
-                        //   this.isGrounded = false;
 
                         if (this.player.position.y > (this.player_height + 0.5)) {
                             this.isGrounded = false;
-                            console.log("it false " + this.player_height);
                         }
                     }
                     if (this.isparkor) {
@@ -557,7 +537,6 @@ module scenes {
                                 if (this.player.position.y > (this.parkour_height + 0.3)) {
                                     this.isparkor = false;
                                     this.score = this.score + 1000;
-                                    console.log("it false " + this.player_height);
                                 }
                             }
                         }
@@ -574,7 +553,6 @@ module scenes {
                     this.player.applyCentralForce(direction);
                 }
 
-                // isGrounded ends
                 this.cameraLook();
                 //reset Pitch and Yaw
                 this.mouseControls.pitch = 0;
@@ -669,8 +647,7 @@ module scenes {
                     self.pre_height = self.player_height;
                     self.player_height = self.player.position.y;
                     createjs.Sound.play("land");
-                    console.log("player_height is " + this.player_height);
-                    console.log("pre_height is " + this.pre_height);
+
                     if (this.player_height + 10 < this.pre_height) {
                         createjs.Sound.play("death");
                         self.livesValue--;
@@ -700,6 +677,7 @@ module scenes {
                     self.remove(self.player);
                     self.player.position.set(0, 10, 10);
                     self.add(self.player);
+
                     if (self.livesValue <= 0) {
                         this._firstMusic.stop();
                         document.exitPointerLock();
@@ -725,8 +703,8 @@ module scenes {
                     self.isGrounded = true;
                     self.pre_height = self.player_height;
                     self.player_height = self.player.position.y;
-                    self.parkour_height = self.player.position.y; //self.obstacle.position.y;
-                    //  console.log("is parkour " + self.parkour_height);
+                    self.parkour_height = self.player.position.y;
+
                     if (this.player_height + 10 < this.pre_height) {
                         createjs.Sound.play("death");
                         self.livesValue--;

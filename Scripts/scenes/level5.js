@@ -199,13 +199,6 @@ var scenes;
         };
         //background
         level5.prototype.spacebg = function () {
-            /* new THREE.Mesh(
-        new THREE.SphereGeometry(90, 64, 64),
-        new THREE.MeshBasicMaterial({
-          map: THREE.ImageUtils.loadTexture('../../Assets/images/space.jpg'),
-          side: THREE.BackSide
-        })
-      );*/
             this.spaceGeo = new SphereGeometry(80, 80, 80);
             this.spaceTexture = THREE.ImageUtils.loadTexture('../../Assets/images/space.jpg');
             this.spaceTexture.wrapS = THREE.RepeatWrapping;
@@ -213,11 +206,9 @@ var scenes;
             this.spaceTexture.repeat.set(2, 2);
             this.spacePhong = new PhongMaterial();
             this.spacePhong.map = this.spaceTexture;
-            // this.space =  new Physijs.SphereMesh();
             this.space = new THREE.Mesh(this.spaceGeo, this.spacePhong);
             this.space.position.set(0, 10, 0);
             this.space.name = "space";
-            //   this.space.material.side = THREE.DoubleSide;
             this.space.material.side = THREE.BackSide;
             this.add(this.space);
         };
@@ -230,32 +221,16 @@ var scenes;
             this.goalMaterial.map = this.goalTexture;
             for (var i = 0; i < 10; i++) {
                 this.obstacleGeometry = new BoxGeometry(randomIntInc(2, 5), randomIntInc(5, 20), randomIntInc(2, 5));
-                /*  this.obstacleTexture.wrapS = THREE.RepeatWrapping;
-                  this.obstacleTexture.wrapT = THREE.RepeatWrapping;
-                  this.obstacleTexture.repeat.set(1, 1);
-  */
                 this.obstacle = new Physijs.BoxMesh(this.obstacleGeometry, this.obstaclePhong, 0);
-                // this.obstacleMaterial = Physijs.createMaterial(new LambertMaterial({ color: 0xffffff }), 0.4, 0);
                 this.obstacle.name = "obstacle";
-                //   this.obstacle.receiveShadow = true;
-                //   this.obstacle.castShadow = true;
                 //really proud how i did the stair cube down there is basicly a math formula that kinda orginise them randomly
                 this.obstacle.position.set(randomIntInc((i * -2), (i * 2)), randomIntInc((i * 5), (i * 6)), randomIntInc((i * -2), (i * 2)));
                 this.add(this.obstacle);
-                //  console.log("Added obstacle to Scene  " + this.obstacle.position.y);
                 if (i == 9) {
-                    //  console.log("asdf " + i);
                     this.goalGeometry = new BoxGeometry(randomIntInc(4, 5), randomIntInc(4, 5), randomIntInc(4, 5));
-                    //  this.goalMaterialerial = Physijs.createMaterial(new LambertMaterial({ color: 0xff000000 }), 0.4, 0);
-                    /*  this.goalTexture.wrapS = THREE.RepeatWrapping;
-                      this.goalTexture.wrapT = THREE.RepeatWrapping;
-                      this.goalTexture.repeat.set(1, 1);*/
                     this.goal = new Physijs.BoxMesh(this.goalGeometry, this.goalMaterial, 0);
                     this.goal.name = "goal";
-                    //        this.goal.receiveShadow = true;
-                    //      this.goal.castShadow = true;
                     this.goal.position.set(randomIntInc((i * -2), (i * 2)), randomIntInc((i * 5), (i * 6)), randomIntInc((i * -2), (i * 2)));
-                    // this.goal.position.set(10, 0, 0);
                     this.add(this.goal);
                     console.log("Added goal" + this.goal.name);
                 }
@@ -327,10 +302,8 @@ var scenes;
                 if (this.isGrounded) {
                     if (this.keyboardControls.jump) {
                         this.velocity.y += 4000.0 * delta;
-                        //   this.isGrounded = false;
                         if (this.player.position.y > (this.player_height + 0.5)) {
                             this.isGrounded = false;
-                            console.log("it false " + this.player_height);
                         }
                     }
                     if (this.isparkor) {
@@ -420,7 +393,6 @@ var scenes;
             this.addDeathPlane();
             this.level3();
             this.spacebg();
-            //   this.differentSizeWide();
             // Collision Check
             this.player.addEventListener('collision', function (eventObject) {
                 if (eventObject.name === "Ground") {
@@ -428,8 +400,6 @@ var scenes;
                     self.pre_height = self.player_height;
                     self.player_height = self.player.position.y;
                     createjs.Sound.play("land");
-                    console.log("player_height is " + this.player_height);
-                    console.log("pre_height is " + this.pre_height);
                     if (this.player_height + 10 < this.pre_height) {
                         createjs.Sound.play("death");
                         self.livesValue--;
@@ -443,8 +413,6 @@ var scenes;
                             document.exitPointerLock();
                             this.children = [];
                             this.player.remove(camera);
-                            //currentScene = config.Scene.END;
-                            changeScene();
                         }
                     }
                 }
@@ -476,8 +444,7 @@ var scenes;
                     self.isGrounded = true;
                     self.pre_height = self.player_height;
                     self.player_height = self.player.position.y;
-                    self.parkour_height = self.player.position.y; //self.obstacle.position.y;
-                    //  console.log("is parkour " + self.parkour_height);
+                    self.parkour_height = self.player.position.y;
                     if (this.player_height + 10 < this.pre_height) {
                         createjs.Sound.play("death");
                         self.livesValue--;
@@ -521,8 +488,7 @@ var scenes;
         level5.prototype.update = function () {
             this.scoreLabel.text = "wind x:" + windx + "   wind y:" + windy + "  wind z: " + windz;
             this.score--;
-            this.timeLabel.text = "score" + this.score;
-            //console.log("score" + this.score + "   wind y:" + this.time);
+            this.timeLabel.text = "Score: " + this.score;
             this.checkControls();
             this.stage.update();
         };
@@ -546,4 +512,5 @@ var scenes;
     }(scenes.Scene));
     scenes.level5 = level5;
 })(scenes || (scenes = {}));
+
 //# sourceMappingURL=level5.js.map
