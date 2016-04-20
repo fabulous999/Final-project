@@ -122,5 +122,4 @@ var scenes;
     }(scenes.Scene));
     scenes.Death = Death;
 })(scenes || (scenes = {}));
-
 //# sourceMappingURL=death.js.map

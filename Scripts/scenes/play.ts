@@ -223,14 +223,14 @@ module scenes {
          */
         private addGround(): void {
             this.groundTexture = new THREE.TextureLoader().load('../../Assets/images/earth.jpg');
-            this.groundTexture.wrapS = THREE.RepeatWrapping;
+        /*    this.groundTexture.wrapS = THREE.RepeatWrapping;
             this.groundTexture.wrapT = THREE.RepeatWrapping;
-            this.groundTexture.repeat.set(1, 1);
+            this.groundTexture.repeat.set(1, 1);*/
 
             this.groundTextureNormal = new THREE.TextureLoader().load('../../Assets/images/earth.jpg');
-            this.groundTextureNormal.wrapS = THREE.RepeatWrapping;
+        /*    this.groundTextureNormal.wrapS = THREE.RepeatWrapping;
             this.groundTextureNormal.wrapT = THREE.RepeatWrapping;
-            this.groundTextureNormal.repeat.set(1, 1);
+            this.groundTextureNormal.repeat.set(1, 1);*/
 
             this.groundMaterial = new PhongMaterial();
             this.groundMaterial.map = this.groundTexture;
@@ -318,24 +318,24 @@ module scenes {
             this.obstaclePhong = new PhongMaterial();
             this.obstaclePhong.map = this.obstacleTexture;
 
-            for (var i = 0; i < 10; i++) {
+            for (var i = 0; i < 5; i++) {
                 this.obstacleGeometry = new BoxGeometry(randomIntInc(4, 5), randomIntInc(5, 5), randomIntInc(5, 5));
 
                 this.obstacle = new Physijs.BoxMesh(this.obstacleGeometry, this.obstaclePhong, 0);
                 this.obstacle.name = "obstacle";
 
                 //really proud how i did the stair cube down there is basicly a math formula that kinda orginise them randomly
-                this.obstacle.position.set(randomIntInc(-1 + (i * 6), 1 + (i * 5)), randomIntInc(2 + (i * 8), 3 + (i * 8)), randomIntInc(-0, 2));
+                this.obstacle.position.set(randomIntInc(-1 + (i * 4), 1 + (i * 5)), randomIntInc(2 + (i * 8), 3 + (i * 8)), randomIntInc(-0, 2));
                 this.add(this.obstacle);
                 console.log("Added obstacle to Scene  " + this.obstacle.position.y);
 
-                if (i == 9) {
+                if (i == 5) {
 
                     this.goalGeometry = new BoxGeometry(randomIntInc(2, 5), randomIntInc(2, 5), randomIntInc(2, 5));
 
                     this.goal = new Physijs.BoxMesh(this.goalGeometry, this.goalMaterial, 0);
                     this.goal.name = "goal";
-                    this.goal.position.set(randomIntInc(-1 + (i * 6), 1 + (i * 5)), randomIntInc(2 + (i * 8), 3 + (i * 8)), randomIntInc(-0, 2));
+                    this.goal.position.set(randomIntInc(0 + (i * 4), 0 + (i * 5)), randomIntInc(0 + (i * 8), 0 + (i * 8)), randomIntInc(-0, 2));
                     this.add(this.goal);
                     console.log("Added goal" + this.goal.name);
                 }

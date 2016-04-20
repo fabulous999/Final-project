@@ -72,33 +72,7 @@ module scenes {
         private obstaclePM: Physijs.Material;
         private obstacle: Physijs.Mesh;
 
-        private obstacle2Geo: CubeGeometry;
-        private obstacle2PM: Physijs.Material;
-        private obstacle2: Physijs.Mesh;
-
-        private obstacle3Geo: CubeGeometry;
-        private obstacle3PM: Physijs.Material;
-        private obstacle3: Physijs.Mesh;
-
-        private obstacle4Geo: CubeGeometry;
-        private obstacle4PM: Physijs.Material;
-        private obstacle4: Physijs.Mesh;
-
-        private obstacle5Geo: CubeGeometry;
-        private obstacle5PM: Physijs.Material;
-        private obstacle5: Physijs.Mesh;
-
-        private obstacle6Geo: CubeGeometry;
-        private obstacle6PM: Physijs.Material;
-        private obstacle6: Physijs.Mesh;
-
-        private obstacle7Geo: CubeGeometry;
-        private obstacle7PM: Physijs.Material;
-        private obstacle7: Physijs.Mesh;
-
-        private obstacle8Geo: CubeGeometry;
-        private obstacle8PM: Physijs.Material;
-        private obstacle8: Physijs.Mesh;
+   
 
         private goalGeo: CubeGeometry;
         private goalPM: Physijs.Material;
@@ -271,15 +245,15 @@ module scenes {
          */
         private addGround(): void {
             this.groundTexture = new THREE.TextureLoader().load('../../Assets/images/earth.jpg');
-            this.groundTexture.wrapS = THREE.RepeatWrapping;
+          /*  this.groundTexture.wrapS = THREE.RepeatWrapping;
             this.groundTexture.wrapT = THREE.RepeatWrapping;
             this.groundTexture.repeat.set(1, 1);
-
+*/
             this.groundTextureNormal = new THREE.TextureLoader().load('../../Assets/images/earth.jpg');
-            this.groundTextureNormal.wrapS = THREE.RepeatWrapping;
+  /*          this.groundTextureNormal.wrapS = THREE.RepeatWrapping;
             this.groundTextureNormal.wrapT = THREE.RepeatWrapping;
             this.groundTextureNormal.repeat.set(1, 1);
-
+*/
             this.groundMaterial = new PhongMaterial();
             this.groundMaterial.map = this.groundTexture;
             this.groundMaterial.bumpMap = this.groundTextureNormal;
@@ -378,7 +352,7 @@ module scenes {
                     this.goalGeometry = new BoxGeometry(randomIntInc(4, 5), randomIntInc(4, 5), randomIntInc(4, 5));
                     this.goal = new Physijs.BoxMesh(this.goalGeometry, this.goalMaterial, 0);
                     this.goal.name = "goal";
-                    this.goal.position.set(randomIntInc((i * -2), (i * 2)), randomIntInc((i * 5), (i * 6)), randomIntInc((i * -2), (i * 2)));
+                    this.goal.position.set(randomIntInc((i * -1), (i * 1)), randomIntInc((i * 4), (i * 5)), randomIntInc((i * -1), (i * 1)));
                     this.add(this.goal);
                     console.log("Added goal" + this.goal.name);
                 }

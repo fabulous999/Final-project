@@ -227,14 +227,14 @@ module scenes {
 
         private addGround(): void {
             this.groundTexture = new THREE.TextureLoader().load('../../Assets/images/earth.jpg');
-            this.groundTexture.wrapS = THREE.RepeatWrapping;
+          /*  this.groundTexture.wrapS = THREE.RepeatWrapping;
             this.groundTexture.wrapT = THREE.RepeatWrapping;
-            this.groundTexture.repeat.set(1, 1);
+            this.groundTexture.repeat.set(1, 1);*/
 
             this.groundTextureNormal = new THREE.TextureLoader().load('../../Assets/images/earth.jpg');
-            this.groundTextureNormal.wrapS = THREE.RepeatWrapping;
+          /*  this.groundTextureNormal.wrapS = THREE.RepeatWrapping;
             this.groundTextureNormal.wrapT = THREE.RepeatWrapping;
-            this.groundTextureNormal.repeat.set(1, 1);
+            this.groundTextureNormal.repeat.set(1, 1);*/
 
             this.groundMaterial = new PhongMaterial();
             this.groundMaterial.map = this.groundTexture;
@@ -260,24 +260,24 @@ module scenes {
 
 
 
-            for (var i = 0; i < 15; i++) {
+            for (var i = 0; i < 10; i++) {
                 this.obstacleGeometry = new BoxGeometry(randomIntInc(4, 10), randomIntInc(2, 5), randomIntInc(2, 5));
 
                 this.obstacle = new Physijs.BoxMesh(this.obstacleGeometry, this.obstaclePhong, 0);
                 this.obstacle.name = "obstacle";
 
-                this.obstacle.position.set(randomIntInc((i * 4), (i * 5)), randomIntInc((i * 0), (i * 2)), randomIntInc((i * -2), (i * 2)));
+                this.obstacle.position.set(randomIntInc((i * 3), (i * 4)), randomIntInc((i * 3), (i * 4)), randomIntInc((i * 3), (i * 4)));
                 this.add(this.obstacle);
                 console.log("Added obstacle to Scene  " + this.obstacle.position.y);
 
-                if (i == 14) {
+                if (i == 9) {
                     this.goalGeometry = new BoxGeometry(randomIntInc(2, 5), randomIntInc(2, 5), randomIntInc(2, 5));
 
                     this.goal = new Physijs.BoxMesh(this.goalGeometry, this.goalMaterial, 0);
                     this.goal.name = "goal";
 
-                    this.goal.position.set(randomIntInc((i * 4), (i * 5)), randomIntInc((i * 0), (i * 1)), randomIntInc((i * -2), (i * 2)));
-                    this.add(this.goal);
+                  this.goal.position.set(randomIntInc((i * 2), (i * 3)), randomIntInc((i * 2), (i * 3)), randomIntInc((i * 2), (i * 3)));
+                  this.add(this.goal);
                 }
             }
         }

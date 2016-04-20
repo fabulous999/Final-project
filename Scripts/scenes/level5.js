@@ -141,13 +141,15 @@ var scenes;
          */
         level5.prototype.addGround = function () {
             this.groundTexture = new THREE.TextureLoader().load('../../Assets/images/earth.jpg');
-            this.groundTexture.wrapS = THREE.RepeatWrapping;
-            this.groundTexture.wrapT = THREE.RepeatWrapping;
-            this.groundTexture.repeat.set(1, 1);
+            /*  this.groundTexture.wrapS = THREE.RepeatWrapping;
+              this.groundTexture.wrapT = THREE.RepeatWrapping;
+              this.groundTexture.repeat.set(1, 1);
+  */
             this.groundTextureNormal = new THREE.TextureLoader().load('../../Assets/images/earth.jpg');
-            this.groundTextureNormal.wrapS = THREE.RepeatWrapping;
-            this.groundTextureNormal.wrapT = THREE.RepeatWrapping;
-            this.groundTextureNormal.repeat.set(1, 1);
+            /*          this.groundTextureNormal.wrapS = THREE.RepeatWrapping;
+                      this.groundTextureNormal.wrapT = THREE.RepeatWrapping;
+                      this.groundTextureNormal.repeat.set(1, 1);
+          */
             this.groundMaterial = new PhongMaterial();
             this.groundMaterial.map = this.groundTexture;
             this.groundMaterial.bumpMap = this.groundTextureNormal;
@@ -219,18 +221,18 @@ var scenes;
             this.goalTexture = THREE.ImageUtils.loadTexture('../../Assets/images/pl_sun.jpg');
             this.goalMaterial = new PhongMaterial();
             this.goalMaterial.map = this.goalTexture;
-            for (var i = 0; i < 10; i++) {
+            for (var i = 0; i < 20; i++) {
                 this.obstacleGeometry = new BoxGeometry(randomIntInc(2, 5), randomIntInc(5, 20), randomIntInc(2, 5));
                 this.obstacle = new Physijs.BoxMesh(this.obstacleGeometry, this.obstaclePhong, 0);
                 this.obstacle.name = "obstacle";
                 //really proud how i did the stair cube down there is basicly a math formula that kinda orginise them randomly
-                this.obstacle.position.set(randomIntInc((i * -2), (i * 2)), randomIntInc((i * 5), (i * 6)), randomIntInc((i * -2), (i * 2)));
+                this.obstacle.position.set(randomIntInc((i * -3), (i * 3)), randomIntInc((i * 1), (i * 5)), randomIntInc((i * -3), (i * 3)));
                 this.add(this.obstacle);
-                if (i == 9) {
+                if (i == 15) {
                     this.goalGeometry = new BoxGeometry(randomIntInc(4, 5), randomIntInc(4, 5), randomIntInc(4, 5));
                     this.goal = new Physijs.BoxMesh(this.goalGeometry, this.goalMaterial, 0);
                     this.goal.name = "goal";
-                    this.goal.position.set(randomIntInc((i * -2), (i * 2)), randomIntInc((i * 5), (i * 6)), randomIntInc((i * -2), (i * 2)));
+                    this.goal.position.set(randomIntInc((i * -0.5), (i * 0.5)), randomIntInc((i * 1), (i * 3)), randomIntInc((i * -0.5), (i * 0.5)));
                     this.add(this.goal);
                     console.log("Added goal" + this.goal.name);
                 }
@@ -512,5 +514,4 @@ var scenes;
     }(scenes.Scene));
     scenes.level5 = level5;
 })(scenes || (scenes = {}));
-
 //# sourceMappingURL=level5.js.map

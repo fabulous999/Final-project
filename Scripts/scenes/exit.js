@@ -122,5 +122,4 @@ var scenes;
     }(scenes.Scene));
     scenes.Exit = Exit;
 })(scenes || (scenes = {}));
-
 //# sourceMappingURL=exit.js.map

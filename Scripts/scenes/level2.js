@@ -140,13 +140,13 @@ var scenes;
          */
         level2.prototype.addGround = function () {
             this.groundTexture = new THREE.TextureLoader().load('../../Assets/images/earth.jpg');
-            this.groundTexture.wrapS = THREE.RepeatWrapping;
-            this.groundTexture.wrapT = THREE.RepeatWrapping;
-            this.groundTexture.repeat.set(1, 1);
+            /*    this.groundTexture.wrapS = THREE.RepeatWrapping;
+                this.groundTexture.wrapT = THREE.RepeatWrapping;
+                this.groundTexture.repeat.set(1, 1);*/
             this.groundTextureNormal = new THREE.TextureLoader().load('../../Assets/images/earth.jpg');
-            this.groundTextureNormal.wrapS = THREE.RepeatWrapping;
-            this.groundTextureNormal.wrapT = THREE.RepeatWrapping;
-            this.groundTextureNormal.repeat.set(1, 1);
+            /*  this.groundTextureNormal.wrapS = THREE.RepeatWrapping;
+              this.groundTextureNormal.wrapT = THREE.RepeatWrapping;
+              this.groundTextureNormal.repeat.set(1, 1);*/
             this.groundMaterial = new PhongMaterial();
             this.groundMaterial.map = this.groundTexture;
             this.groundMaterial.bumpMap = this.groundTextureNormal;
@@ -230,7 +230,7 @@ var scenes;
                     this.goalGeometry = new BoxGeometry(randomIntInc(2, 5), randomIntInc(2, 5), randomIntInc(2, 5));
                     this.goal = new Physijs.BoxMesh(this.goalGeometry, this.goalMaterial, 0);
                     this.goal.name = "goal";
-                    this.goal.position.set(randomIntInc((i * 4), (i * 5)), randomIntInc((i * 0), (i * 1)), randomIntInc((i * -2), (i * 2)));
+                    this.goal.position.set(randomIntInc((i * 3), (i * 4)), randomIntInc((i * 0), (i * 1)), randomIntInc((i * -1), (i * 1)));
                     this.add(this.goal);
                     console.log("Added goal" + this.goal.name);
                 }
@@ -510,5 +510,4 @@ var scenes;
     }(scenes.Scene));
     scenes.level2 = level2;
 })(scenes || (scenes = {}));
-
 //# sourceMappingURL=level2.js.map
