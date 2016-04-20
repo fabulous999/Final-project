@@ -67,6 +67,7 @@ var manifest = [
     { id: "Level4Button", src: "../../Assets/images/Level4Button.png" },
     { id: "Level5Button", src: "../../Assets/images/Level5Button.png" },
     { id: "Background", src: "../../Assets/images/background.png" },
+    { id: "voidBG", src: "../../Assets/images/voidBG.png" },
     { id: "bgmusic", src: "../../Assets/audio/bgmusic.wav" },
     { id: "first", src: "../../Assets/audio/level1.wav" }
 ];
@@ -205,4 +206,5 @@ function changeScene() {
     }
 }
 window.onload = preload;
+
 //# sourceMappingURL=game.js.map

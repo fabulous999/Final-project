@@ -80,7 +80,6 @@ module scenes {
             // Add background image
             this._background = new createjs.Bitmap(assets.getResult("Background"));
             this._stage.addChild(this._background);
-            console.log(this._background);
             
             // Add instructions labels
             this._instructionsLabel = new createjs.Text(

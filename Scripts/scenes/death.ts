@@ -78,9 +78,8 @@ module scenes {
             this._bgSound = createjs.Sound.play("bgmusic");
             
             // Add background image
-            this._background = new createjs.Bitmap(assets.getResult("Background"));
+            this._background = new createjs.Bitmap(assets.getResult("voidBG"));
             this._stage.addChild(this._background);
-            console.log(this._background);
             
             // Add instructions labels
             this._instructionsLabel = new createjs.Text(

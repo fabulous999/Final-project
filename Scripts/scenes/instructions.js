@@ -69,7 +69,6 @@ var scenes;
             // Add background image
             this._background = new createjs.Bitmap(assets.getResult("Background"));
             this._stage.addChild(this._background);
-            console.log(this._background);
             // Add instructions labels
             this._instructionsLabel = new createjs.Text("INSTRUCTIONS:", "80px Haettenschweiler", "#000000");
             this._instructionsLabel.regX = this._instructionsLabel.getMeasuredWidth() * 0.5;
@@ -135,4 +134,5 @@ var scenes;
     }(scenes.Scene));
     scenes.Instructions = Instructions;
 })(scenes || (scenes = {}));
+
 //# sourceMappingURL=instructions.js.map

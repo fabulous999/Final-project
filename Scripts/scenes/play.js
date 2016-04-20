@@ -311,7 +311,6 @@ var scenes;
                         if (this.keyboardControls.shift) {
                             {
                                 this.velocity.y += 4000.0 * delta;
-                                console.log(this.obstacle.position.y);
                                 if (this.player.position.y > (this.parkour_height + 0.3)) {
                                     this.isParkour = false;
                                     this.score = this.score + 1000;
@@ -402,8 +401,6 @@ var scenes;
                     self.pre_height = self.player_height;
                     self.player_height = self.player.position.y;
                     createjs.Sound.play("land");
-                    console.log("player_height is " + this.player_height);
-                    console.log("pre_height is " + this.pre_height);
                     if (this.player_height + 10 < this.pre_height) {
                         createjs.Sound.play("death");
                         self.livesValue--;
@@ -472,7 +469,6 @@ var scenes;
                     }
                 }
             }.bind(self));
-            console.log(name);
             // create parent-child relationship with camera and player
             this.player.add(camera);
             camera.position.set(0, 1, 0);
@@ -522,4 +518,5 @@ var scenes;
     }(scenes.Scene));
     scenes.Play = Play;
 })(scenes || (scenes = {}));
+
 //# sourceMappingURL=play.js.map

@@ -71,8 +71,6 @@ module scenes {
         private obstaclePM: Physijs.Material;
         private obstacle: Physijs.Mesh;
 
-
-
         private goalGeo: CubeGeometry;
         private goalPM: Physijs.Material;
 
@@ -90,6 +88,7 @@ module scenes {
         private pre_height: number = null;
 
         private score: number = 10000;
+        
         /**
          * @constructor
          */
@@ -238,14 +237,8 @@ module scenes {
          */
         private addGround(): void {
             this.groundTexture = new THREE.TextureLoader().load('../../Assets/images/earth.jpg');
-        /*    this.groundTexture.wrapS = THREE.RepeatWrapping;
-            this.groundTexture.wrapT = THREE.RepeatWrapping;
-            this.groundTexture.repeat.set(1, 1);*/
 
             this.groundTextureNormal = new THREE.TextureLoader().load('../../Assets/images/earth.jpg');
-          /*  this.groundTextureNormal.wrapS = THREE.RepeatWrapping;
-            this.groundTextureNormal.wrapT = THREE.RepeatWrapping;
-            this.groundTextureNormal.repeat.set(1, 1);*/
 
             this.groundMaterial = new PhongMaterial();
             this.groundMaterial.map = this.groundTexture;
@@ -260,6 +253,7 @@ module scenes {
             this.add(this.ground);
             console.log("Added Ground to scene");
         }
+        
         /**
          * Adds the player controller to the scene
          * 
@@ -400,6 +394,7 @@ module scenes {
                 var time: number = performance.now();
                 var delta: number = (time - this.prevTime) / 1000;
                 var direction = new Vector3(0, 0, 0);
+                
                 if (this.keyboardControls.moveForward) {
                     this.velocity.z -= 400.0 * delta;
                 }
@@ -423,11 +418,12 @@ module scenes {
                             this.isGrounded = false;
                         }
                     }
+                    
                     if (this.isParkour) {
                         if (this.keyboardControls.shift) {
                             {
                                 this.velocity.y += 4000.0 * delta;
-                                console.log(this.obstacle.position.y);
+
                                 if (this.player.position.y > (this.parkour_height + 0.3)) {
                                     this.isParkour = false;
                                     this.score = this.score + 1000;
@@ -615,8 +611,6 @@ module scenes {
                     }
                 }
             }.bind(self));
-
-            console.log(name);
 
             // create parent-child relationship with camera and player
             this.player.add(camera);

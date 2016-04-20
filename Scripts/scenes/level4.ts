@@ -247,7 +247,7 @@ module scenes {
             this.ground.receiveShadow = true;
             this.ground.name = "Ground";
             this.add(this.ground);
-            console.log("Added Burnt Ground to scene");
+            console.log("Added Ground to scene");
         }
         
         private level4(): void {
@@ -427,7 +427,7 @@ module scenes {
                         if (this.keyboardControls.shift) {
                             {
                                 this.velocity.y += 4000.0 * delta;
-                                console.log(this.obstacle.position.y);
+
                                 if (this.player.position.y > (this.parkour_height + 0.3)) {
                                     this.isParkour = false;
                                     this.score = this.score + 100;
@@ -625,8 +625,6 @@ module scenes {
                 }
             }.bind(self));
 
-            console.log(name);
-
             // create parent-child relationship with camera and player
             this.player.add(camera);
             camera.position.set(0, 1, 0);
@@ -658,7 +656,6 @@ module scenes {
             this.windLabel.text = "Wind X: " + windx + "   Wind Y: " + windy + "  Wind Z: " + windz;
             this.score--;
             this.scoreLabel.text = "Score: " + this.score;
-            //console.log("score" + this.score + "   wind y:" + this.time);
 
             this.checkControls();
             this.stage.update();

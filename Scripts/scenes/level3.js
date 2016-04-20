@@ -309,7 +309,6 @@ var scenes;
                         if (this.keyboardControls.shift) {
                             {
                                 this.velocity.y += 4000.0 * delta;
-                                console.log(this.obstacle.position.y);
                                 if (this.player.position.y > (this.parkour_height + 0.3)) {
                                     this.isParkour = false;
                                     this.score = this.score + 1000;
@@ -466,7 +465,6 @@ var scenes;
                     }
                 }
             }.bind(self));
-            console.log(name);
             // create parent-child relationship with camera and player
             this.player.add(camera);
             camera.position.set(0, 1, 0);
@@ -514,4 +512,5 @@ var scenes;
     }(scenes.Scene));
     scenes.level3 = level3;
 })(scenes || (scenes = {}));
+
 //# sourceMappingURL=level3.js.map

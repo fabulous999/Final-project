@@ -140,13 +140,7 @@ var scenes;
          */
         level2.prototype.addGround = function () {
             this.groundTexture = new THREE.TextureLoader().load('../../Assets/images/earth.jpg');
-            /*    this.groundTexture.wrapS = THREE.RepeatWrapping;
-                this.groundTexture.wrapT = THREE.RepeatWrapping;
-                this.groundTexture.repeat.set(1, 1);*/
             this.groundTextureNormal = new THREE.TextureLoader().load('../../Assets/images/earth.jpg');
-            /*  this.groundTextureNormal.wrapS = THREE.RepeatWrapping;
-              this.groundTextureNormal.wrapT = THREE.RepeatWrapping;
-              this.groundTextureNormal.repeat.set(1, 1);*/
             this.groundMaterial = new PhongMaterial();
             this.groundMaterial.map = this.groundTexture;
             this.groundMaterial.bumpMap = this.groundTextureNormal;
@@ -306,7 +300,6 @@ var scenes;
                         if (this.keyboardControls.shift) {
                             {
                                 this.velocity.y += 4000.0 * delta;
-                                console.log(this.obstacle.position.y);
                                 if (this.player.position.y > (this.parkour_height + 0.3)) {
                                     this.isParkour = false;
                                     this.score = this.score + 1000;
@@ -462,7 +455,6 @@ var scenes;
                     }
                 }
             }.bind(self));
-            console.log(name);
             // create parent-child relationship with camera and player
             this.player.add(camera);
             camera.position.set(0, 1, 0);
@@ -510,4 +502,5 @@ var scenes;
     }(scenes.Scene));
     scenes.level2 = level2;
 })(scenes || (scenes = {}));
+
 //# sourceMappingURL=level2.js.map
