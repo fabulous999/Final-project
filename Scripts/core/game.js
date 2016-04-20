@@ -69,7 +69,8 @@ var manifest = [
     { id: "Background", src: "../../Assets/images/background.png" },
     { id: "voidBG", src: "../../Assets/images/voidBG.png" },
     { id: "bgmusic", src: "../../Assets/audio/bgmusic.wav" },
-    { id: "first", src: "../../Assets/audio/level1.wav" }
+    { id: "first", src: "../../Assets/audio/level1.wav" },
+    { id: "gameOver", src: "../../Assets/audio/gameOver.wav" }
 ];
 function preload() {
     assets = new createjs.LoadQueue();

@@ -420,20 +420,24 @@ var scenes;
                     }
                 }
                 if (eventObject.name === "DeathPlane") {
-                    createjs.Sound.play("death");
-                    self.livesValue--;
-                    this.score = this.score - 1000;
-                    self.livesLabel.text = "LIVES: " + self.livesValue;
-                    self.remove(self.player);
-                    self.player.position.set(0, 10, 10);
-                    self.add(self.player);
-                    if (self.livesValue <= 0) {
+                    if (self.livesValue > 0) {
+                        createjs.Sound.play("death");
+                        self.livesValue--;
+                        this.score = this.score - 1000;
+                        self.livesLabel.text = "LIVES: " + self.livesValue;
+                        self.remove(self.player);
+                        self.player.position.set(0, 10, 10);
+                        self.add(self.player);
+                    }
+                    if (self.livesValue === 0) {
+                        self.remove(self.player);
                         this._firstMusic.stop();
                         document.exitPointerLock();
-                        this.children = [];
                         this.player.remove(camera);
                         currentScene = config.Scene.DEATH;
                         changeScene();
+                        this.player.position = (0, 0, 0);
+                        this.children = [];
                     }
                 }
                 if (eventObject.name === "goal") {

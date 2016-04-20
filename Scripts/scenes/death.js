@@ -63,8 +63,8 @@ var scenes;
          */
         Death.prototype.start = function () {
             var _this = this;
-            // Add background music
-            this._bgSound = createjs.Sound.play("bgmusic");
+            // Add background sound
+            this._bgSound = createjs.Sound.play("gameOver");
             // Add background image
             this._background = new createjs.Bitmap(assets.getResult("voidBG"));
             this._stage.addChild(this._background);

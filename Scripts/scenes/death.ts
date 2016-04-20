@@ -74,8 +74,8 @@ module scenes {
          */
         public start(): void {
             
-            // Add background music
-            this._bgSound = createjs.Sound.play("bgmusic");
+            // Add background sound
+            this._bgSound = createjs.Sound.play("gameOver");
             
             // Add background image
             this._background = new createjs.Bitmap(assets.getResult("voidBG"));

@@ -223,14 +223,14 @@ module scenes {
          */
         private addGround(): void {
             this.groundTexture = new THREE.TextureLoader().load('../../Assets/images/earth.jpg');
-        /*    this.groundTexture.wrapS = THREE.RepeatWrapping;
-            this.groundTexture.wrapT = THREE.RepeatWrapping;
-            this.groundTexture.repeat.set(1, 1);*/
+            /*    this.groundTexture.wrapS = THREE.RepeatWrapping;
+                this.groundTexture.wrapT = THREE.RepeatWrapping;
+                this.groundTexture.repeat.set(1, 1);*/
 
             this.groundTextureNormal = new THREE.TextureLoader().load('../../Assets/images/earth.jpg');
-        /*    this.groundTextureNormal.wrapS = THREE.RepeatWrapping;
-            this.groundTextureNormal.wrapT = THREE.RepeatWrapping;
-            this.groundTextureNormal.repeat.set(1, 1);*/
+            /*    this.groundTextureNormal.wrapS = THREE.RepeatWrapping;
+                this.groundTextureNormal.wrapT = THREE.RepeatWrapping;
+                this.groundTextureNormal.repeat.set(1, 1);*/
 
             this.groundMaterial = new PhongMaterial();
             this.groundMaterial.map = this.groundTexture;
@@ -245,7 +245,7 @@ module scenes {
             this.add(this.ground);
             console.log("Added Ground to scene");
         }
-        
+
         /**
          * Adds the player controller to the scene
          * 
@@ -566,21 +566,26 @@ module scenes {
                 }
 
                 if (eventObject.name === "DeathPlane") {
-                    createjs.Sound.play("death");
-                    self.livesValue--;
-                    this.score = this.score - 1000;
-                    self.livesLabel.text = "LIVES: " + self.livesValue;
-                    self.remove(self.player);
-                    self.player.position.set(0, 10, 10);
-                    self.add(self.player);
+                    
+                    if (self.livesValue > 0) {
+                        createjs.Sound.play("death");
+                        self.livesValue--;
+                        this.score = this.score - 1000;
+                        self.livesLabel.text = "LIVES: " + self.livesValue;
+                        self.remove(self.player);
+                        self.player.position.set(0, 10, 10);
+                        self.add(self.player);
+                    }
 
-                    if (self.livesValue <= 0) {
+                    if (self.livesValue === 0) {
+                        self.remove(self.player);
                         this._firstMusic.stop();
                         document.exitPointerLock();
-                        this.children = [];
                         this.player.remove(camera);
                         currentScene = config.Scene.DEATH;
                         changeScene();
+                        this.player.position = (0,0,0);
+                        this.children = [];
                     }
                 }
 
