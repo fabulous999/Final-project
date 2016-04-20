@@ -134,5 +134,4 @@ var scenes;
     }(scenes.Scene));
     scenes.Instructions = Instructions;
 })(scenes || (scenes = {}));
-
 //# sourceMappingURL=instructions.js.map

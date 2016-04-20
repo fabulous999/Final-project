@@ -228,7 +228,7 @@ var scenes;
                 //really proud how i did the stair cube down there is basicly a math formula that kinda orginise them randomly
                 this.obstacle.position.set(randomIntInc((i * -3), (i * 3)), randomIntInc((i * 1), (i * 5)), randomIntInc((i * -3), (i * 3)));
                 this.add(this.obstacle);
-                if (i == 15) {
+                if (i == 13) {
                     this.goalGeometry = new BoxGeometry(randomIntInc(4, 5), randomIntInc(4, 5), randomIntInc(4, 5));
                     this.goal = new Physijs.BoxMesh(this.goalGeometry, this.goalMaterial, 0);
                     this.goal.name = "goal";
@@ -512,5 +512,4 @@ var scenes;
     }(scenes.Scene));
     scenes.level5 = level5;
 })(scenes || (scenes = {}));
-
 //# sourceMappingURL=level5.js.map

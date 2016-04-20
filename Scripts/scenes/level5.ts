@@ -331,7 +331,7 @@ module scenes {
                 this.obstacle.position.set(randomIntInc((i *  -3), (i * 3)), randomIntInc((i * 1), (i * 5)), randomIntInc((i * -3), (i * 3)));
                 this.add(this.obstacle);
 
-                if (i == 15) {
+                if (i == 13) {
 
                     this.goalGeometry = new BoxGeometry(randomIntInc(4, 5), randomIntInc(4, 5), randomIntInc(4, 5));
 
