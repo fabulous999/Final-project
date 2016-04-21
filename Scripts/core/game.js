@@ -126,6 +126,7 @@ setInterval(function () { windz = randomIntInc(-2, 2); }, 10000);
 // Setup main game loop
 function gameLoop() {
     stats.update();
+    //score = play.score;
     scene.update();
     scene.setGravity(new THREE.Vector3(windx, windy, windz));
     // render using requestAnimationFrame

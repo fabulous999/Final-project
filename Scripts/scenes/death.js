@@ -75,7 +75,7 @@ var scenes;
             this._instructionsLabel.x = config.Screen.WIDTH * 0.5;
             this._instructionsLabel.y = config.Screen.HEIGHT * 0.5 - 275;
             this._stage.addChild(this._instructionsLabel);
-            this._instructionsLabel2 = new createjs.Text("Click the back button to be sent to the main menu.", "30px Haettenschweiler", "#000000");
+            this._instructionsLabel2 = new createjs.Text("Click the back button to be sent to the main menu. your score is :" + score, "30px Haettenschweiler", "#000000");
             this._instructionsLabel2.regX = this._instructionsLabel2.getMeasuredWidth() * 0.5;
             this._instructionsLabel2.regY = this._instructionsLabel2.getMeasuredLineHeight() * 0.5;
             this._instructionsLabel2.x = config.Screen.WIDTH * 0.5;

@@ -83,7 +83,7 @@ module scenes {
             console.log(this._background);
             
             this._gameLabel = new createjs.Text(
-                "Press Start to Play",
+                "Press Start to Play the game. Your score is :  " + score, 
                 "80px Haettenschweiler",
                 "#000000");
             this._gameLabel.regX = this._gameLabel.getMeasuredWidth() * 0.5;

@@ -93,7 +93,7 @@ module scenes {
             this._stage.addChild(this._instructionsLabel);
             
             this._instructionsLabel2 = new createjs.Text(
-                "Click the back button to be sent to the main menu.",
+                "Click the back button to be sent to the main menu. your score is :" + score,
                 "30px Haettenschweiler",
                 "#000000");
             this._instructionsLabel2.regX = this._instructionsLabel2.getMeasuredWidth() * 0.5;

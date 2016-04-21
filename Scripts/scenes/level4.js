@@ -401,6 +401,30 @@ var scenes;
                     self.player_height = self.player.position.y;
                     createjs.Sound.play("land");
                     if (this.player_height + 10 < this.pre_height) {
+                        if (self.livesValue > 0) {
+                            createjs.Sound.play("death");
+                            self.livesValue--;
+                            this.score = this.score - 1000;
+                            self.livesLabel.text = "LIVES: " + self.livesValue;
+                            self.remove(self.player);
+                            self.player.position.set(0, 10, 10);
+                            self.add(self.player);
+                        }
+                        if (self.livesValue === 0) {
+                            score = this.score;
+                            self.remove(self.player);
+                            this._firstMusic.stop();
+                            document.exitPointerLock();
+                            this.player.remove(camera);
+                            currentScene = config.Scene.DEATH;
+                            changeScene();
+                            this.player.position = (0, 0, 0);
+                            this.children = [];
+                        }
+                    }
+                }
+                if (eventObject.name === "DeathPlane") {
+                    if (self.livesValue > 0) {
                         createjs.Sound.play("death");
                         self.livesValue--;
                         this.score = this.score - 1000;
@@ -408,34 +432,21 @@ var scenes;
                         self.remove(self.player);
                         self.player.position.set(0, 10, 10);
                         self.add(self.player);
-                        if (self.livesValue <= 0) {
-                            this._firstMusic.stop();
-                            document.exitPointerLock();
-                            this.children = [];
-                            this.player.remove(camera);
-                            currentScene = config.Scene.DEATH;
-                            changeScene();
-                        }
                     }
-                }
-                if (eventObject.name === "DeathPlane") {
-                    createjs.Sound.play("death");
-                    self.livesValue--;
-                    this.score = this.score - 1000;
-                    self.livesLabel.text = "LIVES: " + self.livesValue;
-                    self.remove(self.player);
-                    self.player.position.set(0, 10, 10);
-                    self.add(self.player);
-                    if (self.livesValue <= 0) {
+                    if (self.livesValue === 0) {
+                        score = this.score;
+                        self.remove(self.player);
                         this._firstMusic.stop();
                         document.exitPointerLock();
-                        this.children = [];
                         this.player.remove(camera);
                         currentScene = config.Scene.DEATH;
                         changeScene();
+                        this.player.position = (0, 0, 0);
+                        this.children = [];
                     }
                 }
                 if (eventObject.name === "goal") {
+                    score = this.score;
                     this._firstMusic.stop();
                     document.exitPointerLock();
                     this.children = [];
@@ -450,20 +461,25 @@ var scenes;
                     self.player_height = self.player.position.y;
                     self.parkour_height = self.player.position.y;
                     if (this.player_height + 10 < this.pre_height) {
-                        createjs.Sound.play("death");
-                        self.livesValue--;
-                        this.score = this.score - 1000;
-                        self.livesLabel.text = "LIVES: " + self.livesValue;
-                        self.remove(self.player);
-                        self.player.position.set(0, 10, 10);
-                        self.add(self.player);
-                        if (self.livesValue <= 0) {
+                        if (self.livesValue > 0) {
+                            createjs.Sound.play("death");
+                            self.livesValue--;
+                            this.score = this.score - 1000;
+                            self.livesLabel.text = "LIVES: " + self.livesValue;
+                            self.remove(self.player);
+                            self.player.position.set(0, 10, 10);
+                            self.add(self.player);
+                        }
+                        if (self.livesValue === 0) {
+                            score = this.score;
+                            self.remove(self.player);
                             this._firstMusic.stop();
                             document.exitPointerLock();
-                            this.children = [];
                             this.player.remove(camera);
                             currentScene = config.Scene.DEATH;
                             changeScene();
+                            this.player.position = (0, 0, 0);
+                            this.children = [];
                         }
                     }
                 }

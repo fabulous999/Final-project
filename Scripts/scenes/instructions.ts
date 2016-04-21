@@ -104,9 +104,10 @@ module scenes {
             this._stage.addChild(this._instructionsLabel2);
             
             this._instructionsLabel3 = new createjs.Text(
-                "Jump using the spacebar, and run up walls using the shift key.",
+                "Jump using the spacebar, and run up walls using the shift key. Dont fall from tall hight it not recomeded ",
                 "30px Haettenschweiler",
                 "#000000");
+            
             this._instructionsLabel3.regX = this._instructionsLabel3.getMeasuredWidth() * 0.5;
             this._instructionsLabel3.regY = this._instructionsLabel3.getMeasuredLineHeight() * 0.5;
             this._instructionsLabel3.x = config.Screen.WIDTH * 0.5;
@@ -114,7 +115,7 @@ module scenes {
             this._stage.addChild(this._instructionsLabel3);
             
             this._instructionsLabel4 = new createjs.Text(
-                "You have 5 lives. Once you lose them all, the game will end.",
+                "You have 5 lives. Once you lose them all, the game will end. reach the sunny cube to win the game",
                 "30px Haettenschweiler",
                 "#000000");
             this._instructionsLabel4.regX = this._instructionsLabel4.getMeasuredWidth() * 0.5;

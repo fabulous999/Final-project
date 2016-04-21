@@ -68,7 +68,7 @@ var scenes;
             this._background = new createjs.Bitmap(assets.getResult("Background"));
             this._stage.addChild(this._background);
             console.log(this._background);
-            this._gameLabel = new createjs.Text("Press Start to Play", "80px Haettenschweiler", "#000000");
+            this._gameLabel = new createjs.Text("Press Start to Play the game. Your score is :  " + score, "80px Haettenschweiler", "#000000");
             this._gameLabel.regX = this._gameLabel.getMeasuredWidth() * 0.5;
             this._gameLabel.regY = this._gameLabel.getMeasuredLineHeight() * 0.5;
             this._gameLabel.x = config.Screen.WIDTH * 0.5;

@@ -48,7 +48,7 @@ module scenes {
         private livesValue: number;
         private scoreLabel: createjs.Text;
         private timeValue: number;
-        private score: number = 10000;
+        public score: number = 10000;
 
         private goalTexture: Texture;
         private goal: Physijs.Mesh;
@@ -546,6 +546,7 @@ module scenes {
                     createjs.Sound.play("land");
 
                     if (this.player_height + 10 < this.pre_height) {
+                        if (self.livesValue > 0) {
                         createjs.Sound.play("death");
                         self.livesValue--;
                         this.score = this.score - 1000;
@@ -553,15 +554,19 @@ module scenes {
                         self.remove(self.player);
                         self.player.position.set(0, 10, 10);
                         self.add(self.player);
+                    }
 
-                        if (self.livesValue <= 0) {
-                            this._firstMusic.stop();
-                            document.exitPointerLock();
-                            this.children = [];
-                            this.player.remove(camera);
-                            currentScene = config.Scene.DEATH;
-                            changeScene();
-                        }
+                    if (self.livesValue === 0) {
+                        score = this.score;
+                        self.remove(self.player);
+                        this._firstMusic.stop();
+                        document.exitPointerLock();
+                        this.player.remove(camera);
+                        currentScene = config.Scene.DEATH;
+                        changeScene();
+                        this.player.position = (0,0,0);
+                        this.children = [];
+                    }
                     }
                 }
 
@@ -578,6 +583,7 @@ module scenes {
                     }
 
                     if (self.livesValue === 0) {
+                        score = this.score;
                         self.remove(self.player);
                         this._firstMusic.stop();
                         document.exitPointerLock();
@@ -590,6 +596,7 @@ module scenes {
                 }
 
                 if (eventObject.name === "goal") {
+                    score = this.score;
                     this._firstMusic.stop();
                     document.exitPointerLock();
                     this.children = [];
@@ -606,6 +613,7 @@ module scenes {
                     self.parkour_height = self.player.position.y;
 
                     if (this.player_height + 10 < this.pre_height) {
+                         if (self.livesValue > 0) {
                         createjs.Sound.play("death");
                         self.livesValue--;
                         this.score = this.score - 1000;
@@ -613,15 +621,19 @@ module scenes {
                         self.remove(self.player);
                         self.player.position.set(0, 10, 10);
                         self.add(self.player);
+                    }
 
-                        if (self.livesValue <= 0) {
-                            this._firstMusic.stop();
-                            document.exitPointerLock();
-                            this.children = [];
-                            this.player.remove(camera);
-                            currentScene = config.Scene.DEATH;
-                            changeScene();
-                        }
+                    if (self.livesValue === 0) {
+                        score = this.score;
+                        self.remove(self.player);
+                        this._firstMusic.stop();
+                        document.exitPointerLock();
+                        this.player.remove(camera);
+                        currentScene = config.Scene.DEATH;
+                        changeScene();
+                        this.player.position = (0,0,0);
+                        this.children = [];
+                    }
                     }
                 }
             }.bind(self));
